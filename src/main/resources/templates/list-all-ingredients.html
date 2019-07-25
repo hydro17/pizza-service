@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+ <h2>Ingredients</h2>
+ 
+<a th:href="@{/ingredient/add}"><h3>Add ingredient</h3></a>
+ 
+ <table border=1>
+	 <thead>
+	 	<tr>
+	 		<th>Id</th>
+	 		<th>Name</th>
+	 		<th>Price</th>
+	 		<th>Stock</th>
+	 		<th>Action</th>
+	 	</tr>
+	 </thead>
+	 <tbody>
+	 	<tr th:each="ingredient : ${ingredients}">
+	 		<td th:text="${ingredient.id}"></td>
+	 		<td th:text="${ingredient.name}"></td>
+	 		<td th:text="${ingredient.price}"></td>
+	 		<td th:text="${ingredient.stock}"></td>
+	 		<td><a th:href="@{delete(id=${ingredient.id})}">Delete</a></td>
+	 	</tr>
+	 </tbody>
+ </table>
+
+</body>
+
+</html>

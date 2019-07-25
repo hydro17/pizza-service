@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <h2>Add a new ingredient</h2>
+
+  <form action="#" th:action="@{/ingredient/add}" th:object="${ingredient}" method="POST">
+  
+  	<div>
+	  	<label>Name: </label> 
+		<input type="text" th:field="*{name}" />
+  	</div>
+
+	<div>
+	  	<label>Price: </label> 
+		<input type="text" th:field="*{price}" />
+	</div>	
+
+	<div>
+	  	<label>Stock: </label> 
+		<input type="text" th:field="*{stock}" />
+	</div>	
+  
+  	<input type="submit" value="Submit" /><br>
+  	<a th:href="@{list-all}">Back to list of ingredients</a>
+  </form>
+
+</body>
+
+</html>
