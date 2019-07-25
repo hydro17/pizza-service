@@ -26,14 +26,26 @@ public class PizzaController {
 		return "add-pizza-form";
 	}
 	
-	@PostMapping("/process")
+	@PostMapping("/add")
 	public String processAddPizzaForm(@ModelAttribute Pizza pizza) {
 		pizzaDAO.save(pizza);
-		return "hello";
+		return "redirect:list-all-pizzas";
 	}
 	
-	@DeleteMapping("/{pizzaId}")
-	public void deleteById(@PathVariable int pizzaId) {
-		
+	@GetMapping("/list-all")
+	public String showPizzas(Model model) {
+		model.addAttribute("pizzas", pizzaDAO.findAll());
+		return "list-all-pizzas";
+	}
+	
+//	@DeleteMapping("/{pizzaId}")
+//	public void deleteById(@PathVariable int pizzaId) {
+//		
+//	}
+//	
+	@GetMapping("/delete/{pizzaId}")
+	public String deleteById(@PathVariable int pizzaId) {
+		pizzaDAO.deleteById(pizzaId);
+		return "redirect:/pizza/list-all-pizzas";
 	}
 }

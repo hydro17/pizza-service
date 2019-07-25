@@ -1,5 +1,7 @@
 package com.hydro17.pizzaservice.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +18,21 @@ public class PizzaDAOImpl implements PizzaDAO {
 	
 	@Override
 	@Transactional
+	public List<Pizza> findAll() {
+		List<Pizza> pizzas = em.createQuery("from Pizza", Pizza.class).getResultList();
+		return pizzas;
+	}
+	
+	@Override
+	@Transactional
 	public void save(Pizza pizza) {
 		em.merge(pizza);
 	}
 
 	@Override
-	public void delete(int pizzaId) {
-		// TODO Auto-generated method stub
-
+	@Transactional
+	public void deleteById(int pizzaId) {
+		Pizza pizza = em.find(Pizza.class, pizzaId);
+		em.remove(pizza);
 	}
-
 }
