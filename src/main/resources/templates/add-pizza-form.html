@@ -12,7 +12,7 @@
 
   <h1>Add new pizza</h1>
 
-  <form action="#" th:action="@{/pizza/process}" th:object="${pizza}" method="POST">
+  <form action="#" th:action="@{/pizza/add}" th:object="${pizza}" method="POST">
   	<label>Name: 
   		<input type="text" th:field="*{name}" />
   	</label>
