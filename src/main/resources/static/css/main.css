@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #000;
+  font-size: 1.3em;
+}
+
+.menu-container {
+  display: flex;
+}
+
+.menu {
+  padding: 1em 2em;
+  border: 1px solid black;
+  border-radius: 0.3em;
+  margin-top: 2em;
+  margin-left: 20%;
+}
+
+.menu__title {
+  margin-top: 0;
+  margin-bottom: .5em;
+}
+
+.menu ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.menu li {
+  background: rgb(231, 230, 230);
+  padding: 0.4em 0.8em;
+  border-radius: 0.4em;
+}
+
+.menu li:not(:last-of-type) {
+  margin-bottom: 0.4em;
+}
