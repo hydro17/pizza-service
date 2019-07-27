@@ -14,7 +14,7 @@ import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.entity.Pizza;
 
 @Controller
-@RequestMapping("/pizza")
+@RequestMapping("/pizzas")
 public class PizzaController {
 	
 	@Autowired
@@ -29,10 +29,10 @@ public class PizzaController {
 	@PostMapping("/add")
 	public String processAddPizzaForm(@ModelAttribute Pizza pizza) {
 		pizzaDAO.save(pizza);
-		return "redirect:list-all-pizzas";
+		return "redirect:/pizzas/all";
 	}
 	
-	@GetMapping("/list-all")
+	@GetMapping("/all")
 	public String showPizzas(Model model) {
 		model.addAttribute("pizzas", pizzaDAO.findAll());
 		return "list-all-pizzas";
@@ -46,6 +46,6 @@ public class PizzaController {
 	@GetMapping("/delete/{pizzaId}")
 	public String deleteById(@PathVariable int pizzaId) {
 		pizzaDAO.deleteById(pizzaId);
-		return "redirect:/pizza/list-all-pizzas";
+		return "redirect:/pizzas/all";
 	}
 }

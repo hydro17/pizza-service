@@ -10,7 +10,7 @@ public class HomeController {
 
 	@GetMapping
 	public String showMenu() {
-		return "menu";
+		return "initial-menu";
 	}
 	
 }

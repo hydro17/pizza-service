@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,13 +16,13 @@ import com.hydro17.pizzaservice.dao.IngredientDAO;
 import com.hydro17.pizzaservice.entity.Ingredient;
 
 @Controller
-@RequestMapping("/ingredient")
+@RequestMapping("/ingredients")
 public class IngredientController {
 
 	@Autowired
 	IngredientDAO ingredientDAO;
 	
-	@GetMapping("/list-all")
+	@GetMapping("/all")
 	public String listAll(Model model) {
 		
 		List<Ingredient> ingredients = ingredientDAO.findAll();
@@ -49,11 +50,13 @@ public class IngredientController {
 		ingredient.setId(0);
 		ingredientDAO.save(ingredient);
 		
-		return "redirect:/ingredient/list-all";
+		return "redirect:/ingredients/all";
 	}
 	
-	@GetMapping("/update")
-	public String showUpdateForm(@RequestParam("id") int ingredientId, Model model) {
+	@GetMapping("/update/{id}")
+//	@GetMapping("/update")
+	public String showUpdateForm(@PathVariable("id") int ingredientId, Model model) {
+//	public String showUpdateForm(@RequestParam("id") int ingredientId, Model model) {
 		
 		Ingredient ingredient = ingredientDAO.findById(ingredientId); 
 		model.addAttribute("ingredient", ingredient);
@@ -66,14 +69,14 @@ public class IngredientController {
 		
 		ingredientDAO.save(ingredient);
 		
-		return "redirect:/ingredient/list-all-ingredients";
+		return "redirect:/ingredients/all";
 	}
 	
-	@GetMapping("/delete")
-	public String deleteById(@RequestParam("id") int ingredientId) {
+	@GetMapping("/delete/{id}")
+	public String deleteById(@PathVariable("id") int ingredientId) {
 		
 		ingredientDAO.deleteById(ingredientId);
 		
-		return "redirect:/ingredient/list-all";
+		return "redirect:/ingredients/all";
 	}
 }
