@@ -10,9 +10,11 @@
 
 <body>
 
-  <h2>Add a new ingredient</h2>
+  <h2>Update the ingredient</h2>
 
-  <form action="#" th:action="@{/ingredients/add}" th:object="${ingredient}" method="POST">
+  <form action="#" th:action="@{/ingredients/update}" th:object="${ingredient}" method="POST">
+  	
+	<input type="hidden" th:field="*{id}" />
   
   	<div>
 	  	<label>Name: </label> 

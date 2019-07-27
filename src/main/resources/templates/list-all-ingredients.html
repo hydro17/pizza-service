@@ -12,7 +12,7 @@
 
  <h2>Ingredients</h2>
  
-<a th:href="@{/ingredient/add}"><h3>Add ingredient</h3></a>
+<a th:href="@{/ingredients/add}"><h3>Add ingredient</h3></a>
  
  <table border=1>
 	 <thead>
@@ -30,11 +30,19 @@
 	 		<td th:text="${ingredient.name}"></td>
 	 		<td th:text="${ingredient.price}"></td>
 	 		<td th:text="${ingredient.stock}"></td>
-	 		<td><a th:href="@{delete(id=${ingredient.id})}">Delete</a></td>
+	 		<td>
+	 			<a th:href="@{delete/{id}(id=${ingredient.id})}">Delete</a>
+	 			<span> | </span>
+	 			<!-- <a th:href="@{update(id=${ingredient.id})}">Update</a> -->
+	 			<!-- <a th:href="@{|update?id=${ingredient.id}|}">Update</a> -->
+	 			<!-- <a th:href="@{|update/${ingredient.id}|}">Update</a> -->
+	 			<a th:href="@{update/{id}(id=${ingredient.id})}">Update</a>
+	 		</td>
+	 		
 	 	</tr>
 	 </tbody>
  </table>
-
+ 
 </body>
 
 </html>
