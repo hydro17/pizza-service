@@ -55,3 +55,11 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+src/main/java/com/hydro17/pizzaservice/controller/PersonController.java
+src/main/resources/templates/show-drinks-form.html
+src/main/java/com/hydro17/pizzaservice/conversion/StringIdToDrinkConverter.java
+src/main/java/com/hydro17/pizzaservice/model/Drink.java
+src/main/java/com/hydro17/pizzaservice/model/EnumDrink.java
+src/main/java/com/hydro17/pizzaservice/model/Person.java
+src/main/java/com/hydro17/pizzaservice/model/PersonDTO.java
