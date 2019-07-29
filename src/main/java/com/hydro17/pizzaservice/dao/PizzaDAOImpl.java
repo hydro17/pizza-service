@@ -24,6 +24,12 @@ public class PizzaDAOImpl implements PizzaDAO {
 	}
 	
 	@Override
+	public Pizza findById(int pizzaId) {
+		Pizza pizza = em.find(Pizza.class, pizzaId);
+		return pizza;
+	}
+	
+	@Override
 	@Transactional
 	public void save(Pizza pizza) {
 		em.merge(pizza);
