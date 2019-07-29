@@ -5,44 +5,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>List all ingredients</title>
 </head>
 
 <body>
 
- <h2>Ingredients</h2>
- 
-<a th:href="@{/ingredients/add}"><h3>Add ingredient</h3></a>
- 
- <table border=1>
-	 <thead>
-	 	<tr>
-	 		<th>Id</th>
-	 		<th>Name</th>
-	 		<th>Price</th>
-	 		<th>Stock</th>
-	 		<th>Action</th>
-	 	</tr>
-	 </thead>
-	 <tbody>
-	 	<tr th:each="ingredient : ${ingredients}">
-	 		<td th:text="${ingredient.id}"></td>
-	 		<td th:text="${ingredient.name}"></td>
-	 		<td th:text="${ingredient.price}"></td>
-	 		<td th:text="${ingredient.stock}"></td>
-	 		<td>
-	 			<a th:href="@{delete/{id}(id=${ingredient.id})}">Delete</a>
-	 			<span> | </span>
-	 			<!-- <a th:href="@{update(id=${ingredient.id})}">Update</a> -->
-	 			<!-- <a th:href="@{|update?id=${ingredient.id}|}">Update</a> -->
-	 			<!-- <a th:href="@{|update/${ingredient.id}|}">Update</a> -->
-	 			<a th:href="@{update/{id}(id=${ingredient.id})}">Update</a>
-	 		</td>
-	 		
-	 	</tr>
-	 </tbody>
- </table>
- 
+  <h2>Ingredients</h2>
+
+  <a th:href="@{/ingredients/add}">
+    <h3>Add ingredient</h3>
+  </a>
+
+  <table border=1>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="ingredient, itemStat : ${ingredients}">
+        <td th:text="${itemStat.index + 1}"></td>
+        <td th:text="${ingredient.name}"></td>
+        <td th:text="${ingredient.price}"></td>
+        <td th:text="${ingredient.stock}"></td>
+        <td>
+          <!-- <a th:href="@{update(id=${ingredient.id})}">Update</a> -->
+          <!-- <a th:href="@{|update?id=${ingredient.id}|}">Update</a> -->
+          <!-- <a th:href="@{|update/${ingredient.id}|}">Update</a> -->
+          <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}">Update</a>
+          <span> | </span>
+          <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}">Delete</a>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
 </body>
 
 </html>
