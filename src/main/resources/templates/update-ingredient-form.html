@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Update ingredient</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 
@@ -13,18 +13,24 @@
 
   <h2>Update the ingredient</h2>
 
-  <form class="form-update-ingredient" action="#" th:action="@{/ingredients/update}" th:object="${ingredient}"
+  <form class="form-add-or-update" action="#" th:action="@{/ingredients/update}" th:object="${ingredient}"
     method="POST">
 
     <input type="hidden" th:field="*{id}" />
 
-    <div class="text-right"><label for="name">Name: </label></div>
+    <div class="text-right">
+      <label for="name">Name: </label>
+    </div>
     <input type="text" th:field="*{name}" />
 
-    <div class="text-right"><label for="price">Price: </label></div>
+    <div class="text-right">
+      <label for="price">Price: </label>
+    </div>
     <input type="text" th:field="*{price}" />
 
-    <div class="text-right"><label for="stock">Stock: </label></div>
+    <div class="text-right">
+      <label for="stock">Stock: </label>
+    </div>
     <input type="text" th:field="*{stock}" />
 
     <input style="justify-self: right" type="submit" value="Submit" />
