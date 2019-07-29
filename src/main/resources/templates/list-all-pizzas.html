@@ -2,30 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>List all pizzas</title>
 </head>
 
 <body>
 
-	<h1>Pizzas</h1>
+  <h1>Pizzas</h1>
 
-	<table border=1>
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="pizza : ${pizzas}">
-				<td th:text="${pizza.id}"></td>
-				<td th:text="${pizza.name}"></td>
-			</tr>
-		</tbody>
-	</table>
+  <a th:href="@{add}">
+    <h3>Add new pizza</h3>
+  </a>
+
+  <table border=1>
+
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr th:each="pizza, itemStats : ${pizzas}">
+        <td th:text="${itemStats.index + 1}"></td>
+        <!-- <td th:text="${#ids.seq('')}"></td> -->
+        <td th:text="${pizza.name}"></td>
+        <td>
+          <a th:href="@{update/{pizzaId}(pizzaId=${pizza.id})}">Update</a>
+          |
+          <a th:href="@{delete/{pizzaId}(pizzaId=${pizza.id})}">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
 
 </body>
 
