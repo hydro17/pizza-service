@@ -45,7 +45,7 @@ public class IngredientController {
 	}
 	
 	@PostMapping("/add")
-	public String processAddForm(@ModelAttribute Ingredient ingredient) {
+	public String saveIngredient(@ModelAttribute Ingredient ingredient) {
 		
 		ingredient.setId(0);
 		ingredientDAO.save(ingredient);
@@ -53,9 +53,9 @@ public class IngredientController {
 		return "redirect:/ingredients/all";
 	}
 	
-	@GetMapping("/update/{id}")
+	@GetMapping("/update/{ingredientId}")
 //	@GetMapping("/update")
-	public String showUpdateForm(@PathVariable("id") int ingredientId, Model model) {
+	public String showUpdateForm(@PathVariable int ingredientId, Model model) {
 //	public String showUpdateForm(@RequestParam("id") int ingredientId, Model model) {
 		
 		Ingredient ingredient = ingredientDAO.findById(ingredientId); 
@@ -65,7 +65,7 @@ public class IngredientController {
 	}
 	
 	@PostMapping("/update")
-	public String processUpdateForm(@ModelAttribute Ingredient ingredient) {
+	public String updateIngredient(@ModelAttribute Ingredient ingredient) {
 		
 		ingredientDAO.save(ingredient);
 		
