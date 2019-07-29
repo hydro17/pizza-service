@@ -20,6 +20,12 @@ public class PizzaController {
 	@Autowired
 	private PizzaDAO pizzaDAO;
 
+	@GetMapping("/all")
+	public String showPizzas(Model model) {
+		model.addAttribute("pizzas", pizzaDAO.findAll());
+		return "list-all-pizzas";
+	}
+	
 	@GetMapping("/add")
 	public String showAddPizzaForm(Model model) {
 		model.addAttribute("pizza", new Pizza());
@@ -27,25 +33,36 @@ public class PizzaController {
 	}
 	
 	@PostMapping("/add")
-	public String processAddPizzaForm(@ModelAttribute Pizza pizza) {
+	public String savePizza(@ModelAttribute Pizza pizza) {
+
+		pizza.setId(0);
 		pizzaDAO.save(pizza);
+		
 		return "redirect:/pizzas/all";
 	}
 	
-	@GetMapping("/all")
-	public String showPizzas(Model model) {
-		model.addAttribute("pizzas", pizzaDAO.findAll());
-		return "list-all-pizzas";
+	@GetMapping("/update/{pizzaId}")
+	public String showUpdatePizzaForm(@PathVariable int pizzaId, Model model) {
+		
+		Pizza pizza = pizzaDAO.findById(pizzaId);
+		model.addAttribute("pizza", pizza);
+		
+		return "update-pizza-form";
 	}
 	
-//	@DeleteMapping("/{pizzaId}")
-//	public void deleteById(@PathVariable int pizzaId) {
-//		
-//	}
-//	
+	@PostMapping("/update")
+	public String updatePizza(@ModelAttribute Pizza pizza) {
+		
+		pizzaDAO.save(pizza);
+		
+		return "redirect:/pizzas/all";
+	}
+	
 	@GetMapping("/delete/{pizzaId}")
 	public String deleteById(@PathVariable int pizzaId) {
+		
 		pizzaDAO.deleteById(pizzaId);
+		
 		return "redirect:/pizzas/all";
 	}
 }
