@@ -24,6 +24,7 @@ public class PizzaDAOImpl implements PizzaDAO {
 	}
 	
 	@Override
+	@Transactional
 	public Pizza findById(int pizzaId) {
 		Pizza pizza = em.find(Pizza.class, pizzaId);
 		return pizza;
