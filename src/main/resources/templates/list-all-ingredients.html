@@ -6,17 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>List all ingredients</title>
+  <meta th:replace="fragments :: global-styles">
 </head>
 
 <body>
 
-  <h2>Ingredients</h2>
+  <h2 class="mb-3">Ingredients</h2>
 
   <a th:href="@{/ingredients/add}">
-    <h3>Add ingredient</h3>
+    <h3>Add an ingredient</h3>
   </a>
 
-  <table border=1>
+  <table>
     <thead>
       <tr>
         <th>Id</th>
