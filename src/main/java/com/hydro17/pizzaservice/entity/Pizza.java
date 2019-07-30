@@ -51,6 +51,14 @@ public class Pizza {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public Set<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(Set<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
 
 	@Override
 	public String toString() {
