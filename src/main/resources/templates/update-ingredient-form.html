@@ -6,34 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Update ingredient</title>
-  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <meta th:replace="fragments :: global-styles">
 </head>
 
 <body>
 
-  <h2>Update the ingredient</h2>
+  <h2 class="mb-3">Update the ingredient</h2>
 
   <form class="form-add-or-update" action="#" th:action="@{/ingredients/update}" th:object="${ingredient}"
     method="POST">
 
     <input type="hidden" th:field="*{id}" />
 
-    <div class="text-right">
-      <label for="name">Name: </label>
-    </div>
+    <label for="name">Name: </label>
     <input type="text" th:field="*{name}" />
 
-    <div class="text-right">
-      <label for="price">Price: </label>
-    </div>
+    <label for="price">Price: </label>
     <input type="text" th:field="*{price}" />
 
-    <div class="text-right">
-      <label for="stock">Stock: </label>
-    </div>
+    <label for="stock">Stock: </label>
     <input type="text" th:field="*{stock}" />
 
-    <input style="justify-self: right" type="submit" value="Submit" />
+    <input type="submit" value="Submit" />
     <a style="justify-self:left" th:href="@{/ingredients/all}">Back to list of ingredients</a>
 
   </form>
