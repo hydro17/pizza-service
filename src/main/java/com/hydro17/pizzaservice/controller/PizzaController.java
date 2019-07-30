@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hydro17.pizzaservice.dao.IngredientDAO;
 import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.entity.Pizza;
 
@@ -19,16 +20,24 @@ public class PizzaController {
 	
 	@Autowired
 	private PizzaDAO pizzaDAO;
+	
+	@Autowired
+	private IngredientDAO ingredientDAO;
 
 	@GetMapping("/all")
 	public String showPizzas(Model model) {
+		
 		model.addAttribute("pizzas", pizzaDAO.findAll());
+		
 		return "list-all-pizzas";
 	}
 	
 	@GetMapping("/add")
 	public String showAddPizzaForm(Model model) {
+		
+		model.addAttribute("allIngredients", ingredientDAO.findAll());
 		model.addAttribute("pizza", new Pizza());
+		
 		return "add-pizza-form";
 	}
 	
