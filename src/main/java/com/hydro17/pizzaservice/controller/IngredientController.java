@@ -72,8 +72,8 @@ public class IngredientController {
 		return "redirect:/ingredients/all";
 	}
 	
-	@GetMapping("/delete/{id}")
-	public String deleteById(@PathVariable("id") int ingredientId) {
+	@GetMapping("/delete/{ingredientId}")
+	public String deleteById(@PathVariable int ingredientId) {
 		
 		ingredientDAO.deleteById(ingredientId);
 		
