@@ -2,6 +2,7 @@ package com.hydro17.pizzaservice.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +25,11 @@ public class Pizza {
 	@Column(name="name")
 	private String name;
 	
+//	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
 	@ManyToMany
 	@JoinTable(name="pizza_ingredient",
-			joinColumns=@JoinColumn(name="ingredient_id"),
-			inverseJoinColumns=@JoinColumn(name="pizza_id"))
+			joinColumns=@JoinColumn(name="pizza_id"),
+			inverseJoinColumns=@JoinColumn(name="ingredient_id"))
 	private Set<Ingredient> ingredients;
 	
 	public Pizza() {}
