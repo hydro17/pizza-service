@@ -5,19 +5,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Add new pizza</title>
+  <meta th:replace="fragments :: global-styles">
 </head>
 
 <body>
 
-  <h1>Add new pizza</h1>
+  <h2 class="mb-3">Add new pizza</h2>
 
-  <form action="#" th:action="@{/pizza/add}" th:object="${pizza}" method="POST">
-  	<label>Name: 
-  		<input type="text" th:field="*{name}" />
-  	</label>
-  
-  	<input type="submit" value="Submit" />
+  <form class="form-add-or-update" action="#" th:action="@{/pizzas/add}" th:object="${pizza}" method="POST">
+
+    <label class="mb-0" style="align-self: center" for="name">Name:</label>
+    <input type="text" th:field="*{name}" />
+
+    <div class="mt-2" style="grid-column: 1 / 3">Select ingredients:</div>
+
+    <ul class="ingredients-list" style="grid-column: 1 / 3">
+      <li th:each="ingredient : ${allIngredients}">
+        <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}">
+        <label th:for="${#ids.prev('ingredients')}" th:text="${ingredient.name}"></label>
+      </li>
+    </ul>
+
+    <input class="btn btn-success" type="submit" value="Submit" />
+    <a class="btn btn-primary" th:href="@{/pizzas/all}">Back to list of pizzas</a>
+
   </form>
 
 </body>
