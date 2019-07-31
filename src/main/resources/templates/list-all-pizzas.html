@@ -23,19 +23,23 @@
       <tr>
         <th>Id</th>
         <th>Name</th>
+        <th>Ingredients</th>
+        <th>Price</th>
         <th>Action</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr th:each="pizza, itemStats : ${pizzas}">
+      <tr th:each="pizzaDTO, itemStats : ${pizzasDTO}">
         <td th:text="${itemStats.index + 1}"></td>
         <!-- <td th:text="${#ids.seq('')}"></td> -->
-        <td th:text="${pizza.name}"></td>
+        <td th:text="${pizzaDTO.name}"></td>
+        <td th:text="${pizzaDTO.ingredients}"></td>
+        <td th:text="${pizzaDTO.price}"></td>
         <td>
-          <a th:href="@{update/{pizzaId}(pizzaId=${pizza.id})}">Update</a>
+          <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}">Update</a>
           |
-          <a th:href="@{delete/{pizzaId}(pizzaId=${pizza.id})}">Delete</a>
+          <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}">Delete</a>
         </td>
       </tr>
     </tbody>
