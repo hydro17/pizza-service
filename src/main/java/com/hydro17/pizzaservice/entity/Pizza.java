@@ -1,5 +1,7 @@
 package com.hydro17.pizzaservice.entity;
 
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -25,12 +27,11 @@ public class Pizza {
 	@Column(name="name")
 	private String name;
 	
-//	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
 	@ManyToMany
 	@JoinTable(name="pizza_ingredient",
 			joinColumns=@JoinColumn(name="pizza_id"),
 			inverseJoinColumns=@JoinColumn(name="ingredient_id"))
-	private Set<Ingredient> ingredients;
+	private List<Ingredient> ingredients;
 	
 	public Pizza() {}
 	
@@ -54,14 +55,14 @@ public class Pizza {
 		this.name = name;
 	}
 	
-	public Set<Ingredient> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(Set<Ingredient> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Pizza [id=" + id + ", name=" + name + "]";
