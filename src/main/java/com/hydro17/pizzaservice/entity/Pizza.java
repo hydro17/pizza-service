@@ -35,8 +35,9 @@ public class Pizza {
 	
 	public Pizza() {}
 	
-	public Pizza(String name) {
+	public Pizza(String name, List<Ingredient> ingredients) {
 		this.name = name;
+		this.ingredients = ingredients;
 	}
 
 	public int getId() {
