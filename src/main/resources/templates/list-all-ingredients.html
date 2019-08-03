@@ -25,6 +25,7 @@
         <th>Price</th>
         <th>Stock</th>
         <th>Action</th>
+        <th>Comments</th>
       </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
         <td th:text="${ingredient.name}"></td>
         <td th:text="${ingredient.price}"></td>
         <td th:text="${ingredient.stock}"></td>
+
         <td>
           <!-- <a th:href="@{update(id=${ingredient.id})}">Update</a> -->
           <!-- <a th:href="@{|update?id=${ingredient.id}|}">Update</a> -->
@@ -42,6 +44,9 @@
           <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}">Delete</a>
         </td>
 
+        <td th:if="${ingredientComment} == null"></td>
+        <td th:if="${ingredientComment} != null"
+          th:text="${ingredient.id} == ${ingredientComment.id} ? ${ingredientComment.comment} : ''"></td>
       </tr>
     </tbody>
   </table>

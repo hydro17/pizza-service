@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +39,7 @@ public class IngredientDAOImpl implements IngredientDAO {
 
 	@Override
 	@Transactional
-	public void deleteById(int ingredientId) {
+	public void deleteById(int ingredientId) throws DataIntegrityViolationException {
 		Ingredient ingredient = em.find(Ingredient.class, ingredientId);
 		em.remove(ingredient);
 	}

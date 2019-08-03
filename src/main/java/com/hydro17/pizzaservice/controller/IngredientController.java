@@ -1,8 +1,10 @@
 package com.hydro17.pizzaservice.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hydro17.pizzaservice.conversion.StringIdToIngredientConverter;
 import com.hydro17.pizzaservice.dao.IngredientDAO;
@@ -26,11 +27,35 @@ public class IngredientController {
 	@Autowired
 	private StringIdToIngredientConverter stringIdToIngredientConverter;
 	
+	private class IngredientComment {
+		private int id;
+		private String comment;
+		
+		public IngredientComment(int ingredientId, String comment) {
+			this.id = ingredientId;
+			this.comment = comment;
+		}
+
+		public int getId() {
+			return id;
+		}
+
+		public String getComment() {
+			return comment;
+		}
+	}
+	
+	private IngredientComment ingredientComment;
+	
 	@GetMapping("/all")
 	public String listAll(Model model) {
 		
 		List<Ingredient> ingredients = ingredientDAO.findAll();
+		
 		model.addAttribute("ingredients", ingredients);
+		model.addAttribute("ingredientComment", this.ingredientComment);
+		
+		this.ingredientComment = null;
 		
 		return "list-all-ingredients";
 	}
@@ -80,8 +105,15 @@ public class IngredientController {
 			ingredientDAO.deleteById(ingredientId);
 			
 			stringIdToIngredientConverter.setIngredients(ingredientDAO.findAll());
+		} catch (DataIntegrityViolationException e) {
+			
+			System.out.println(">>> [source: CONTROLLER] Cannot delete the ingredient: " + ingredientId);
+			
+			this.ingredientComment = new IngredientComment(ingredientId, "Cannot be removed, is used");
+		
 		} catch (Exception e) {
-			System.out.println(">>>>>> [CONTROLLER] Cannot delete ingredient: " + ingredientId);
+			
+			System.out.println(">>> [source: CONTROLLER] Exception: " + e.getMessage());
 			e.printStackTrace();
 		}
 		

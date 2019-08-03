@@ -9,5 +9,5 @@ public interface IngredientDAO {
 	List<Ingredient> findAll();
 	Ingredient findById(int ingredientId);
 	void save(Ingredient ingredient);
-	void deleteById(int ingredientId);
+	void deleteById(int ingredientId) throws Exception;
 }
