@@ -15,13 +15,10 @@ import com.hydro17.pizzaservice.entity.Ingredient;
 @Component
 public class StringIdToIngredientConverter implements Converter<String, Ingredient> {
 
-	@Autowired
-	private IngredientDAO ingredientDAO;
-	
 	private List<Ingredient> ingredients;
-	
-	@PostConstruct
-	private void loadIngredients() {
+
+	@Autowired
+	public StringIdToIngredientConverter(IngredientDAO ingredientDAO) {
 		this.ingredients = ingredientDAO.findAll();
 	}
 	
