@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title th:text="${ingredient.id} == 0 ? 'Add new ingredient' : 'Update the ingredient'">Add or update new ingredient
+  </title>
+  <meta th:replace="fragments :: global-styles">
+</head>
+
+<body>
+  <div th:replace="home-page :: menu-container"></div>
+
+  <div class="main-container">
+
+    <h2 class="mb-3" th:text="${ingredient.id} == 0 ? 'Add new ingredient' : 'Update the ingredient'">Add or update
+      ingredient</h2>
+
+    <form class="form-add-or-update" action="#"
+      th:action="@{/ingredients/{action}(action=(${ingredient.id} == 0 ? 'add' : 'update'))}" th:object="${ingredient}"
+      method="POST">
+
+      <input th:if="${ingredient.id} > 0" type="text" hidden th:field="*{id}">
+
+      <label for="name">Name: </label>
+      <div class="form-element">
+        <input type="text" th:field="*{name}" />
+        <div th:if="${#fields.hasErrors('name')}" class="error" th:errors="*{name}">Incorrect ingredient name</div>
+      </div>
+      
+      <label for="price">Price: </label>
+      <div class="form-element">
+        <input type="text" th:field="*{price}" />
+        <div th:if="${#fields.hasErrors('price')}" class="error" th:errors="*{price}">Incorrect ingredient price</div>
+      </div>
+      
+      <label for="stock">Stock: </label>
+      <div class="form-element">
+        <input type="text" th:field="*{stock}" />
+        <div th:if="${#fields.hasErrors('stock')}" class="error" th:errors="*{stock}">Incorrect ingredient stock</div>
+      </div>
+
+      <input type="submit" value="Submit" />
+      <a th:href="@{/ingredients/all}">Back to list of ingredients</a>
+
+    </form>
+
+  </div>
+</body>
+
+</html>
