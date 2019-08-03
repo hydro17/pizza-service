@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pizza menu</title>
+  <meta th:replace="fragments :: global-styles">
+</head>
+
+<body>
+
+  <div th:fragment="menu-container" class="menu-container">
+    <nav class="menu">
+      <a class="menu__link" th:href="@{/pizzas/all}">Oferta pizz</a>
+
+      <span class="menu__separator">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+
+      <a class="menu__link" th:href="@{/ingredients/all}">Lista składników</a>
+    </nav>
+  </div>
+
+</body>
+
+</html>
