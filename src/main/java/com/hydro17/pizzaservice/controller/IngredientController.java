@@ -1,12 +1,14 @@
 package com.hydro17.pizzaservice.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,15 +63,19 @@ public class IngredientController {
 	}
 	
 	@GetMapping("/add")
-	public String showAddForm(Model model) {
+	public String showAddIngredientForm(Model model) {
 		
 		model.addAttribute("ingredient", new Ingredient());
 		
-		return "add-ingredient-form";
+		return "add-or-update-ingredient-form";
 	}
 	
 	@PostMapping("/add")
-	public String saveIngredient(@ModelAttribute Ingredient ingredient) {
+	public String saveIngredient(@Valid @ModelAttribute Ingredient ingredient, BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "add-or-update-ingredient-form";
+		}
 		
 		ingredient.setId(0);
 		ingredientDAO.save(ingredient);
@@ -87,11 +93,15 @@ public class IngredientController {
 		Ingredient ingredient = ingredientDAO.findById(ingredientId); 
 		model.addAttribute("ingredient", ingredient);
 		
-		return "update-ingredient-form";
+		return "add-or-update-ingredient-form";
 	}
 	
 	@PostMapping("/update")
-	public String updateIngredient(@ModelAttribute Ingredient ingredient) {
+	public String updateIngredient(@Valid @ModelAttribute Ingredient ingredient, BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "add-or-update-ingredient-form";
+		}
 		
 		ingredientDAO.save(ingredient);
 		
