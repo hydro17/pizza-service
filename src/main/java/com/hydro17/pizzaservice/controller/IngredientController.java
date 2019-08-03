@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hydro17.pizzaservice.conversion.StringIdToIngredientConverter;
 import com.hydro17.pizzaservice.dao.IngredientDAO;
 import com.hydro17.pizzaservice.entity.Ingredient;
 
@@ -20,7 +21,10 @@ import com.hydro17.pizzaservice.entity.Ingredient;
 public class IngredientController {
 
 	@Autowired
-	IngredientDAO ingredientDAO;
+	private IngredientDAO ingredientDAO;
+	
+	@Autowired
+	private StringIdToIngredientConverter stringIdToIngredientConverter;
 	
 	@GetMapping("/all")
 	public String listAll(Model model) {
@@ -30,11 +34,6 @@ public class IngredientController {
 		
 		return "list-all-ingredients";
 	}
-	
-//	@GetMapping("/list-one")
-//	public String listById(@RequestParam("id") int ingredientID) {
-//		
-//	}
 	
 	@GetMapping("/add")
 	public String showAddForm(Model model) {
@@ -49,6 +48,8 @@ public class IngredientController {
 		
 		ingredient.setId(0);
 		ingredientDAO.save(ingredient);
+		
+		stringIdToIngredientConverter.setIngredients(ingredientDAO.findAll());
 		
 		return "redirect:/ingredients/all";
 	}
@@ -75,7 +76,14 @@ public class IngredientController {
 	@GetMapping("/delete/{ingredientId}")
 	public String deleteById(@PathVariable int ingredientId) {
 		
-		ingredientDAO.deleteById(ingredientId);
+		try {
+			ingredientDAO.deleteById(ingredientId);
+			
+			stringIdToIngredientConverter.setIngredients(ingredientDAO.findAll());
+		} catch (Exception e) {
+			System.out.println(">>>>>> [CONTROLLER] Cannot delete ingredient: " + ingredientId);
+			e.printStackTrace();
+		}
 		
 		return "redirect:/ingredients/all";
 	}
