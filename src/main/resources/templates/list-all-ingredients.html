@@ -10,47 +10,51 @@
 </head>
 
 <body>
+  <div th:replace="home-page :: menu-container"></div>
 
-  <h2 class="mb-3">Ingredients</h2>
+  <div class="main-container">
 
-  <a th:href="@{/ingredients/add}">
-    <h3>Add an ingredient</h3>
-  </a>
+    <h2 class="mb-3">Ingredients</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Action</th>
-        <th>Comments</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="ingredient, itemStat : ${ingredients}">
-        <td th:text="${itemStat.index + 1}"></td>
-        <td th:text="${ingredient.name}"></td>
-        <td th:text="${ingredient.price}"></td>
-        <td th:text="${ingredient.stock}"></td>
+    <a th:href="@{/ingredients/add}">
+      <h3>Add an ingredient</h3>
+    </a>
 
-        <td>
-          <!-- <a th:href="@{update(id=${ingredient.id})}">Update</a> -->
-          <!-- <a th:href="@{|update?id=${ingredient.id}|}">Update</a> -->
-          <!-- <a th:href="@{|update/${ingredient.id}|}">Update</a> -->
-          <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}">Update</a>
-          <span> | </span>
-          <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}">Delete</a>
-        </td>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Action</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="ingredient, itemStat : ${ingredients}">
+          <td th:text="${itemStat.index + 1}"></td>
+          <td th:text="${ingredient.name}"></td>
+          <td th:text="${ingredient.price}"></td>
+          <td th:text="${ingredient.stock}"></td>
 
-        <td th:if="${ingredientComment} == null"></td>
-        <td th:if="${ingredientComment} != null"
-          th:text="${ingredient.id} == ${ingredientComment.id} ? ${ingredientComment.comment} : ''"></td>
-      </tr>
-    </tbody>
-  </table>
+          <td>
+            <!-- <a th:href="@{update(id=${ingredient.id})}">Update</a> -->
+            <!-- <a th:href="@{|update?id=${ingredient.id}|}">Update</a> -->
+            <!-- <a th:href="@{|update/${ingredient.id}|}">Update</a> -->
+            <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}">Update</a>
+            <span> | </span>
+            <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}">Delete</a>
+          </td>
 
+          <td th:if="${ingredientComment} == null"></td>
+          <td th:if="${ingredientComment} != null"
+            th:text="${ingredient.id} == ${ingredientComment.id} ? ${ingredientComment.comment} : ''"></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
 </body>
 
 </html>

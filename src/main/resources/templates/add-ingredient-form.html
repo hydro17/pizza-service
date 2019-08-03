@@ -10,25 +10,29 @@
 </head>
 
 <body>
+  <div th:replace="home-page :: menu-container"></div>
 
-  <h2>Add a new ingredient</h2>
+  <div class="main-container">
 
-  <form class="form-add-or-update" action="#" th:action="@{/ingredients/add}" th:object="${ingredient}" method="POST">
+    <h2>Add a new ingredient</h2>
 
-    <label for="name">Name: </label>
-    <input type="text" th:field="*{name}" />
+    <form class="form-add-or-update" action="#" th:action="@{/ingredients/add}" th:object="${ingredient}" method="POST">
 
-    <label for="price">Price: </label>
-    <input type="text" th:field="*{price}" />
+      <label for="name">Name: </label>
+      <input type="text" th:field="*{name}" />
 
-    <label for="stock">Stock: </label>
-    <input type="text" th:field="*{stock}" />
+      <label for="price">Price: </label>
+      <input type="text" th:field="*{price}" />
 
-    <input type="submit" value="Submit" />
-    <a th:href="@{/ingredients/all}">Back to list of ingredients</a>
+      <label for="stock">Stock: </label>
+      <input type="text" th:field="*{stock}" />
 
-  </form>
+      <input type="submit" value="Submit" />
+      <a th:href="@{/ingredients/all}">Back to list of ingredients</a>
 
+    </form>
+
+  </div>
 </body>
 
 </html>

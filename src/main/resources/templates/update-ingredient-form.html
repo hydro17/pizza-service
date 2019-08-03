@@ -10,28 +10,32 @@
 </head>
 
 <body>
+  <div th:replace="home-page :: menu-container"></div>
 
-  <h2 class="mb-3">Update the ingredient</h2>
+  <div class="main-container">
 
-  <form class="form-add-or-update" action="#" th:action="@{/ingredients/update}" th:object="${ingredient}"
-    method="POST">
+    <h2 class="mb-3">Update the ingredient</h2>
 
-    <input type="hidden" th:field="*{id}" />
+    <form class="form-add-or-update" action="#" th:action="@{/ingredients/update}" th:object="${ingredient}"
+      method="POST">
 
-    <label for="name">Name: </label>
-    <input type="text" th:field="*{name}" />
+      <input type="hidden" th:field="*{id}" />
 
-    <label for="price">Price: </label>
-    <input type="text" th:field="*{price}" />
+      <label for="name">Name: </label>
+      <input type="text" th:field="*{name}" />
 
-    <label for="stock">Stock: </label>
-    <input type="text" th:field="*{stock}" />
+      <label for="price">Price: </label>
+      <input type="text" th:field="*{price}" />
 
-    <input type="submit" value="Submit" />
-    <a style="justify-self:left" th:href="@{/ingredients/all}">Back to list of ingredients</a>
+      <label for="stock">Stock: </label>
+      <input type="text" th:field="*{stock}" />
 
-  </form>
+      <input type="submit" value="Submit" />
+      <a style="justify-self:left" th:href="@{/ingredients/all}">Back to list of ingredients</a>
 
+    </form>
+
+  </div>
 </body>
 
 </html>
