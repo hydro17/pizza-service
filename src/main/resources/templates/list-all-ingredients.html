@@ -21,22 +21,20 @@
     </a>
 
     <table>
-      <thead>
+      <thead class="text-center">
         <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Action</th>
-          <th>Comments</th>
+          <th>Nr</th>
+          <th>Nazwa</th>
+          <th>Cena</th>
+          <th>Akcja</th>
+          <th>Uwagi</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="ingredient, itemStat : ${ingredients}">
-          <td th:text="${itemStat.index + 1}"></td>
+          <td th:text="${itemStat.index + 1}" class="text-right"></td>
           <td th:text="${ingredient.name}"></td>
-          <td th:text="${ingredient.price}"></td>
-          <td th:text="${ingredient.stock}"></td>
+          <td th:text="${ingredient.price}" class="text-right"></td>
 
           <td>
             <!-- <a th:href="@{update(id=${ingredient.id})}">Update</a> -->
