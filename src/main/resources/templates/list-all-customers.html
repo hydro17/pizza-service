@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>List all customers</title>
+  <meta th:replace="fragments :: global-styles">
+</head>
+
+<body>
+  <div th:replace="home-page :: menu-container"></div>
+
+  <div class="main-container">
+
+    <h2 class="mb-3">Customers</h2>
+
+    <a th:href="@{/customers/add}">
+      <h3>Add new customer</h3>
+    </a>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="table-column-title">Nr</th>
+          <th class="table-column-title">Imię</th>
+          <th class="table-column-title">Nazwisko</th>
+          <th class="table-column-title">Nick</th>
+          <th class="table-column-title">Telefon</th>
+          <th class="table-column-title">E-mail</th>
+          <th class="table-column-title">Hasło</th>
+          <th class="table-column-title">Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="customer, itemStat : ${customers}">
+          <td th:text="${itemStat.index + 1}"></td>
+          <td th:text="${customer.firstName}"></td>
+          <td th:text="${customer.lastName}"></td>
+          <td th:text="${customer.nickname}"></td>
+          <td th:text="${customer.phone}"></td>
+          <td th:text="${customer.email}"></td>
+          <td th:text="${customer.password}"></td>
+          <td>
+            <a th:href="@{/customers/update/{id}(id=${customer.id})}">Edutuj</a>
+            <span> | </span>
+            <a th:href="@{/customers/delete/{id}(id=${customer.id})}">Usuń</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</body>
+
+</html>
