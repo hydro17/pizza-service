@@ -99,6 +99,8 @@ public class PizzaController {
 	@PostMapping("/add")
 	public String savePizza(@ModelAttribute Pizza pizza) {
 
+		System.out.println(">>> INGREDIENTS: " + pizza.getIngredients());
+		
 		pizza.setId(0);
 		pizzaDAO.save(pizza);
 		
@@ -108,14 +110,12 @@ public class PizzaController {
 	@GetMapping("/update/{pizzaId}")
 	public String showUpdatePizzaForm(@PathVariable int pizzaId, Model model) {
 		
-		Pizza pizza = pizzaDAO.findById(pizzaId);
-		
-		model.addAttribute("pizza", pizza);
 		model.addAttribute("allIngredients", ingredientDAO.findAll());
+		model.addAttribute("pizza", pizzaDAO.findById(pizzaId));
 		
 		return "add-or-update-pizza-form";
 	}
-	
+
 	@PostMapping("/update")
 	public String updatePizza(@ModelAttribute Pizza pizza) {
 		
