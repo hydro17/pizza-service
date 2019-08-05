@@ -25,25 +25,21 @@
         <tr>
           <th class="table-column-title">Nr</th>
           <th class="table-column-title">Imię</th>
-          <th class="table-column-title">Nazwisko</th>
-          <th class="table-column-title">Nick</th>
           <th class="table-column-title">Telefon</th>
           <th class="table-column-title">E-mail</th>
           <th class="table-column-title">Hasło</th>
-          <th class="table-column-title">Akcje</th>
+          <th class="table-column-title"></th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="customer, itemStat : ${customers}">
           <td th:text="${itemStat.index + 1}"></td>
           <td th:text="${customer.firstName}"></td>
-          <td th:text="${customer.lastName}"></td>
-          <td th:text="${customer.nickname}"></td>
           <td th:text="${customer.phone}"></td>
           <td th:text="${customer.email}"></td>
           <td th:text="${customer.password}"></td>
           <td>
-            <a th:href="@{/customers/update/{id}(id=${customer.id})}">Edutuj</a>
+            <a th:href="@{/customers/update/{id}(id=${customer.id})}">Edytuj</a>
             <span> | </span>
             <a th:href="@{/customers/delete/{id}(id=${customer.id})}">Usuń</a>
           </td>

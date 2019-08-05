@@ -23,12 +23,6 @@ public class Customer {
 	@Column(name="first_name")
 	private String firstName;
 	
-	@Column(name="last_name")
-	private String lastName;
-	
-	@Column(name="nickname")
-	private String nickname;
-
 	@Column(name="phone")
 	private String phone;
 	
@@ -42,13 +36,9 @@ public class Customer {
 	private List<Order> orders;
 
 	public Customer() {};
-	
-	public Customer(String firstName, String lastName, String nickname, String phone, String email, String password,
-			List<Order> orders) {
-		super();
+
+	public Customer(String firstName, String phone, String email, String password, List<Order> orders) {
 		this.firstName = firstName;
-		this.lastName = lastName;
-		this.nickname = nickname;
 		this.phone = phone;
 		this.email = email;
 		this.password = password;
@@ -69,22 +59,6 @@ public class Customer {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
 	}
 
 	public String getPhone() {
@@ -121,7 +95,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", nickname=" + nickname
-				+ ", phone=" + phone + ", email=" + email + ", password=" + password + "]";
+		return "Customer [id=" + id + ", firstName=" + firstName + ", phone=" + phone + ", email=" + email
+				+ ", password=" + password + ", orders=" + orders + "]";
 	}
 }
