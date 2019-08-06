@@ -32,16 +32,18 @@
       </thead>
 
       <tbody>
-        <tr th:each="pizzaDTO, itemStats : ${pizzasDTO}">
+        <tr th:each="pizzaDTO, itemStats : ${pizzaDTOs}">
           <td th:text="${itemStats.index + 1}"></td>
           <!-- <td th:text="${#ids.seq('')}"></td> -->
           <td th:text="${pizzaDTO.name}"></td>
           <td th:text="${pizzaDTO.ingredients}"></td>
           <td th:text="${pizzaDTO.price}"></td>
           <td>
-            <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}">Update</a>
-            |
-            <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}">Delete</a>
+            <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}">Zmień</a>
+            <span> | </span>
+            <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}">Usuń</a>
+            <span> | </span>
+            <a th:href="@{/orders/add/{pizzaId}(pizzaId=${pizzaDTO.id})}">Zamów</a>
           </td>
         </tr>
       </tbody>
