@@ -62,7 +62,7 @@ public class PizzaController {
 	public String showPizzas(Model model) {
 		
 		List<Pizza> pizzas = pizzaDAO.findAll();
-		List<PizzaDTO> pizzasDTO = new ArrayList<>();
+		List<PizzaDTO> pizzaDTOs = new ArrayList<>();
 		
 		pizzas.forEach(pizza -> {
 			List<String> ingredientsAsString = new ArrayList<>();
@@ -79,10 +79,10 @@ public class PizzaController {
 				pizzaPrice += ingr.getPrice();
 			}
 
-			pizzasDTO.add(new PizzaDTO(pizza.getId(), pizza.getName(), allIngredientsAsString, pizzaPrice));
+			pizzaDTOs.add(new PizzaDTO(pizza.getId(), pizza.getName(), allIngredientsAsString, pizzaPrice));
 		});
 		
-		model.addAttribute("pizzasDTO", pizzasDTO);
+		model.addAttribute("pizzaDTOs", pizzaDTOs);
 		
 		return "list-all-pizzas";
 	}
