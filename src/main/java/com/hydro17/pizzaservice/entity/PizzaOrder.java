@@ -15,16 +15,16 @@ import com.hydro17.pizzaservice.enums.OrderStatus;
 import com.hydro17.pizzaservice.enums.PizzaSize;
 
 @Entity
-@Table(name="order")
-public class Order {
+@Table(name="pizza_order")
+public class PizzaOrder {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="ordering_date")
-	private Date orderingDate;
+//	@Column(name="ordering_date")
+//	private Date orderingDate;
 	
 	@Column(name="order_status")
 	private OrderStatus orderStatus;
@@ -33,21 +33,19 @@ public class Order {
 	private int quantity;
 	
 	@ManyToOne
-	@JoinColumn(name="customer_id")
-	private Customer customer;
-	
-	@ManyToOne
 	@JoinColumn(name="pizza_id")
 	private Pizza pizza;
+	
+	@ManyToOne
+	@JoinColumn(name="customer_id")
+	private Customer customer;
 	
 	@Column(name="pizza_size")
 	private PizzaSize pizzaSize;
 
-	public Order() {};
-	
-	public Order(Date orderingDate, OrderStatus orderStatus, int quantity, Customer customer, Pizza pizza,
-			PizzaSize pizzaSize) {
-		this.orderingDate = orderingDate;
+	public PizzaOrder() {}
+
+	public PizzaOrder(OrderStatus orderStatus, int quantity, Customer customer, Pizza pizza, PizzaSize pizzaSize) {
 		this.orderStatus = orderStatus;
 		this.quantity = quantity;
 		this.customer = customer;
@@ -61,14 +59,6 @@ public class Order {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Date getOrderingDate() {
-		return orderingDate;
-	}
-
-	public void setOrderingDate(Date orderingDate) {
-		this.orderingDate = orderingDate;
 	}
 
 	public OrderStatus getOrderStatus() {
@@ -113,7 +103,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", orderingDate=" + orderingDate + ", orderStatus=" + orderStatus + ", quantity="
-				+ quantity + ", customer=" + customer + ", pizza=" + pizza + ", pizzaSize=" + pizzaSize + "]";
-	}
+		return "PizzaOrder [id=" + id + ", orderStatus=" + orderStatus + ", quantity=" + quantity + ", customer="
+				+ customer + ", pizza=" + pizza + ", pizzaSize=" + pizzaSize + "]";
+	};
 }
