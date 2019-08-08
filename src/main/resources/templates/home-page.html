@@ -11,18 +11,26 @@
 
 <body>
 
-  <div th:fragment="menu-container" class="menu-container">
-    <nav class="menu">
-      <a class="menu__link" th:href="@{/pizzas/all}">Oferta pizz</a>
+  <div th:fragment="menu-container" class="top-bar">
+    <div class="menu-container">
 
-      <span class="menu__separator">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+      <nav class="menu">
+        <a class="menu__link" th:href="@{/pizzas/all}">Oferta pizz</a>
 
-      <a class="menu__link" th:href="@{/ingredients/all}">Lista składników</a>
+        <span class="menu__separator">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 
-      <span class="menu__separator">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+        <a class="menu__link" th:href="@{/ingredients/all}">Lista składników</a>
 
-      <a class="menu__link" th:href="@{/customers/all}">Lista klientów</a>
-    </nav>
+        <span class="menu__separator">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+
+        <a class="menu__link" th:href="@{/customers/all}">Lista klientów</a>
+      </nav>
+
+      <div class="logged-customer ml-auto"
+        th:text="${session !=null ? (session.authCustomer != null ? session.authCustomer.firstName : 'no user') : 'no session'}">
+        Logged user name</div>
+
+    </div>
   </div>
 
 </body>
