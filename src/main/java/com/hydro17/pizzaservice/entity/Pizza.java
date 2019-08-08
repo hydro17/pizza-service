@@ -1,10 +1,7 @@
 package com.hydro17.pizzaservice.entity;
 
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
