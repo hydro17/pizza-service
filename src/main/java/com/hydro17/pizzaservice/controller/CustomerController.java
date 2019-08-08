@@ -2,10 +2,10 @@ package com.hydro17.pizzaservice.controller;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Predicate;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.config.CustomRepositoryImplementationDetector;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,7 +59,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/login")
-	public String verifyCustomer(@ModelAttribute CustomerLoginData customerLogingData, Model model) {
+	public String verifyCustomer(@ModelAttribute CustomerLoginData customerLogingData, Model model, HttpSession session) {
 		
 		List<Customer> customers = customerRepository.findAll();
 		
@@ -71,14 +71,16 @@ public class CustomerController {
 			return "login-form";
 		}
 		
-		return "redirect:/orders/all/" + authenticatedCustomer.getId();
+		session.setAttribute("authCustomer", authenticatedCustomer);
+		
+		return "redirect:/orders/list";
 	}
 	
 	private Customer getCustomerIfAuthenticated(Collection<Customer> customers, CustomerLoginData customerLogingData) {
 		
 		for (Customer customer : customers) {
-			if (customer.getEmail() == customerLogingData.getEmail() 
-				&& customer.getPassword() == customerLogingData.getPassword()) {
+			if (customer.getEmail().equals(customerLogingData.getEmail()) 
+				&& customer.getPassword().equals(customerLogingData.getPassword())) {
 				return customer;
 			}
 		}
