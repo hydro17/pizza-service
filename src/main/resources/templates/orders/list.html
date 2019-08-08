@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Orders</title>
+  <meta th:replace="fragments :: global-styles">
+</head>
+
+<body>
+  <div th:replace="home-page :: menu-container"></div>
+
+  <div class="main-container">
+
+    <h2 class="mb-3">Zamówienia</h2>
+
+    <table class="table table-stripped table-bordered">
+      <thead>
+        <tr>
+          <th>Nr</th>
+          <th>Nazwa pizzy</th>
+          <th>Rozmiar</th>
+          <th>Liczba</th>
+          <th>E-mail klienta</th>
+          <th>Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="order, itemStat : orders">
+          <td th:text="${itemStat.index + 1}"></td>
+          <td th:text="${order.pizza.name}"></td>
+          <td th:text="${order.pizzaSize}"></td>
+          <td th:text="${order.quantity}"></td>
+          <td th:text="${order.customer.email}"></td>
+          <td>
+            <a th:href="@{delete/{orderId}(orderId=${order.id})}">Usuń</a>
+            <a th:href="@{update/{orderId}(orderId=${order.id})}">Edytuj</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</body>
+
+</html>

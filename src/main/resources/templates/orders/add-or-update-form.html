@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title th:text="${order.id} == 0 ? 'New order' : 'Update the order'">Add or update order</title>
+  <meta th:replace="fragments :: global-styles">
+</head>
+
+<body>
+  <div th:replace="home-page :: menu-container"></div>
+
+  <div class="main-container">
+
+    <h2 th:text="${order.id} == 0 ? 'New order' : 'Update the order'">Add or update order</h2>
+
+    <form class="form-add-or-update" action="#" th:object="${order}"
+      th:action="@{/orders/{action}(action=(${order.id} == 0 ? 'add' : 'update'))}" method="POST">
+
+      <!-- <input hidden type="text" th:field="*{orderStatus}" th:value="${allStatuses.ORDERED}" /> -->
+      <!-- <input hidden type="text" th:field="*{customer}" /> -->
+
+      <p>Pizza: </p>
+      <p th:text="*{pizza.name}">Pizza name</p>
+
+      <div style="grid-column: 1/3">
+
+        <p>Wybierz wielkość pizzy:</p>
+        <div th:each="size : ${allSizes}">
+          <input type="radio" th:field="*{pizzaSize}" th:value="${size}">
+          <label th:for="${#ids.prev('pizzaSize')}" th:text="${size}"></label>
+        </div>
+
+      </div>
+
+      <label for="quantity">Ile sztuk? </label>
+      <input type="text" th:field="*{quantity}" />
+
+      <div style="grid-column: 1/3">
+        <a class="btn btn-secondary" th:href="@{/orders/all}">Wróć do listy zamówień</a>
+        <input th:if="${order.id == 0}" class="btn btn-success" type="submit" value="Złóż zamówienie">
+        <input th:if="${order.id > 0}" class="btn btn-success" type="submit" value="Zapisz">
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
