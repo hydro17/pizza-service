@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -15,7 +15,7 @@
 
   <div class="main-container">
 
-    <h2 class="mb-3" th:text="${customer.id} == 0 ? 'Zrejestruj się' : 'Edytuj dane klienta'">Zrejestruj się lub edytuj
+    <h2 class="mb-3" th:text="${customer.id} == 0 ? 'Zrejestruj się' : 'Edytuj dane klienta'">Zarejestruj się lub edytuj
       dane klienta</h2>
 
     <form class="form-add-or-update" action="#"

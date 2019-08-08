@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -23,7 +23,7 @@
       <label for="email">e-mail: </label>
       <input type="text" th:field="*{email}" />
 
-      <label for="password"></label>
+      <label for="password">Password: </label>
       <input type="text" th:field="*{password}" />
 
       <div style="grid-column: 1/3">
