@@ -33,16 +33,17 @@ public class Customer {
 	private String password;
 	
 	@OneToMany(mappedBy="customer")
-	private List<Order> orders;
+	private List<PizzaOrder> pizzaOrders;
 
 	public Customer() {};
-
-	public Customer(String firstName, String phone, String email, String password, List<Order> orders) {
+	
+	public Customer(String firstName, String phone, String email, String password, List<PizzaOrder> pizzaOrders) {
+		super();
 		this.firstName = firstName;
 		this.phone = phone;
 		this.email = email;
 		this.password = password;
-		this.orders = orders;
+		this.pizzaOrders = pizzaOrders;
 	}
 
 	public int getId() {
@@ -51,6 +52,14 @@ public class Customer {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public List<PizzaOrder> getPizzaOrders() {
+		return pizzaOrders;
+	}
+
+	public void setPizzaOrders(List<PizzaOrder> pizzaOrders) {
+		this.pizzaOrders = pizzaOrders;
 	}
 
 	public String getFirstName() {
@@ -85,17 +94,9 @@ public class Customer {
 		this.password = password;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", firstName=" + firstName + ", phone=" + phone + ", email=" + email
-				+ ", password=" + password + ", orders=" + orders + "]";
+				+ ", password=" + password + ", pizzaOrders=" + pizzaOrders + "]";
 	}
 }
