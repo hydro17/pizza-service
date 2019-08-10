@@ -15,15 +15,16 @@
     <div class="menu-container">
 
       <nav class="menu">
-        <a class="menu__link" th:href="@{/pizzas/all}">Oferta pizz</a>
-
+        <a class="menu__link" th:href="@{/pizzas/all}">Oferta</a>
         <span class="menu__separator">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 
-        <a class="menu__link" th:href="@{/ingredients/all}">Lista składników</a>
-
+        <a class="menu__link" th:href="@{/ingredients/all}">Składniki pizzy</a>
         <span class="menu__separator">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 
-        <a class="menu__link" th:href="@{/customers/all}">Lista klientów</a>
+        <a class="menu__link" th:href="@{/customers/all}">Klienci</a>
+        <span class="menu__separator">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+
+        <a class="menu__link" th:href="@{/orders/list}">Zamówienia</a>
       </nav>
 
       <div class="logged-customer ml-auto"
