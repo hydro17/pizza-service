@@ -26,9 +26,6 @@ public class IngredientController {
 	@Autowired
 	private IngredientDAO ingredientDAO;
 	
-	@Autowired
-	private StringIdToIngredientConverter stringIdToIngredientConverter;
-	
 	private class IngredientComment {
 		private int id;
 		private String comment;
@@ -80,8 +77,6 @@ public class IngredientController {
 		ingredient.setId(0);
 		ingredientDAO.save(ingredient);
 		
-		stringIdToIngredientConverter.setIngredients(ingredientDAO.findAll());
-		
 		return "redirect:/ingredients/all";
 	}
 	
@@ -114,7 +109,6 @@ public class IngredientController {
 		try {
 			ingredientDAO.deleteById(ingredientId);
 			
-			stringIdToIngredientConverter.setIngredients(ingredientDAO.findAll());
 		} catch (DataIntegrityViolationException e) {
 			
 			System.out.println(">>> [source: CONTROLLER] Cannot delete the ingredient: " + ingredientId);

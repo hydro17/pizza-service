@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.entity.Customer;
-import com.hydro17.pizzaservice.entity.Order;
+import com.hydro17.pizzaservice.entity.PizzaOrder;
 import com.hydro17.pizzaservice.entity.Pizza;
-import com.hydro17.pizzaservice.enums.OrderStatus;
+import com.hydro17.pizzaservice.enums.PizzaOrderStatus;
 import com.hydro17.pizzaservice.enums.PizzaSize;
 import com.hydro17.pizzaservice.repository.OrderRepository;
 
@@ -57,14 +57,18 @@ public class OrderController {
 	}
 	
 	@GetMapping("/add/{pizzaId}")
-	public String showAddOrderForm(@PathVariable int pizzaId, Model model) {
+	public String showAddPizzaOrderForm(@PathVariable int pizzaId, Model model) {
 		
-		Order order = new Order();
+		PizzaOrder order = new PizzaOrder();
 		order.setPizza(getPizzaById(pizzaId));
 		
+		Customer customer = new Customer();
+		customer.setId(4);
+		order.setCustomer(customer);
+		
 		model.addAttribute("allSizes", PizzaSize.values());
-		model.addAttribute("allStatuses", OrderStatus.values());
-		model.addAttribute("order",  order);
+		model.addAttribute("allStatuses", PizzaOrderStatus.values());
+		model.addAttribute("pizzaOrder", order);
 		
 		return "orders/add-or-update-form";
 	}
@@ -79,26 +83,30 @@ public class OrderController {
 	}
 
 	@PostMapping("/add")
-	public String saveOrder(@ModelAttribute Order order) {
+	public String savePizzaOrder(@ModelAttribute PizzaOrder pizzaOrder) {
 		
-		order.setId(0);
-		order.setOrderStatus(OrderStatus.ORDERED);
-		order.setCustomer(new Customer());
-		orderRepository.save(order);
+		pizzaOrder.setId(0);
+		pizzaOrder.setPizzaOrderStatus(PizzaOrderStatus.ORDERED);
+		
+		orderRepository.save(pizzaOrder);
 		
 		return "redirect:/orders/list";
 	}
 	
 	@GetMapping("/update/{orderId}")
-	public String showUpdateOrderForm(@PathVariable int orderId,  Model model) {
+	public String showUpdatePizzaOrderForm(@PathVariable int orderId,  Model model) {
 		
-		model.addAttribute("order", orderRepository.findById(orderId));	
+		model.addAttribute("pizzaOrder", orderRepository.findById(orderId).orElseGet(() -> {
+			PizzaOrder o = new PizzaOrder(); 
+			o.setId(9999); 
+			return o;
+		}));	
 		
 		return "orders/add-or-update-form";
 	}
 	
 	@PostMapping("/update")
-	public String updateOrder(@ModelAttribute Order order) {
+	public String updatePizzaOrder(@ModelAttribute PizzaOrder order) {
 		
 		orderRepository.save(order);
 		

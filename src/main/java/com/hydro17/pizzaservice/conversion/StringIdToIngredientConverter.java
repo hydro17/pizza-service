@@ -15,16 +15,8 @@ import com.hydro17.pizzaservice.entity.Ingredient;
 @Component
 public class StringIdToIngredientConverter implements Converter<String, Ingredient> {
 
-	private List<Ingredient> ingredients;
-
 	@Autowired
-	public StringIdToIngredientConverter(IngredientDAO ingredientDAO) {
-		this.ingredients = ingredientDAO.findAll();
-	}
-	
-	public void setIngredients(List<Ingredient> ingredients) {
-		this.ingredients = ingredients;
-	}
+	IngredientDAO ingredientDAO;
 	
 	@Override
 	public Ingredient convert(String ingredientId) {
@@ -36,8 +28,10 @@ public class StringIdToIngredientConverter implements Converter<String, Ingredie
 	}
 
 	private Ingredient getIngredientBy(Predicate<Ingredient> isItRequiredIngredient) {
+	
+		List<Ingredient> ingredients = ingredientDAO.findAll();
 		
-		for (Ingredient ingredient : this.ingredients) {
+		for (Ingredient ingredient : ingredients) {
 			if (isItRequiredIngredient.test(ingredient)) return ingredient;
 		}
 		
