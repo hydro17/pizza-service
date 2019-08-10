@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.hydro17.pizzaservice.enums.OrderStatus;
+import com.hydro17.pizzaservice.enums.PizzaOrderStatus;
 import com.hydro17.pizzaservice.enums.PizzaSize;
 
 @Entity
@@ -27,7 +27,7 @@ public class PizzaOrder {
 //	private Date orderingDate;
 	
 	@Column(name="order_status")
-	private OrderStatus orderStatus;
+	private PizzaOrderStatus pizzaOrderStatus;
 	
 	@Column(name="quantity")
 	private int quantity;
@@ -45,8 +45,8 @@ public class PizzaOrder {
 
 	public PizzaOrder() {}
 
-	public PizzaOrder(OrderStatus orderStatus, int quantity, Customer customer, Pizza pizza, PizzaSize pizzaSize) {
-		this.orderStatus = orderStatus;
+	public PizzaOrder(PizzaOrderStatus orderStatus, int quantity, Customer customer, Pizza pizza, PizzaSize pizzaSize) {
+		this.pizzaOrderStatus = orderStatus;
 		this.quantity = quantity;
 		this.customer = customer;
 		this.pizza = pizza;
@@ -61,12 +61,12 @@ public class PizzaOrder {
 		this.id = id;
 	}
 
-	public OrderStatus getOrderStatus() {
-		return orderStatus;
+	public PizzaOrderStatus getPizzaOrderStatus() {
+		return pizzaOrderStatus;
 	}
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setPizzaOrderStatus(PizzaOrderStatus pizzaOrderStatus) {
+		this.pizzaOrderStatus = pizzaOrderStatus;
 	}
 
 	public int getQuantity() {
@@ -103,7 +103,7 @@ public class PizzaOrder {
 
 	@Override
 	public String toString() {
-		return "PizzaOrder [id=" + id + ", orderStatus=" + orderStatus + ", quantity=" + quantity + ", customer="
+		return "PizzaOrder [id=" + id + ", orderStatus=" + pizzaOrderStatus + ", quantity=" + quantity + ", customer="
 				+ customer + ", pizza=" + pizza + ", pizzaSize=" + pizzaSize + "]";
 	};
 }
