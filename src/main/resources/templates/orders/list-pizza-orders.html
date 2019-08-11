@@ -20,11 +20,12 @@
       <h3>Nowe zamówienie</h3>
     </a>
 
-    <table class="table table-stripped table-bordered">
+    <table class="table table-striped border-bottom">
       <thead>
         <tr>
           <th>Nr</th>
           <th>Id zamówienia</th>
+          <th>Status</th>
           <th>Nazwa pizzy</th>
           <th>Rozmiar</th>
           <th>Liczba</th>
@@ -36,6 +37,7 @@
         <tr th:each="pizzaOrder, itemStat : ${pizzaOrders}">
           <td th:text="${itemStat.index + 1}"></td>
           <td th:text="${pizzaOrder.id}"></td>
+          <td class="text-lowercase" th:text="${pizzaOrder.status}"></td>
           <td th:text="${pizzaOrder.pizza.name}"></td>
           <td class="text-lowercase" th:text="${pizzaOrder.pizzaSize}"></td>
           <td th:text="${pizzaOrder.quantity}"></td>
