@@ -58,7 +58,7 @@ public class PizzaController {
 	@Autowired
 	private IngredientDAO ingredientDAO;
 
-	@GetMapping("/all")
+	@GetMapping("/list")
 	public String showPizzas(Model model) {
 		
 		List<Pizza> pizzas = pizzaDAO.findAll();
@@ -84,7 +84,7 @@ public class PizzaController {
 		
 		model.addAttribute("pizzaDTOs", pizzaDTOs);
 		
-		return "list-all-pizzas";
+		return "pizzas/list-pizzas";
 	}
 	
 	@GetMapping("/add")
@@ -93,7 +93,7 @@ public class PizzaController {
 		model.addAttribute("allIngredients", ingredientDAO.findAll());
 		model.addAttribute("pizza", new Pizza());
 		
-		return "add-or-update-pizza-form";
+		return "pizzas/add-or-update-pizza-form";
 	}
 	
 	@PostMapping("/add")
@@ -104,7 +104,7 @@ public class PizzaController {
 		pizza.setId(0);
 		pizzaDAO.save(pizza);
 		
-		return "redirect:/pizzas/all";
+		return "redirect:/pizzas/list";
 	}
 	
 	@GetMapping("/update/{pizzaId}")
@@ -113,7 +113,7 @@ public class PizzaController {
 		model.addAttribute("allIngredients", ingredientDAO.findAll());
 		model.addAttribute("pizza", pizzaDAO.findById(pizzaId));
 		
-		return "add-or-update-pizza-form";
+		return "pizzas/add-or-update-pizza-form";
 	}
 
 	@PostMapping("/update")
@@ -121,7 +121,7 @@ public class PizzaController {
 		
 		pizzaDAO.save(pizza);
 		
-		return "redirect:/pizzas/all";
+		return "redirect:/pizzas/list";
 	}
 	
 	@GetMapping("/delete/{pizzaId}")
@@ -129,6 +129,6 @@ public class PizzaController {
 		
 		pizzaDAO.deleteById(pizzaId);
 		
-		return "redirect:/pizzas/all";
+		return "redirect:/pizzas/list";
 	}
 }

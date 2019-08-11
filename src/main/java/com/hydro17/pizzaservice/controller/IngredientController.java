@@ -46,7 +46,7 @@ public class IngredientController {
 	
 	private IngredientComment ingredientComment;
 	
-	@GetMapping("/all")
+	@GetMapping("/list")
 	public String listAll(Model model) {
 		
 		List<Ingredient> ingredients = ingredientDAO.findAll();
@@ -56,7 +56,7 @@ public class IngredientController {
 		
 		this.ingredientComment = null;
 		
-		return "list-all-ingredients";
+		return "ingredients/list-ingredients";
 	}
 	
 	@GetMapping("/add")
@@ -64,20 +64,20 @@ public class IngredientController {
 		
 		model.addAttribute("ingredient", new Ingredient());
 		
-		return "add-or-update-ingredient-form";
+		return "ingredients/add-or-update-ingredient-form";
 	}
 	
 	@PostMapping("/add")
 	public String saveIngredient(@Valid @ModelAttribute Ingredient ingredient, BindingResult bindingResult) {
 		
 		if (bindingResult.hasErrors()) {
-			return "add-or-update-ingredient-form";
+			return "ingredients/add-or-update-ingredient-form";
 		}
 		
 		ingredient.setId(0);
 		ingredientDAO.save(ingredient);
 		
-		return "redirect:/ingredients/all";
+		return "redirect:/ingredients/list";
 	}
 	
 	@GetMapping("/update/{ingredientId}")
@@ -88,19 +88,19 @@ public class IngredientController {
 		Ingredient ingredient = ingredientDAO.findById(ingredientId); 
 		model.addAttribute("ingredient", ingredient);
 		
-		return "add-or-update-ingredient-form";
+		return "ingredients/add-or-update-ingredient-form";
 	}
 	
 	@PostMapping("/update")
 	public String updateIngredient(@Valid @ModelAttribute Ingredient ingredient, BindingResult bindingResult) {
 		
 		if (bindingResult.hasErrors()) {
-			return "add-or-update-ingredient-form";
+			return "ingredients/add-or-update-ingredient-form";
 		}
 		
 		ingredientDAO.save(ingredient);
 		
-		return "redirect:/ingredients/all";
+		return "redirect:/ingredients/list";
 	}
 	
 	@GetMapping("/delete/{ingredientId}")
@@ -121,6 +121,6 @@ public class IngredientController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/ingredients/all";
+		return "redirect:/ingredients/list";
 	}
 }

@@ -48,12 +48,12 @@ public class OrderController {
 		
 		model.addAttribute("pizzaOrders", orderRepository.findAll());
 		
-		return "orders/list";
+		return "orders/list-pizza-orders";
 	}
 	
 	@GetMapping("/add")
 	public String selectPizza() {
-		return "redirect:/pizzas/all";
+		return "redirect:/pizzas/list";
 	}
 	
 	@GetMapping("/add/{pizzaId}")
@@ -71,7 +71,7 @@ public class OrderController {
 		model.addAttribute("allSizes", PizzaSize.values());
 		model.addAttribute("pizzaOrder", pizzaOrder);
 		
-		return "orders/add-or-update-form";
+		return "orders/add-or-update-pizza-order-form";
 	}
 	
 	private Pizza getPizzaById(int pizzaId) {
@@ -104,7 +104,7 @@ public class OrderController {
 		
 		model.addAttribute("allSizes", PizzaSize.values());
 		
-		return "orders/add-or-update-form";
+		return "orders/add-or-update-pizza-order-form";
 	}
 	
 	@PostMapping("/update")
