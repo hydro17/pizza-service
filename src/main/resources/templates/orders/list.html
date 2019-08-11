@@ -16,10 +16,15 @@
 
     <h2 class="mb-3">Zamówienia</h2>
 
+    <a th:href="@{add}">
+      <h3>Nowe zamówienie</h3>
+    </a>
+
     <table class="table table-stripped table-bordered">
       <thead>
         <tr>
           <th>Nr</th>
+          <th>Id zamówienia</th>
           <th>Nazwa pizzy</th>
           <th>Rozmiar</th>
           <th>Liczba</th>
@@ -28,15 +33,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="order, itemStat : orders">
+        <tr th:each="pizzaOrder, itemStat : ${pizzaOrders}">
           <td th:text="${itemStat.index + 1}"></td>
-          <td th:text="${order.pizza.name}"></td>
-          <td th:text="${order.pizzaSize}"></td>
-          <td th:text="${order.quantity}"></td>
-          <td th:text="${order.customer.email}"></td>
+          <td th:text="${pizzaOrder.id}"></td>
+          <td th:text="${pizzaOrder.pizza.name}"></td>
+          <td class="text-lowercase" th:text="${pizzaOrder.pizzaSize}"></td>
+          <td th:text="${pizzaOrder.quantity}"></td>
+          <td th:text="${pizzaOrder.customer.email}"></td>
           <td>
-            <a th:href="@{delete/{orderId}(orderId=${order.id})}">Usuń</a>
-            <a th:href="@{update/{orderId}(orderId=${order.id})}">Edytuj</a>
+            <a th:href="@{delete/{orderId}(orderId=${pizzaOrder.id})}">Usuń</a>
+            <span> | </span>
+            <a th:href="@{update/{orderId}(orderId=${pizzaOrder.id})}">Edytuj</a>
           </td>
         </tr>
       </tbody>
