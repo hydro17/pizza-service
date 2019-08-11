@@ -27,7 +27,7 @@ public class PizzaOrder {
 //	private Date orderingDate;
 	
 	@Column(name="order_status")
-	private PizzaOrderStatus pizzaOrderStatus;
+	private PizzaOrderStatus status;
 	
 	@Column(name="quantity")
 	private int quantity;
@@ -46,7 +46,7 @@ public class PizzaOrder {
 	public PizzaOrder() {}
 
 	public PizzaOrder(PizzaOrderStatus orderStatus, int quantity, Customer customer, Pizza pizza, PizzaSize pizzaSize) {
-		this.pizzaOrderStatus = orderStatus;
+		this.status = orderStatus;
 		this.quantity = quantity;
 		this.customer = customer;
 		this.pizza = pizza;
@@ -61,12 +61,12 @@ public class PizzaOrder {
 		this.id = id;
 	}
 
-	public PizzaOrderStatus getPizzaOrderStatus() {
-		return pizzaOrderStatus;
+	public PizzaOrderStatus getStatus() {
+		return status;
 	}
 
-	public void setPizzaOrderStatus(PizzaOrderStatus pizzaOrderStatus) {
-		this.pizzaOrderStatus = pizzaOrderStatus;
+	public void setStatus(PizzaOrderStatus status) {
+		this.status = status;
 	}
 
 	public int getQuantity() {
@@ -103,7 +103,7 @@ public class PizzaOrder {
 
 	@Override
 	public String toString() {
-		return "PizzaOrder [id=" + id + ", orderStatus=" + pizzaOrderStatus + ", quantity=" + quantity + ", customer="
+		return "PizzaOrder [id=" + id + ", orderStatus=" + status + ", quantity=" + quantity + ", customer="
 				+ customer + ", pizza=" + pizza + ", pizzaSize=" + pizzaSize + "]";
 	};
 }
