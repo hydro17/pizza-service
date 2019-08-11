@@ -42,12 +42,11 @@
   transition: transform .5s;
 }
 
-.menu__separator {
-  position: relative;
-  top: -.1em;
+.menu__link:hover::after {
+  transform: scaleX(1);
 }
 
-.menu__link:hover::after {
+.menu__active-link::after {
   transform: scaleX(1);
 }
 
@@ -58,7 +57,11 @@
 
 .menu__link:focus {
   outline: none;
-  text-decoration: underline;
+}
+
+.menu__separator {
+  position: relative;
+  top: -.1em;
 }
 
 .form-add-or-update {
