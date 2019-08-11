@@ -25,12 +25,12 @@ public class CustomerController {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
-	@GetMapping("/all")
+	@GetMapping("/list")
 	public String listAll(Model model) {
 		
 		model.addAttribute("customers", customerRepository.findAll());
 		
-		return "list-all-customers";
+		return "customers/list-customers";
 	}
 
 	@GetMapping("/add")
@@ -38,7 +38,7 @@ public class CustomerController {
 		
 		model.addAttribute("customer", new Customer());
 		
-		return "register-or-update-customer-form";
+		return "customers/register-or-update-customer-form";
 	}
 	
 	@PostMapping("/add")
@@ -47,7 +47,7 @@ public class CustomerController {
 		customer.setId(0);
 		customerRepository.save(customer);
 		
-		return "redirect:/customers/all";
+		return "redirect:/customers/list";
 	}
 	
 	@GetMapping("/login")
@@ -55,7 +55,7 @@ public class CustomerController {
 		
 		model.addAttribute("customer", new CustomerLoginData());
 		
-		return "login-form";
+		return "customers/login-form";
 	}
 	
 	@PostMapping("/login")
@@ -68,7 +68,7 @@ public class CustomerController {
 		if (authenticatedCustomer == null) {
 			model.addAttribute("customer", customerLogingData);
 			model.addAttribute("error", "Nieprawidłoy e-mail lub hasło");
-			return "login-form";
+			return "customers/login-form";
 		}
 		
 		session.setAttribute("authCustomer", authenticatedCustomer);
@@ -93,7 +93,7 @@ public class CustomerController {
 		
 		model.addAttribute("customer", customerRepository.findById(customerId).get());
 		
-		return "register-or-update-customer-form";
+		return "customers/register-or-update-customer-form";
 	}
 	
 	@PostMapping("/update")
@@ -101,7 +101,7 @@ public class CustomerController {
 		
 		customerRepository.save(customer);
 		
-		return "redirect:/customers/all";
+		return "redirect:/customers/list";
 	}
 	
 	@GetMapping("/delete/{customerId}")
@@ -109,6 +109,6 @@ public class CustomerController {
 		
 		customerRepository.deleteById(customerId);
 		
-		return "redirect:/customers/all";
+		return "redirect:/customers/list";
 	}
 }
