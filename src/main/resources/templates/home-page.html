@@ -15,16 +15,17 @@
     <div class="menu-container">
 
       <nav class="menu">
-        <a class="menu__link" th:href="@{/pizzas/all}">Oferta</a>
+        <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/pizzas/list' ? 'menu__active-link' : ''}" th:href="@{/pizzas/list}">Oferta</a>
         <span class="menu__separator">&emsp;|&emsp;</span>
 
-        <a class="menu__link" th:href="@{/ingredients/all}">Składniki pizzy</a>
+        <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/ingredients/list' ? 'menu__active-link' : ''}" th:href="@{/ingredients/list}">Składniki pizzy</a>
         <span class="menu__separator">&emsp;|&emsp;</span>
 
-        <a class="menu__link" th:href="@{/customers/all}">Klienci</a>
+        <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/customers/list' ? 'menu__active-link' : ''}" th:href="@{/customers/list}">Klienci</a>
         <span class="menu__separator">&emsp;|&emsp;</span>
 
-        <a class="menu__link" th:href="@{/orders/list}">Zamówienia</a>
+        <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/orders/list' ? 'menu__active-link' : ''}"  th:href="@{/orders/list}">Zamówienia</a>
+        <span class="menu__separator">&emsp;|&emsp;</span>
       </nav>
 
       <div class="logged-customer ml-auto"
