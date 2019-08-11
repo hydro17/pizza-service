@@ -9,7 +9,7 @@ import com.hydro17.pizzaservice.entity.PizzaOrder;
 
 public interface OrderRepository extends JpaRepository<PizzaOrder, Integer> {
 	
-	@Query("select o from Order o where o.customer.id = ?1")
-	List<Order> findByCustomerId(int customerId);
+	@Query("select po from PizzaOrder po where po.customer.id = ?1")
+	List<PizzaOrder> findByCustomerId(int customerId);
 }
 	

@@ -46,7 +46,7 @@ public class OrderController {
 //		
 //		model.addAttribute("orders", orderRepository.findByCustomerId(authenticatedCustomer.getId()));
 		
-		model.addAttribute("orders", orderRepository.findAll());
+		model.addAttribute("pizzaOrders", orderRepository.findAll());
 		
 		return "orders/list";
 	}
@@ -59,16 +59,17 @@ public class OrderController {
 	@GetMapping("/add/{pizzaId}")
 	public String showAddPizzaOrderForm(@PathVariable int pizzaId, Model model) {
 		
-		PizzaOrder order = new PizzaOrder();
-		order.setPizza(getPizzaById(pizzaId));
+		PizzaOrder pizzaOrder = new PizzaOrder();
+		pizzaOrder.setPizza(getPizzaById(pizzaId));
+		pizzaOrder.setPizzaOrderStatus(PizzaOrderStatus.ORDERED);
+		pizzaOrder.setPizzaSize(PizzaSize.LARGE);
 		
 		Customer customer = new Customer();
 		customer.setId(4);
-		order.setCustomer(customer);
+		pizzaOrder.setCustomer(customer);
 		
 		model.addAttribute("allSizes", PizzaSize.values());
-		model.addAttribute("allStatuses", PizzaOrderStatus.values());
-		model.addAttribute("pizzaOrder", order);
+		model.addAttribute("pizzaOrder", pizzaOrder);
 		
 		return "orders/add-or-update-form";
 	}
@@ -86,7 +87,6 @@ public class OrderController {
 	public String savePizzaOrder(@ModelAttribute PizzaOrder pizzaOrder) {
 		
 		pizzaOrder.setId(0);
-		pizzaOrder.setPizzaOrderStatus(PizzaOrderStatus.ORDERED);
 		
 		orderRepository.save(pizzaOrder);
 		
@@ -101,6 +101,8 @@ public class OrderController {
 			o.setId(9999); 
 			return o;
 		}));	
+		
+		model.addAttribute("allSizes", PizzaSize.values());
 		
 		return "orders/add-or-update-form";
 	}
