@@ -61,9 +61,7 @@ public class CustomerController {
 	@PostMapping("/login")
 	public String verifyCustomer(@ModelAttribute CustomerLoginData customerLogingData, Model model, HttpSession session) {
 		
-		List<Customer> customers = customerRepository.findAll();
-		
-		Customer authenticatedCustomer = getCustomerIfAuthenticated(customers, customerLogingData); 
+		Customer authenticatedCustomer = getCustomerIfAuthenticated(customerLogingData); 
 		
 		if (authenticatedCustomer == null) {
 			model.addAttribute("customer", customerLogingData);
@@ -76,7 +74,9 @@ public class CustomerController {
 		return "redirect:/orders/list";
 	}
 	
-	private Customer getCustomerIfAuthenticated(Collection<Customer> customers, CustomerLoginData customerLogingData) {
+	private Customer getCustomerIfAuthenticated(CustomerLoginData customerLogingData) {
+		
+		List<Customer> customers = customerRepository.findAll();
 		
 		for (Customer customer : customers) {
 			if (customer.getEmail().equals(customerLogingData.getEmail()) 
