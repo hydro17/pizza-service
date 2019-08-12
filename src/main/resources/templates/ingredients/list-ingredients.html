@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>List all ingredients</title>
+  <title>List ingredients</title>
   <meta th:replace="fragments :: global-styles">
 </head>
 
@@ -21,7 +21,7 @@
     </a>
 
     <table class="table table-striped border-bottom">
-      <thead class="text-center">
+      <thead>
         <tr>
           <th>Nr</th>
           <th>Nazwa</th>
@@ -40,9 +40,9 @@
             <!-- <a th:href="@{update(id=${ingredient.id})}">Update</a> -->
             <!-- <a th:href="@{|update?id=${ingredient.id}|}">Update</a> -->
             <!-- <a th:href="@{|update/${ingredient.id}|}">Update</a> -->
-            <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}">Update</a>
-            <span> | </span>
-            <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}">Delete</a>
+            <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-edit"></i></a>
+            <span>&nbsp;</span>
+            <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-trash-alt"></i></a>
           </td>
 
           <td th:if="${ingredientComment} == null"></td>
