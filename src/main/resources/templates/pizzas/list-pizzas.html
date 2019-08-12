@@ -39,10 +39,10 @@
           <td th:text="${pizzaDTO.ingredients}"></td>
           <td th:text="${pizzaDTO.price}"></td>
           <td>
-            <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}">Zmień</a>
-            <span> | </span>
-            <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}">Usuń</a>
-            <span> | </span>
+            <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-edit"></i></a>
+            <span>&nbsp;</span>
+            <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-trash-alt"></i></a>
+            <span>&nbsp;</span>
             <a th:href="@{/orders/add/{pizzaId}(pizzaId=${pizzaDTO.id})}">Zamów</a>
           </td>
         </tr>

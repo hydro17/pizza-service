@@ -39,9 +39,9 @@
           <td th:text="${customer.email}"></td>
           <td th:text="${customer.password}"></td>
           <td>
-            <a th:href="@{/customers/update/{id}(id=${customer.id})}">Edytuj</a>
-            <span> | </span>
-            <a th:href="@{/customers/delete/{id}(id=${customer.id})}">Usuń</a>
+            <a th:href="@{/customers/update/{id}(id=${customer.id})}"><i class="far fa-edit"></i></a>
+            <span>&nbsp;</span>
+            <a th:href="@{/customers/delete/{id}(id=${customer.id})}"><i class="far fa-trash-alt"></i></a>
           </td>
         </tr>
       </tbody>
