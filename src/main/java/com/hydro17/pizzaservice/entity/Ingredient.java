@@ -1,14 +1,19 @@
 package com.hydro17.pizzaservice.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -21,8 +26,8 @@ public class Ingredient {
 	private int id;
 	
 	@Size(min=2, max=20, message="Name must be between 2 and 20 characters")
-	@Column(name="name")
-	private String name;
+	@Column(name="ingredient_name")
+	private String ingredientName;
 	
 	@Min(0)
 	@Column(name="price")
@@ -32,11 +37,11 @@ public class Ingredient {
 	@Max(value=20, message="Please enter an initial number of the ingredient (0-20)")
 	@Column(name="stock")
 	private int stock;
-
+	
 	public Ingredient() {}
 	
 	public Ingredient(String name, double price, int stock) {
-		this.name = name;
+		this.ingredientName = name;
 		this.price = price;
 		this.stock = stock;
 	}
@@ -49,12 +54,12 @@ public class Ingredient {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getIngredientName() {
+		return ingredientName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setIngredientName(String name) {
+		this.ingredientName = name;
 	}
 
 	public double getPrice() {

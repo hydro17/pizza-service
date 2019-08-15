@@ -22,14 +22,14 @@
       <input th:if="${pizza.id > 0}" type="text" th:field="*{id}" hidden>
 
       <label class="mb-0" style="align-self: center" for="name">Name:</label>
-      <input type="text" th:field="*{name}" />
+      <input type="text" th:field="*{pizzaName}" />
 
       <div class="mt-2" style="grid-column: 1/3">Select ingredients:</div>
 
       <ul class="ingredients-list" style="grid-column: 1/3">
         <li th:each="ingredient, itemStat : ${allIngredients}">
           <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}" />
-          <label th:for="${#ids.prev('ingredients')}" th:text="${ingredient.name} + ' >>> pizzaIngrId: ' + ${{pizza.ingredients[__${itemStat.index}__]}} + ' ingrId: ' + ${ingredient.id}"></label>
+          <label th:for="${#ids.prev('ingredients')}" th:text="${ingredient.ingredientName} + ' >>> pizzaIngrId: ' + ${{pizza.ingredients[__${itemStat.index}__]}} + ' ingrId: ' + ${ingredient.id}"></label>
         </li>
       </ul>
 

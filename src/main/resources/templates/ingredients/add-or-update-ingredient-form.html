@@ -26,8 +26,8 @@
 
       <label for="name">Name: </label>
       <div class="form-element">
-        <input type="text" th:field="*{name}" />
-        <div th:if="${#fields.hasErrors('name')}" class="error" th:errors="*{name}">Incorrect ingredient name</div>
+        <input type="text" th:field="*{ingredientName}" />
+        <div th:if="${#fields.hasErrors('ingredientName')}" class="error" th:errors="*{ingredientName}">Incorrect ingredient name</div>
       </div>
       
       <label for="price">Price: </label>

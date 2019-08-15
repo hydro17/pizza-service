@@ -33,7 +33,7 @@
       <tbody>
         <tr th:each="ingredient, itemStat : ${ingredients}">
           <td th:text="${itemStat.index + 1}" class="text-right"></td>
-          <td th:text="${ingredient.name}"></td>
+          <td th:text="${ingredient.ingredientName}"></td>
           <td th:text="${ingredient.price}" class="text-right"></td>
 
           <td>
