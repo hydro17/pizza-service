@@ -38,7 +38,7 @@ public class PizzaController {
 			List<String> ingredientsAsString = new ArrayList<>();
 			
 			pizza.getIngredients().forEach(ingr -> {
-				ingredientsAsString.add(ingr.getName()); 
+				ingredientsAsString.add(ingr.getIngredientName()); 
 			});
 			
 			String allIngredientsAsString = String.join(", ", ingredientsAsString);
@@ -49,7 +49,7 @@ public class PizzaController {
 				pizzaPrice += ingr.getPrice();
 			}
 
-			pizzaDTOs.add(new PizzaDTO(pizza.getId(), pizza.getName(), allIngredientsAsString, pizzaPrice));
+			pizzaDTOs.add(new PizzaDTO(pizza.getId(), pizza.getPizzaName(), allIngredientsAsString, pizzaPrice));
 		});
 		
 		model.addAttribute("pizzaDTOs", pizzaDTOs);
