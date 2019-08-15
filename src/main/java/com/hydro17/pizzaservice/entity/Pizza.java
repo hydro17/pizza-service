@@ -2,6 +2,7 @@ package com.hydro17.pizzaservice.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,10 +22,10 @@ public class Pizza {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="name")
-	private String name;
+	@Column(name="pizza_name")
+	private String pizzaName;
 	
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(name="pizza_ingredient",
 			joinColumns=@JoinColumn(name="pizza_id"),
 			inverseJoinColumns=@JoinColumn(name="ingredient_id"))
@@ -32,8 +33,8 @@ public class Pizza {
 	
 	public Pizza() {}
 	
-	public Pizza(String name, List<Ingredient> ingredients) {
-		this.name = name;
+	public Pizza(String pizzaName, List<Ingredient> ingredients) {
+		this.pizzaName = pizzaName;
 		this.ingredients = ingredients;
 	}
 
@@ -45,12 +46,12 @@ public class Pizza {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getPizzaName() {
+		return pizzaName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPizzaName(String name) {
+		this.pizzaName = name;
 	}
 	
 	public List<Ingredient> getIngredients() {
@@ -60,9 +61,9 @@ public class Pizza {
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Pizza [id=" + id + ", name=" + name + "]";
+		return "Pizza [id=" + id + ", name=" + pizzaName + ", ingredients=" + ingredients + "]";
 	}
 }
