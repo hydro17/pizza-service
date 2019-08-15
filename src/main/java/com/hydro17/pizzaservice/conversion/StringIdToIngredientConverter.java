@@ -18,6 +18,13 @@ public class StringIdToIngredientConverter implements Converter<String, Ingredie
 	@Autowired
 	IngredientDAO ingredientDAO;
 	
+	private List<Ingredient> ingredients;
+	
+	@PostConstruct
+	public void loadIngredients () {
+		this.ingredients = ingredientDAO.findAll();
+	}
+	
 	@Override
 	public Ingredient convert(String ingredientId) {
 		
@@ -29,9 +36,7 @@ public class StringIdToIngredientConverter implements Converter<String, Ingredie
 
 	private Ingredient getIngredientBy(Predicate<Ingredient> isItRequiredIngredient) {
 	
-		List<Ingredient> ingredients = ingredientDAO.findAll();
-		
-		for (Ingredient ingredient : ingredients) {
+		for (Ingredient ingredient : this.ingredients) {
 			if (isItRequiredIngredient.test(ingredient)) return ingredient;
 		}
 		
