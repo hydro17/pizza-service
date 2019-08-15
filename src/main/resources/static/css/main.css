@@ -42,12 +42,19 @@
   transition: transform .5s;
 }
 
-.menu__link:hover::after {
-  transform: scaleX(1);
+a:not([class*='menu__active-link']).menu__link:hover::after, 
+a:not([class*='menu__active-link']).menu__link:focus::after {
+  /* transform: scaleX(1); */
+  animation: pulse 1s ease-in-out infinite alternate;
 }
 
 .menu__active-link::after {
   transform: scaleX(1);
+}
+
+@keyframes pulse {
+  0% {transform: scaleX(0)}
+  100% {transform: scaleX(1)}
 }
 
 .menu__link:hover {
@@ -96,7 +103,7 @@
   font-size: .8em;
 }
 
-td {
+/* td {
   padding: .2em 0.4em;
 }
 
@@ -107,10 +114,13 @@ td {
 
 tr:nth-child(2n) {
   background: #eee;
-}
+} */
 
 .logged-customer {
   display: flex;
   align-items: center;
 }
 
+table a {
+  color: #000;
+}
