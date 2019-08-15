@@ -1,4 +1,4 @@
-package com.hydro17.pizzaservice.conversion;
+package com.hydro17.pizzaservice.converter;
 
 import java.util.List;
 import java.util.function.Predicate;

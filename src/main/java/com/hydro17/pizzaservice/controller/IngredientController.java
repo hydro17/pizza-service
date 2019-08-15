@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hydro17.pizzaservice.conversion.StringIdToIngredientConverter;
+import com.hydro17.pizzaservice.converter.StringIdToIngredientConverter;
 import com.hydro17.pizzaservice.dao.IngredientDAO;
 import com.hydro17.pizzaservice.entity.Ingredient;
 

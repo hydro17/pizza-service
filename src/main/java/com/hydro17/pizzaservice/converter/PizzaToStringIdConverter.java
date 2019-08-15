@@ -1,4 +1,4 @@
-package com.hydro17.pizzaservice.conversion;
+package com.hydro17.pizzaservice.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
