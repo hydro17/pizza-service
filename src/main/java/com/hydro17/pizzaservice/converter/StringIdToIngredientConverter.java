@@ -25,6 +25,10 @@ public class StringIdToIngredientConverter implements Converter<String, Ingredie
 		this.ingredients = ingredientDAO.findAll();
 	}
 	
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
 	@Override
 	public Ingredient convert(String ingredientId) {
 		

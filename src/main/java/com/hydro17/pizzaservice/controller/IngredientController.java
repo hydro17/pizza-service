@@ -26,6 +26,9 @@ public class IngredientController {
 	@Autowired
 	private IngredientDAO ingredientDAO;
 	
+	@Autowired
+	private StringIdToIngredientConverter stringIdToIngredientConverter;
+	
 	private class IngredientComment {
 		private int id;
 		private String comment;
@@ -77,6 +80,9 @@ public class IngredientController {
 		ingredient.setId(0);
 		ingredientDAO.save(ingredient);
 		
+		//Update list of ingredients in StringIdToIngredientConverter
+		stringIdToIngredientConverter.setIngredients(ingredientDAO.findAll());
+		
 		return "redirect:/ingredients/list";
 	}
 	
@@ -109,11 +115,14 @@ public class IngredientController {
 		try {
 			ingredientDAO.deleteById(ingredientId);
 			
+			//Update list of ingredients in StringIdToIngredientConverter
+			stringIdToIngredientConverter.setIngredients(ingredientDAO.findAll());
+			
 		} catch (DataIntegrityViolationException e) {
 			
 			System.out.println(">>> [source: CONTROLLER] Cannot delete the ingredient: " + ingredientId);
 			
-			this.ingredientComment = new IngredientComment(ingredientId, "Cannot be removed, is used");
+			this.ingredientComment = new IngredientComment(ingredientId, "Cannot be removed because is used");
 		
 		} catch (Exception e) {
 			
