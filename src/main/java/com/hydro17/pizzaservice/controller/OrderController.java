@@ -1,7 +1,5 @@
 package com.hydro17.pizzaservice.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.entity.Customer;
-import com.hydro17.pizzaservice.entity.PizzaOrder;
 import com.hydro17.pizzaservice.entity.Pizza;
+import com.hydro17.pizzaservice.entity.PizzaOrder;
 import com.hydro17.pizzaservice.enums.PizzaOrderStatus;
 import com.hydro17.pizzaservice.enums.PizzaSize;
 import com.hydro17.pizzaservice.repository.OrderRepository;
@@ -37,7 +35,7 @@ public class OrderController {
 		
 		HttpSession session = request.getSession();
 		
-//		Customer authenticatedCustomer = (Customer) session.getAttribute("authenticatedCustomer");
+//		Customer authenticatedCustomer = (Customer) session.getAttribute("authCustomer");
 //		
 //		if (authenticatedCustomer == null) {
 //			model.addAttribute("orders", new ArrayList<Order>());
@@ -57,16 +55,22 @@ public class OrderController {
 	}
 	
 	@GetMapping("/add/{pizzaId}")
-	public String showAddPizzaOrderForm(@PathVariable int pizzaId, Model model) {
+	public String showAddPizzaOrderForm(@PathVariable int pizzaId, Model model, HttpServletRequest request) {
 		
 		PizzaOrder pizzaOrder = new PizzaOrder();
 		pizzaOrder.setPizza(getPizzaById(pizzaId));
-		pizzaOrder.setPizzaOrderStatus(PizzaOrderStatus.ORDERED);
+		pizzaOrder.setStatus(PizzaOrderStatus.ORDERED);
 		pizzaOrder.setPizzaSize(PizzaSize.LARGE);
 		
-		Customer customer = new Customer();
-		customer.setId(4);
-		pizzaOrder.setCustomer(customer);
+		Customer authCustomer = (Customer) request.getSession().getAttribute("authCustomer"); 
+		
+		if (authCustomer == null) {
+			Customer customer = new Customer();
+			customer.setId(4);
+			pizzaOrder.setCustomer(customer);
+		} else {
+			pizzaOrder.setCustomer(authCustomer);
+		}
 		
 		model.addAttribute("allSizes", PizzaSize.values());
 		model.addAttribute("pizzaOrder", pizzaOrder);

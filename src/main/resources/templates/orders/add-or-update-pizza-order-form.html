@@ -20,12 +20,12 @@
       th:action="@{/orders/{action}(action=(${pizzaOrder.id} == 0 ? 'add' : 'update'))}" method="POST">
 
       <input th:if="*{id} > 0" hidden type="text" th:field="*{id}" />
-      <input hidden type="text" th:field="*{pizzaOrderStatus}" />
+      <input hidden type="text" th:field="*{status}" />
       <input hidden type="text" th:field="*{pizza}" />
       <input hidden type="text" th:field="*{customer}" />
 
       <p>Pizza: </p>
-      <p th:text="*{pizza.name}">Pizza name</p>
+      <p th:text="*{pizza.pizzaName}">Pizza name</p>
 
       <div style="grid-column: 1/3">
 

@@ -24,7 +24,6 @@
       <thead>
         <tr>
           <th>Nr</th>
-          <th>Id zamówienia</th>
           <th>Status</th>
           <th>Nazwa pizzy</th>
           <th>Rozmiar</th>
@@ -36,16 +35,15 @@
       <tbody>
         <tr th:each="pizzaOrder, itemStat : ${pizzaOrders}">
           <td th:text="${itemStat.index + 1}"></td>
-          <td th:text="${pizzaOrder.id}"></td>
           <td class="text-lowercase" th:text="${pizzaOrder.status}"></td>
-          <td th:text="${pizzaOrder.pizza.name}"></td>
+          <td th:text="${pizzaOrder.pizza.pizzaName}"></td>
           <td class="text-lowercase" th:text="${pizzaOrder.pizzaSize}"></td>
           <td th:text="${pizzaOrder.quantity}"></td>
           <td th:text="${pizzaOrder.customer.email}"></td>
           <td>
-            <a th:href="@{delete/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-edit"></i></a>
+            <a th:href="@{update/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-edit"></i></a>
             <span>&nbsp;</span>
-            <a th:href="@{update/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-trash-alt"></i></a>
+            <a th:href="@{delete/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-trash-alt"></i></a>
           </td>
         </tr>
       </tbody>
@@ -53,6 +51,7 @@
 
   </div>
 
+  <script th:src="@{/js/current-pizza-orer-status.js}"></script>
 </body>
 
 </html>
