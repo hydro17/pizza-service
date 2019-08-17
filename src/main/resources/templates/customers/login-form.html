@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
   <meta charset="UTF-8">
@@ -10,14 +11,16 @@
 </head>
 
 <body>
-  <div th:replace="home :: menu-container"></div>
+  <div sec:authorize="isAuthenticated()" th:replace="home :: menu-container"></div>
 
-  <div class="main-container">
+  <div class="main-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-4'">
 
     <h2 class="mb-3">Zaloguj się</h2>
 
-    <form class="form-add-or-update" action="#" th:action="@{/login-process}" method="POST">
+    <p th:if="${param.error != null}" class="text-danger">Nazwa użytkownika lub hasło są błędne.</p>
+    <p th:if="${param.logout != null}" class="text-success">Miało miejsce pomyślne wylogowanie użytkownika.</p>
 
+    <form class="form-add-or-update" action="#" th:action="@{/login-process}" method="POST">
 
       <label for="username">User: </label>
       <input type="text" id="username" name="username" />
