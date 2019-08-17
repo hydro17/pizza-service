@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
   <meta charset="UTF-8">
@@ -14,9 +15,10 @@
 
   <div class="main-container">
 
-    <h2>Pizzas</h2>
+    <h2 th:if="${param.select == null}">Oferta</h2>
+    <h2 th:if="${param.select != null}">Wybierz pizzę</h2>
 
-    <a th:href="@{add}">
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{add}">
       <h3>Add new pizza</h3>
     </a>
 
@@ -39,11 +41,15 @@
           <td th:text="${pizzaDTO.ingredients}"></td>
           <td th:text="${pizzaDTO.price}"></td>
           <td>
-            <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-edit"></i></a>
-            <span>&nbsp;</span>
-            <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-trash-alt"></i></a>
-            <span>&nbsp;</span>
-            <a th:href="@{/orders/add/{pizzaId}(pizzaId=${pizzaDTO.id})}">Zamów</a>
+            <span sec:authorize="hasRole('ADMIN')">
+              <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-edit"></i></a>
+              <span>&nbsp;</span>
+              <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-trash-alt"></i></a>
+              <span>&nbsp;</span>
+            </span>
+
+            <a th:if="${param.select == null}" th:href="@{/orders/add/{pizzaId}(pizzaId=${pizzaDTO.id})}">Zamów</a>
+            <a th:if="${param.select != null}" th:href="@{/orders/add/{pizzaId}(pizzaId=${pizzaDTO.id})}">Wybierz</a>
           </td>
         </tr>
       </tbody>
