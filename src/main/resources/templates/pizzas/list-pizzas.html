@@ -15,8 +15,7 @@
 
   <div class="main-container">
 
-    <h2 th:if="${param.select == null}">Oferta</h2>
-    <h2 th:if="${param.select != null}">Wybierz pizzę</h2>
+    <h2 th:text="${param.select == null} ? 'Oferta' : 'Wybierz pizzę'" class="mb-3">Oferta / Wybierz pizzę</h2>
 
     <a sec:authorize="hasRole('ADMIN')" th:href="@{add}">
       <h3>Add new pizza</h3>
