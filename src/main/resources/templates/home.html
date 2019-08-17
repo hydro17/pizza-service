@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
   <meta charset="UTF-8">
@@ -15,22 +16,40 @@
     <div class="menu-container">
 
       <nav class="menu">
-        <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/pizzas/list' ? 'menu__active-link' : ''}" th:href="@{/pizzas/list}">Oferta</a>
-        <span class="menu__separator">&emsp;|&emsp;</span>
+        <span sec:authorize="hasRole('ROLE_USER')">
+          <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/pizzas/list' ? 'menu__active-link' : ''}" th:href="@{/pizzas/list}">Oferta</a>
+          <span class="menu__separator">&emsp;|&emsp;</span>
+        </span>
 
-        <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/ingredients/list' ? 'menu__active-link' : ''}" th:href="@{/ingredients/list}">Składniki pizzy</a>
-        <span class="menu__separator">&emsp;|&emsp;</span>
+        <span sec:authorize="hasRole('ROLE_USER')">
+          <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/ingredients/list' ? 'menu__active-link' : ''}" th:href="@{/ingredients/list}">Składniki pizzy</a>
+          <span class="menu__separator">&emsp;|&emsp;</span>
+        </span>
 
-        <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/customers/list' ? 'menu__active-link' : ''}" th:href="@{/customers/list}">Klienci</a>
-        <span class="menu__separator">&emsp;|&emsp;</span>
-
-        <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/orders/list' ? 'menu__active-link' : ''}"  th:href="@{/orders/list}">Zamówienia</a>
-        <span class="menu__separator">&emsp;|&emsp;</span>
+        <span sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_COOK')">
+          <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/orders/list' ? 'menu__active-link' : ''}"  th:href="@{/orders/list}">Zamówienia</a>
+          <span class="menu__separator">&emsp;|&emsp;</span>
+        </span>
+        
+        <span sec:authorize="hasRole('ROLE_ADMIN')">
+          <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/customers/list' ? 'menu__active-link' : ''}" th:href="@{/customers/list}">Klienci</a>
+        </span>
       </nav>
 
-      <div class="logged-customer ml-auto"
-        th:text="${session !=null ? (session.authCustomer != null ? session.authCustomer.firstName : 'no user') : 'no session'}">
-        Logged user name</div>
+      <div class="logged-customer ml-auto">
+      
+        <div sec:authorize="isAuthenticated()">
+          <form action="#" th:action="@{/logout}" method="POST">
+            Witaj, <span sec:authentication="name"></span>
+            <input type="submit" value="Logout">
+          </form>
+        </div>
+
+        <div sec:authorize="!isAuthenticated()">
+          <a th:href="@{/login}">Zaloguj się</a>
+        </div>
+
+      </div>
 
     </div>
   </div>
