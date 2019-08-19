@@ -16,17 +16,17 @@
     <div class="menu-container">
 
       <nav class="menu">
-        <span sec:authorize="hasRole('ROLE_USER')">
+        <span sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
           <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/pizzas/list' ? 'menu__active-link' : ''}" th:href="@{/pizzas/list}">Oferta</a>
           <span class="menu__separator">&emsp;|&emsp;</span>
         </span>
 
-        <span sec:authorize="hasRole('ROLE_USER')">
+        <span sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
           <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/ingredients/list' ? 'menu__active-link' : ''}" th:href="@{/ingredients/list}">Składniki pizzy</a>
           <span class="menu__separator">&emsp;|&emsp;</span>
         </span>
 
-        <span sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_COOK')">
+        <span sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_COOK', 'ROLE_ADMIN')">
           <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/orders/list' ? 'menu__active-link' : ''}"  th:href="@{/orders/list}">Zamówienia</a>
           <span class="menu__separator">&emsp;|&emsp;</span>
         </span>
@@ -39,8 +39,9 @@
       <div class="logged-customer ml-auto">
       
         <div sec:authorize="isAuthenticated()">
-          <form action="#" th:action="@{/logout}" method="POST">
-            Witaj, <span sec:authentication="name"></span>
+          Witaj, <span sec:authentication="name"></span>
+          Role: <span sec:authentication="principal.authorities"></span>
+          <form style="display:inline" action="#" th:action="@{/logout}" method="POST">
             <input type="submit" value="Logout">
           </form>
         </div>
