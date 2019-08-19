@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +52,7 @@ public class OrderController {
 	
 	@GetMapping("/add")
 	public String selectPizza() {
-		return "redirect:/pizzas/list";
+		return "redirect:/pizzas/list?select";
 	}
 	
 	@GetMapping("/add/{pizzaId}")
@@ -63,6 +64,8 @@ public class OrderController {
 		pizzaOrder.setPizzaSize(PizzaSize.LARGE);
 		
 		Customer authCustomer = (Customer) request.getSession().getAttribute("authCustomer"); 
+		
+//		Object princial = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		if (authCustomer == null) {
 			Customer customer = new Customer();
