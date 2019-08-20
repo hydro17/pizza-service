@@ -24,31 +24,12 @@ import com.hydro17.pizzaservice.service.UserPrinciplaDetailsService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private DataSource dataSource;
-	
-	@Autowired
 	private UserPrinciplaDetailsService userDetailsService;
-	
-//	@Autowired
-//	private WebApplicationContext applicationContext;
-	
-//	@PostConstruct
-//    public void completeSetup() {
-//        userDetailsService = applicationContext.getBean(UserPrinciplaDetailsService.class);
-//    }
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
 		auth.authenticationProvider(authenticationProvider());
-		
-//		auth.userDetailsService(userDetailsService)
-//			.passwordEncoder(passwordEncoder())
-//			.and()
-//			.authenticationProvider(authenticationProvider())
-//			.jdbcAuthentication()
-//			.dataSource(dataSource);
-			
 	}
 
 	@Override
@@ -69,8 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder(11);
-		return NoOpPasswordEncoder.getInstance();
+		return new BCryptPasswordEncoder();
+//		return NoOpPasswordEncoder.getInstance();
 	}
 	
 	@Bean
@@ -80,9 +61,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
-
-//	@Bean
-//    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-//        return new SecurityEvaluationContextExtension();
-//    }
 }
