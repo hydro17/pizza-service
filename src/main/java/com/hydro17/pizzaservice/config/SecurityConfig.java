@@ -24,13 +24,13 @@ import com.hydro17.pizzaservice.service.UserPrinciplaDetailsService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private WebApplicationContext applicationContext;
-	
-	@Autowired
 	private DataSource dataSource;
 	
 	@Autowired
 	private UserPrinciplaDetailsService userDetailsService;
+	
+//	@Autowired
+//	private WebApplicationContext applicationContext;
 	
 //	@PostConstruct
 //    public void completeSetup() {
@@ -40,33 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		auth.userDetailsService(userDetailsService)
-			.passwordEncoder(encoder())
-			.and()
-			.authenticationProvider(authenticationProvider())
-			.jdbcAuthentication()
-			.dataSource(dataSource);
+		auth.authenticationProvider(authenticationProvider());
+		
+//		auth.userDetailsService(userDetailsService)
+//			.passwordEncoder(passwordEncoder())
+//			.and()
+//			.authenticationProvider(authenticationProvider())
+//			.jdbcAuthentication()
+//			.dataSource(dataSource);
 			
-//		UserBuilder user = User.withDefaultPasswordEncoder();
-
-//		auth.inMemoryAuthentication()
-//			.withUser("user").password("{noop}user123").roles("USER")
-//			.and()
-//			.withUser("cook").password("{noop}cook123").roles("COOK")
-//			.and()
-//			.withUser("admin").password("{noop}admin123").roles("ADMIN", "USER", "COOK");
-//			.withUser(user.username("user").password("user123").roles("USER"))
-//			.withUser(user.username("cook").password("cook123").roles("COOK"))
-//			.withUser(user.username("admin").password("admin123").roles("ADMIN", "USER", "COOK"));
-//			.withUser("user").password("user123").roles("USER")
-//			.and()
-//			.withUser("admin").password("admin123").roles("ADMIN", "USER", "COOK");
 	}
-	
-//	@Bean
-//	public PasswordEncoder getPasswordEncoder() {
-//		return NoOpPasswordEncoder.getInstance();
-//	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -85,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public PasswordEncoder encoder() {
+	public PasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder(11);
 		return NoOpPasswordEncoder.getInstance();
 	}
@@ -94,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailsService);
-		authProvider.setPasswordEncoder(encoder());
+		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
 
