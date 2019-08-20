@@ -18,18 +18,18 @@
     <h2 class="mb-3">Zaloguj się</h2>
 
     <p th:if="${param.error != null}" class="text-danger">Nazwa użytkownika lub hasło są błędne.</p>
-    <p th:if="${param.logout != null}" class="text-success">Miało miejsce pomyślne wylogowanie użytkownika.</p>
+    <p th:if="${param.logout != null}" class="text-success">Użytkownik wylogowany pomyśnie.</p>
 
     <form class="form-add-or-update" action="#" th:action="@{/login-process}" method="POST">
 
-      <label for="username">User: </label>
-      <input type="text" id="username" name="username" />
+      <label for="username">e-mail: </label>
+      <input type="text" id="username" name="username" autofocus/>
 
-      <label for="password">Password: </label>
+      <label for="password">Hasło: </label>
       <input type="password" id="password" name="password" />
 
       <div style="grid-column: 1/3">
-        <a class="btn btn-primary" th:href="@{/customers/add}">Zarejestruj się</a>
+        <a class="btn btn-primary" th:href="@{/register-user}">Zarejestruj się</a>
         <input class="btn btn-success" type="submit" value="Zaloguj się" />
       </div>
 
