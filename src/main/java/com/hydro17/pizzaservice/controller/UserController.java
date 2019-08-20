@@ -1,18 +1,20 @@
 package com.hydro17.pizzaservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hydro17.pizzaservice.entity.User;
 import com.hydro17.pizzaservice.repository.RoleRepository;
 import com.hydro17.pizzaservice.repository.UserRepository;
 
 @Controller
-public class LoginController {
+public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -20,10 +22,13 @@ public class LoginController {
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@GetMapping("/login")
 	public String showLoginForm() {
 		
-		return "/customers/login-form";
+		return "/users/login-form";
 	}
 	
 	@GetMapping("/register-user")
@@ -40,6 +45,8 @@ public class LoginController {
 	
 	@PostMapping("/register-user")
 	public String processRegisterUserForm(@ModelAttribute User user) {
+		
+		user.setPassword(passwordEncoder.encode(user.getPassword())); 
 		
 		userRepository.save(user);
 		
