@@ -43,7 +43,8 @@ public class UserController {
 	public String showRegisterUserForm(Model model) {
 		
 		User user = new User();
-		user.setRole(roleRepository.findByName("ROLE_ADMIN"));
+		user.setRole(roleRepository.findByName("ROLE_CUSTOMER"));
+//		user.setRole(roleRepository.findByName("ROLE_ADMIN"));
 		
 		model.addAttribute("user", user);
 		

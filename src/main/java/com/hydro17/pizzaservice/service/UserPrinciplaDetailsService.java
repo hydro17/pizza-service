@@ -26,5 +26,4 @@ public class UserPrinciplaDetailsService implements UserDetailsService {
 		
 		return new UserPrincipal(user);
 	}
-
 }
