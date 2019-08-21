@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hydro17.pizzaservice.entity.User;
 import com.hydro17.pizzaservice.repository.RoleRepository;
@@ -25,6 +25,14 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@GetMapping("/users/list")
+	public String listUsers(Model model) {
+		
+		model.addAttribute("users", userRepository.findAll());
+		
+		return "/users/list-users";
+	}
+	
 	@GetMapping("/login")
 	public String showLoginForm() {
 		
@@ -35,7 +43,6 @@ public class UserController {
 	public String showRegisterUserForm(Model model) {
 		
 		User user = new User();
-		user.setId(0);
 		user.setRole(roleRepository.findByName("ROLE_ADMIN"));
 		
 		model.addAttribute("user", user);
@@ -46,10 +53,35 @@ public class UserController {
 	@PostMapping("/register-user")
 	public String processRegisterUserForm(@ModelAttribute User user) {
 		
+		user.setId(0);
 		user.setPassword(passwordEncoder.encode(user.getPassword())); 
 		
 		userRepository.save(user);
 		
-		return "redirect:/pizzas/list";
+		return "redirect:/users/list";
+	}
+	
+	@GetMapping("/users/update/{userId}")
+	public String showUpdateUserForm(@PathVariable int userId, Model model) {
+		
+		model.addAttribute("user", userRepository.findById(userId).get());
+		
+		return "/users/register-or-update-user-form";
+	}
+	
+	@PostMapping("/users/update")
+	public String updateUser(@ModelAttribute User user) {
+		
+		userRepository.save(user);
+		
+		return "redirect:/users/list";
+	}
+	
+	@GetMapping("/users/delete/{userId}")
+	public String deleteUser(@PathVariable int userId) {
+		
+		userRepository.deleteById(userId);
+		
+		return "redirect:/users/list";
 	}
 }
