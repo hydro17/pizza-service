@@ -41,11 +41,13 @@
           <td th:text="${pizzaOrder.quantity}"></td>
           <td th:text="${pizzaOrder.user.email}"></td>
           <td>
-            <div th:if="${pizzaOrder.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
+            <span th:if="${pizzaOrder.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
               <a th:href="@{update/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-edit"></i></a>
               <span>&nbsp;</span>
               <a th:href="@{delete/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-trash-alt"></i></a>
-            </div>
+            </span>
+            <span>&nbsp;</span>
+            <a th:href="@{change-status/{orderId}(orderId=${pizzaOrder.id})}">Zmień status</a>
           </td>
         </tr>
       </tbody>
