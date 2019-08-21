@@ -1,38 +1,22 @@
 package com.hydro17.pizzaservice.converter;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 
-import com.hydro17.pizzaservice.entity.Customer;
-import com.hydro17.pizzaservice.repository.CustomerRepository;
+import com.hydro17.pizzaservice.entity.User;
+import com.hydro17.pizzaservice.repository.UserRepository;
 
-@Component
-public class StringIdToCustomerConverter implements Converter<String, Customer> {
+//@Component
+public class StringIdToUserConverter implements Converter<String, User> {
 
 	@Autowired
-	private CustomerRepository customerRepository;
+	private UserRepository userRepository;
 	
 	@Override
-	public Customer convert(String customerId) {
+	public User convert(String userId) {
 		
-		int customerIdAsInt = Integer.parseInt(customerId);
+		int userIdAsInt = Integer.parseInt(userId);
 		
-		return getCustomerBy(customer -> customer.getId() == customerIdAsInt);
+		return userRepository.findById(userIdAsInt).get();
 	}
-	
-	private Customer getCustomerBy(Predicate<Customer> isHeRequiredCustomer) {
-		
-		List<Customer> customers = customerRepository.findAll();
-		
-		for (Customer customer : customers) {
-			if (isHeRequiredCustomer.test(customer)) return customer;
-		}
-		
-		return null;
-	}
-
 }
