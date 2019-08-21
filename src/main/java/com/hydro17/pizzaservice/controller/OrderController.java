@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +18,11 @@ import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.entity.Customer;
 import com.hydro17.pizzaservice.entity.Pizza;
 import com.hydro17.pizzaservice.entity.PizzaOrder;
+import com.hydro17.pizzaservice.entity.User;
 import com.hydro17.pizzaservice.enums.PizzaOrderStatus;
 import com.hydro17.pizzaservice.enums.PizzaSize;
 import com.hydro17.pizzaservice.repository.OrderRepository;
+import com.hydro17.pizzaservice.repository.UserRepository;
 
 @Controller
 @RequestMapping("/orders")
@@ -31,21 +34,19 @@ public class OrderController {
 	@Autowired
 	private PizzaDAO pizzaDAO;
 	
+	@Autowired
+	private UserRepository userRepository;
+	
 	@GetMapping("/list")
-	public String listAll(Model model, HttpServletRequest request) {
+	public String listAll(Model model) {
 		
-		HttpSession session = request.getSession();
+		User loggedInUser = getLoggedInUser();
 		
-//		Customer authenticatedCustomer = (Customer) session.getAttribute("authCustomer");
-//		
-//		if (authenticatedCustomer == null) {
-//			model.addAttribute("orders", new ArrayList<Order>());
-//			return "orders/list";
-//		}
-//		
-//		model.addAttribute("orders", orderRepository.findByCustomerId(authenticatedCustomer.getId()));
-		
-		model.addAttribute("pizzaOrders", orderRepository.findAll());
+		if (loggedInUser.getRole().getName().equals("ROLE_ADMIN")) {
+			model.addAttribute("pizzaOrders", orderRepository.findAll());
+		} else {
+			model.addAttribute("pizzaOrders", orderRepository.findByUser(loggedInUser));
+		}
 		
 		return "orders/list-pizza-orders";
 	}
@@ -56,38 +57,37 @@ public class OrderController {
 	}
 	
 	@GetMapping("/add/{pizzaId}")
-	public String showAddPizzaOrderForm(@PathVariable int pizzaId, Model model, HttpServletRequest request) {
+	public String showAddPizzaOrderForm(@PathVariable int pizzaId, Model model) {
 		
 		PizzaOrder pizzaOrder = new PizzaOrder();
-		pizzaOrder.setPizza(getPizzaById(pizzaId));
+		pizzaOrder.setPizza(pizzaDAO.findById(pizzaId)); 
+		
+		//Set the initial order status
 		pizzaOrder.setStatus(PizzaOrderStatus.ORDERED);
+		
+		//Set the suggested pizza size
 		pizzaOrder.setPizzaSize(PizzaSize.LARGE);
 		
-		Customer authCustomer = (Customer) request.getSession().getAttribute("authCustomer"); 
-		
-//		Object princial = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		if (authCustomer == null) {
-			Customer customer = new Customer();
-			customer.setId(4);
-			pizzaOrder.setCustomer(customer);
-		} else {
-			pizzaOrder.setCustomer(authCustomer);
-		}
+		User loggedInUser = getLoggedInUser();  
+		pizzaOrder.setUser(loggedInUser);
 		
 		model.addAttribute("allSizes", PizzaSize.values());
 		model.addAttribute("pizzaOrder", pizzaOrder);
 		
 		return "orders/add-or-update-pizza-order-form";
 	}
-	
-	private Pizza getPizzaById(int pizzaId) {
+
+	private User getLoggedInUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		for (Pizza pizza : pizzaDAO.findAll()) {
-			if (pizza.getId() == pizzaId) return pizza;
+		String email;
+		if (principal instanceof UserDetails) {
+			email = ((UserDetails)principal).getUsername();
+		} else {
+			email = principal.toString();
 		}
 		
-		return null;
+		return userRepository.findByEmail(email);
 	}
 
 	@PostMapping("/add")
@@ -104,9 +104,9 @@ public class OrderController {
 	public String showUpdatePizzaOrderForm(@PathVariable int orderId,  Model model) {
 		
 		model.addAttribute("pizzaOrder", orderRepository.findById(orderId).orElseGet(() -> {
-			PizzaOrder o = new PizzaOrder(); 
-			o.setId(9999); 
-			return o;
+			PizzaOrder order = new PizzaOrder(); 
+			order.setId(9999); 
+			return order;
 		}));	
 		
 		model.addAttribute("allSizes", PizzaSize.values());
@@ -129,4 +129,26 @@ public class OrderController {
 		
 		return "redirect:/orders/list";
 	}
+	
+	@GetMapping("/change-status/{orderId}")
+	public String showChangeOrderStatusForm(@PathVariable int orderId, Model model) {
+		
+		model.addAttribute("pizzaOrder", orderRepository.findById(orderId).get());
+		model.addAttribute("allStatuses", PizzaOrderStatus.values());
+		
+		return "orders/change-order-status-form";
+	}
+	
+	@PostMapping("/change-status")
+	public String changeOrderStatus(@ModelAttribute PizzaOrder pizzaOrder) {
+		
+		orderRepository.save(pizzaOrder);
+		
+		return "redirect:/orders/list";
+	}
+	
+	
+	
+	
+	
 }
