@@ -37,19 +37,19 @@ public class PizzaOrder {
 	private Pizza pizza;
 	
 	@ManyToOne
-	@JoinColumn(name="customer_id")
-	private Customer customer;
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	@Column(name="pizza_size")
 	private PizzaSize pizzaSize;
 
 	public PizzaOrder() {}
 
-	public PizzaOrder(PizzaOrderStatus orderStatus, int quantity, Customer customer, Pizza pizza, PizzaSize pizzaSize) {
-		this.status = orderStatus;
+	public PizzaOrder(PizzaOrderStatus status, int quantity, Pizza pizza, User user, PizzaSize pizzaSize) {
+		this.status = status;
 		this.quantity = quantity;
-		this.customer = customer;
 		this.pizza = pizza;
+		this.user = user;
 		this.pizzaSize = pizzaSize;
 	}
 
@@ -59,6 +59,14 @@ public class PizzaOrder {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public PizzaOrderStatus getStatus() {
@@ -75,14 +83,6 @@ public class PizzaOrder {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
 	}
 
 	public Pizza getPizza() {
@@ -103,7 +103,7 @@ public class PizzaOrder {
 
 	@Override
 	public String toString() {
-		return "PizzaOrder [id=" + id + ", orderStatus=" + status + ", quantity=" + quantity + ", customer="
-				+ customer + ", pizza=" + pizza + ", pizzaSize=" + pizzaSize + "]";
-	};
+		return "PizzaOrder [id=" + id + ", status=" + status + ", quantity=" + quantity + ", pizza=" + pizza + ", user="
+				+ user + ", pizzaSize=" + pizzaSize + "]";
+	}
 }
