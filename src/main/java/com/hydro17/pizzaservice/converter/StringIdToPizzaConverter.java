@@ -21,17 +21,6 @@ public class StringIdToPizzaConverter implements Converter<String, Pizza> {
 		
 		int pizzaIdAsInt = Integer.parseInt(pizzaId);
 		
-		return getPizzaBy(pizza -> pizza.getId() == pizzaIdAsInt);
-	}
-
-	private Pizza getPizzaBy(Predicate<Pizza> isItRequiredPizza) {
-		
-		List<Pizza> pizzas = pizzaDAO.findAll();
-		
-		for (Pizza pizza : pizzas) {
-			if (isItRequiredPizza.test(pizza)) return pizza;
-		}
-		
-		return null;
+		return pizzaDAO.findById(pizzaIdAsInt);
 	}
 }
