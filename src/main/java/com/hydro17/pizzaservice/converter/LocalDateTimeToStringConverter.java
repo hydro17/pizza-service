@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import com.hydro17.pizzaservice.PizzaServiceConstants;
+import com.hydro17.pizzaservice.globals.PizzaServiceConstants;
 
 @Component
 public class LocalDateTimeToStringConverter implements Converter<LocalDateTime, String> {
