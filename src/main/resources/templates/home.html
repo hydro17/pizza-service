@@ -42,10 +42,11 @@
       <div class="logged-customer ml-auto">
       
         <div sec:authorize="isAuthenticated()">
-          Witaj, <span sec:authentication="name"></span>
-          Role: <span sec:authentication="principal.authorities"></span>
+          Witaj, <span class="mr-3" th:text="${#authentication.getPrincipal().getUser().getName()}"></span>
+          <!-- Witaj, <span sec:authentication="name"></span> -->
+          <!-- Role: <span sec:authentication="principal.authorities"></span> -->
           <form style="display:inline" action="#" th:action="@{/logout}" method="POST">
-            <input type="submit" value="Logout">
+            <small><input type="submit" value="Wyloguj się"></small>
           </form>
         </div>
 

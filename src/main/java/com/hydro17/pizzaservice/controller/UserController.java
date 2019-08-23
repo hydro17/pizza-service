@@ -1,6 +1,8 @@
 package com.hydro17.pizzaservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.hydro17.pizzaservice.dto.UserPrincipal;
 import com.hydro17.pizzaservice.entity.User;
 import com.hydro17.pizzaservice.repository.RoleRepository;
 import com.hydro17.pizzaservice.repository.UserRepository;
@@ -74,6 +77,11 @@ public class UserController {
 	public String updateUser(@ModelAttribute User user) {
 		
 		userRepository.save(user);
+		
+		//Update name of User instance wrapped by UserPrincipal to be correctly display in the top bar,
+		//without the need to log out and log in after changing user name
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		((UserPrincipal)principal).getUser().setName(user.getName());;
 		
 		return "redirect:/users/list";
 	}
