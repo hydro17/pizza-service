@@ -24,12 +24,11 @@
       <thead>
         <tr>
           <th>Nr</th>
-          <th>Data</th>
+          <th>Data zamówienia</th>
           <th>Status</th>
           <th>Nazwa pizzy</th>
           <th>Rozmiar</th>
           <th>Liczba</th>
-          <th>E-mail zamawiającego</th>
           <th>Akcje</th>
         </tr>
       </thead>
@@ -41,7 +40,6 @@
           <td th:text="${pizzaOrder.pizza.pizzaName}"></td>
           <td class="text-lowercase" th:text="${pizzaOrder.pizzaSize}"></td>
           <td th:text="${pizzaOrder.quantity}"></td>
-          <td th:text="${pizzaOrder.user.email}"></td>
           <td>
             <span th:if="${pizzaOrder.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
               <a th:href="@{update/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-edit"></i></a>
