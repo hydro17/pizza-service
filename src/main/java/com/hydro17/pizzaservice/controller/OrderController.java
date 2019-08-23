@@ -43,7 +43,7 @@ public class OrderController {
 		if (loggedInUser.getRole().getName().equals("ROLE_ADMIN")) {
 			model.addAttribute("pizzaOrders", orderRepository.findAll());
 		} else {
-			model.addAttribute("pizzaOrders", orderRepository.findByUser(loggedInUser));
+			model.addAttribute("pizzaOrders", orderRepository.findAllByUser(loggedInUser));
 		}
 		
 		return "orders/list-pizza-orders";

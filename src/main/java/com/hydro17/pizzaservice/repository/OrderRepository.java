@@ -13,6 +13,6 @@ public interface OrderRepository extends JpaRepository<PizzaOrder, Integer> {
 //	@Query("select po from PizzaOrder po where po.user.id = ?1")
 //	List<PizzaOrder> findByUserId(int userId);
 	
-	List<PizzaOrder> findByUser(User user);
+	List<PizzaOrder> findAllByUser(User user);
 }
 	
