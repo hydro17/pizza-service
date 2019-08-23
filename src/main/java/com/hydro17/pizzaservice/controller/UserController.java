@@ -49,6 +49,7 @@ public class UserController {
 		user.setRole(roleRepository.findByName("ROLE_CUSTOMER"));
 //		user.setRole(roleRepository.findByName("ROLE_ADMIN"));
 		
+		model.addAttribute("allRoles", roleRepository.findAll());
 		model.addAttribute("user", user);
 		
 		return "users/register-or-update-user-form";
@@ -68,6 +69,7 @@ public class UserController {
 	@GetMapping("/users/update/{userId}")
 	public String showUpdateUserForm(@PathVariable int userId, Model model) {
 		
+		model.addAttribute("allRoles", roleRepository.findAll());
 		model.addAttribute("user", userRepository.findById(userId).get());
 		
 		return "/users/register-or-update-user-form";

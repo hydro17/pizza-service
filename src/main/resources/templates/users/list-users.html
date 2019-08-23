@@ -26,16 +26,16 @@
           <th>Nr</th>
           <th>Nazwa</th>
           <th>E-mail</th>
-          <th>Hasło</th>
+          <th>Rola</th>
           <th>Akcja</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="user, itemStat : ${users}">
-          <td th:text="${itemStat.index + 1}">Nr</td>
-          <td th:text="${user.name}">Nazwa</td>
+          <td th:text="${itemStat.index + 1}">nr</td>
+          <td th:text="${user.name}">nazwa</td>
           <td th:text="${user.email}">e-mail</td>
-          <td th:text="${user.password}">Hasło</td>
+          <td th:text="${user.role.name}">rola</td>
           <td>
             <a th:href="@{update/{userId}(userId=${user.id})}"><i class="far fa-edit"></i></a>
             <span>&nbsp;</span>
