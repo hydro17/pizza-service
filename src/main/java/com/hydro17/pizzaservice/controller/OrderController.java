@@ -1,7 +1,7 @@
 package com.hydro17.pizzaservice.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hydro17.pizzaservice.dao.PizzaDAO;
-import com.hydro17.pizzaservice.entity.Customer;
-import com.hydro17.pizzaservice.entity.Pizza;
 import com.hydro17.pizzaservice.entity.PizzaOrder;
 import com.hydro17.pizzaservice.entity.User;
 import com.hydro17.pizzaservice.enums.PizzaOrderStatus;
@@ -67,6 +65,8 @@ public class OrderController {
 		
 		//Set the suggested pizza size
 		pizzaOrder.setPizzaSize(PizzaSize.LARGE);
+		
+		pizzaOrder.setOrderDate(LocalDateTime.now(ZoneId.of("Europe/Warsaw")));
 		
 		User loggedInUser = getLoggedInUser();  
 		pizzaOrder.setUser(loggedInUser);

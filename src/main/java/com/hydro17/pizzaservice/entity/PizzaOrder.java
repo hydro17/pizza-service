@@ -1,6 +1,6 @@
 package com.hydro17.pizzaservice.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,8 +23,8 @@ public class PizzaOrder {
 	@Column(name="id")
 	private int id;
 	
-//	@Column(name="ordering_date")
-//	private Date orderingDate;
+	@Column(name="ordering_date")
+	private LocalDateTime orderDate;
 	
 	@Column(name="order_status")
 	private PizzaOrderStatus status;
@@ -45,13 +45,17 @@ public class PizzaOrder {
 
 	public PizzaOrder() {}
 
-	public PizzaOrder(PizzaOrderStatus status, int quantity, Pizza pizza, User user, PizzaSize pizzaSize) {
+
+	public PizzaOrder(LocalDateTime orderingDate, PizzaOrderStatus status, int quantity, Pizza pizza, User user,
+			PizzaSize pizzaSize) {
+		this.orderDate = orderingDate;
 		this.status = status;
 		this.quantity = quantity;
 		this.pizza = pizza;
 		this.user = user;
 		this.pizzaSize = pizzaSize;
 	}
+
 
 	public int getId() {
 		return id;
@@ -101,9 +105,17 @@ public class PizzaOrder {
 		this.pizzaSize = pizzaSize;
 	}
 
+	public LocalDateTime getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(LocalDateTime orderDate) {
+		this.orderDate = orderDate;
+	}
+
 	@Override
 	public String toString() {
-		return "PizzaOrder [id=" + id + ", status=" + status + ", quantity=" + quantity + ", pizza=" + pizza + ", user="
-				+ user + ", pizzaSize=" + pizzaSize + "]";
+		return "PizzaOrder [id=" + id + ", orderDate=" + orderDate + ", status=" + status + ", quantity="
+				+ quantity + ", pizza=" + pizza + ", user=" + user + ", pizzaSize=" + pizzaSize + "]";
 	}
 }

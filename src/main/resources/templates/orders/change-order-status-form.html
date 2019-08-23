@@ -20,6 +20,7 @@
       method="POST">
 
       <input hidden type="text" th:field="*{id}" />
+      <input hidden type="text" th:field="*{orderDate}" />
       <input hidden type="text" th:field="*{pizza}" />
       <input hidden type="text" th:field="*{quantity}" />
       <input hidden type="text" th:field="*{pizzaSize}" />
@@ -35,7 +36,7 @@
       <div th:text="*{quantity}">Liczba pizz</div>
 
       <div>Status zamównienia:</div>
-      <select th:field="*{status}" autofocus>
+      <select th:field="*{status}" autofocus style="align-self: center">
         <option th:each="status : ${allStatuses}" th:value="${status}" th:text="${status}"></option>
       </select>
 
