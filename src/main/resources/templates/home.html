@@ -18,17 +18,17 @@
       <nav class="menu">
         <span class="menu__separator">|&emsp;</span>
 
-        <span sec:authorize="hasAnyRole('ROLE_CUSTOMER', 'ROLE_ADMIN')">
+        <span sec:authorize="hasAnyRole('ROLE_CUSTOMER', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')">
           <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/pizzas/list' ? 'menu__active-link' : ''}" th:href="@{/pizzas/list}">Oferta</a>
           <span class="menu__separator">&emsp;|&emsp;</span>
         </span>
 
-        <span sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+        <span sec:authorize="hasAnyRole('ROLE_ADMIN', 'EMPLOYEE')">
           <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/ingredients/list' ? 'menu__active-link' : ''}" th:href="@{/ingredients/list}">Składniki pizzy</a>
           <span class="menu__separator">&emsp;|&emsp;</span>
         </span>
 
-        <span sec:authorize="hasAnyRole('ROLE_CUSTOMER', 'ROLE_COOK', 'ROLE_ADMIN')">
+        <span sec:authorize="hasAnyRole('ROLE_CUSTOMER', 'ROLE_COOK', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')">
           <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/orders/list' ? 'menu__active-link' : ''}"  th:href="@{/orders/list}">Zamówienia</a>
           <span class="menu__separator">&emsp;|&emsp;</span>
         </span>
