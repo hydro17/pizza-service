@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user")
+@Table(name="app_user")
 public class User {
 
 	@Id
@@ -27,7 +27,7 @@ public class User {
 	private String password;
 	
 	@ManyToOne
-	@JoinColumn(name="role_id")
+	@JoinColumn(name="role_id", nullable=false)
 	private Role role;
 
 	public User() {}
