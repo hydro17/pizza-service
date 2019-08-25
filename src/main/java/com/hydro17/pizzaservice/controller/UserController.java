@@ -36,7 +36,7 @@ public class UserController {
 		return "users/list-users";
 	}
 	
-	@GetMapping("/login-form")
+	@GetMapping("/login")
 	public String showLoginForm() {
 		
 		return "users/login-form";
