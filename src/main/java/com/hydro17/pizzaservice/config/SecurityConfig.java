@@ -1,8 +1,5 @@
 package com.hydro17.pizzaservice.config;
 
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,10 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.context.WebApplicationContext;
-//import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
 import com.hydro17.pizzaservice.service.UserPrinciplaDetailsService;
 
@@ -44,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.anyRequest().permitAll()
 			.and()
 			.formLogin()
-				.loginPage("/login")
+				.loginPage("/login-form")
 				.loginProcessingUrl("/login-process")
 				.permitAll();
 	}

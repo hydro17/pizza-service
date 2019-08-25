@@ -17,6 +17,7 @@ import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.dto.PizzaDTO;
 import com.hydro17.pizzaservice.entity.Ingredient;
 import com.hydro17.pizzaservice.entity.Pizza;
+import com.hydro17.pizzaservice.repository.UserRepository;
 
 @Controller
 @RequestMapping("/pizzas")

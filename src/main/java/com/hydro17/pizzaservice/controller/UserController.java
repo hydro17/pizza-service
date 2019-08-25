@@ -33,13 +33,13 @@ public class UserController {
 		
 		model.addAttribute("users", userRepository.findAll());
 		
-		return "/users/list-users";
+		return "users/list-users";
 	}
 	
-	@GetMapping("/login")
+	@GetMapping("/login-form")
 	public String showLoginForm() {
 		
-		return "/users/login-form";
+		return "users/login-form";
 	}
 	
 	@GetMapping("/register-user")
@@ -72,7 +72,7 @@ public class UserController {
 		model.addAttribute("allRoles", roleRepository.findAll());
 		model.addAttribute("user", userRepository.findById(userId).get());
 		
-		return "/users/register-or-update-user-form";
+		return "users/register-or-update-user-form";
 	}
 	
 	@PostMapping("/users/update")
