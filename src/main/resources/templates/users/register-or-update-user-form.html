@@ -11,9 +11,9 @@
 </head>
 
 <body>
-  <div th:replace="home :: menu-container"></div>
+  <div sec:authorize="isAuthenticated()" th:replace="home :: menu-container"></div>
 
-  <div class="main-container">
+  <div class="main-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-4'">
 
     <h2 class="mb-3" th:text="${user.id} == 0 ? 'Zrejestruj się' : 'Edytuj dane klienta'">Zarejestruj się lub edytuj
       dane klienta</h2>
@@ -47,7 +47,10 @@
       <!-- END ROLES -->
 
       <div style="grid-column: 1/3">
-        <a class="btn btn-secondary mr-2" th:href="@{/users/list}">Wróć do listy użytkowników</a>
+        <a sec:authorize="!hasRole('ROLE_ADMIN')" class="btn btn-secondary mr-2" th:href="@{/login}">Wróć do do
+          logowania</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-secondary mr-2" th:href="@{/users/list}">Wróć do listy
+          użytkowników</a>
         <input th:if="${user.id == 0}" class="btn btn-success" type="submit" value="Utwórz konto">
         <input th:if="${user.id > 0}" class="btn btn-success" type="submit" value="Zapisz">
       </div>
