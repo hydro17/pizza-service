@@ -47,7 +47,6 @@ public class UserController {
 		
 		User user = new User();
 		user.setRole(roleRepository.findByName("ROLE_CUSTOMER"));
-//		user.setRole(roleRepository.findByName("ROLE_ADMIN"));
 		
 		model.addAttribute("allRoles", roleRepository.findAll());
 		model.addAttribute("user", user);
