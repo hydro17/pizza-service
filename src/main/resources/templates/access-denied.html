@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Access denied</title>
+  <meta th:replace="fragments :: global-styles">
+</head>
+
+<body>
+
+  <div class="main-container">
+    <div class="generic-frame mt-5">
+      <h4 class="mb-4">Nie masz wystarczających uprawnień, aby przejść do tej strony.</h4>
+      <a th:href="@{/pizzas/list}" class="btn btn-primary">Przejdź na stronę z ofertą</a>
+    </div>
+  </div>
+
+</body>
+
+</html>
