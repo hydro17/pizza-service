@@ -124,3 +124,10 @@ tr:nth-child(2n) {
 table a {
   color: #000;
 }
+
+.generic-frame {
+  display: inline-block;
+  padding: 1.5em;
+  border: 2px solid red;
+  border-radius: .3em;
+}
