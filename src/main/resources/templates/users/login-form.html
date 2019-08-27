@@ -10,10 +10,8 @@
   <meta th:replace="fragments :: global-styles">
 </head>
 
-<body>
-  <div th:replace="home :: menu-container"></div>
-
-  <div class="main-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
+<body class="center-center">
+  <div>
 
     <h2 class="mb-3">Zaloguj się</h2>
 
@@ -23,7 +21,7 @@
     <form class="form-add-or-update" action="#" th:action="@{/login-process}" method="POST">
 
       <label for="username">E-mail: </label>
-      <input type="text" id="username" name="username" autofocus/>
+      <input type="text" id="username" name="username" autofocus />
 
       <label for="password">Hasło: </label>
       <input type="password" id="password" name="password" />
