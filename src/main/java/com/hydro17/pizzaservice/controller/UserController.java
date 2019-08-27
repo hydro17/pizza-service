@@ -81,8 +81,14 @@ public class UserController {
 		
 		//Update name of User instance wrapped by UserPrincipal to be correctly display in the top bar,
 		//without the need to log out and log in after changing user name
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		((UserPrincipal)principal).getUser().setName(user.getName());;
+		Object principalOjb = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserPrincipal principal = (UserPrincipal) principalOjb;
+		
+		// principal.getUsername() means get principal's email
+		// checking, whether data has been changed for loggen in user
+		if (principal.getUsername().equals(user.getEmail())) {
+			((UserPrincipal)principal).getUser().setName(user.getName());;
+		}
 		
 		return "redirect:/users/list";
 	}
