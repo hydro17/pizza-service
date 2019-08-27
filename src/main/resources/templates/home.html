@@ -12,7 +12,7 @@
 
 <body>
 
-  <div th:fragment="menu-container" class="top-bar">
+  <div sec:authorize="isAuthenticated()" th:fragment="menu-container" class="top-bar">
     <div class="menu-container">
 
       <nav class="menu">
@@ -51,7 +51,7 @@
         </div>
 
         <div sec:authorize="!isAuthenticated()">
-          <a th:href="@{/login-form}">Zaloguj się</a>
+          <a th:href="@{/login}">Zaloguj się</a>
         </div>
 
       </div>
