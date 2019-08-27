@@ -14,5 +14,9 @@ public interface OrderRepository extends JpaRepository<PizzaOrder, Integer> {
 //	List<PizzaOrder> findByUserId(int userId);
 	
 	List<PizzaOrder> findAllByUser(User user);
+	List<PizzaOrder> findAllByUserOrderByOrderDateDesc(User user);
+	
+	List<PizzaOrder> findAllByOrderByQuantityDesc();
+	List<PizzaOrder> findAllByOrderByOrderDateDesc();
 }
 	

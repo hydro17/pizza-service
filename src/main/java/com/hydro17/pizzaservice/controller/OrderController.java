@@ -41,9 +41,9 @@ public class OrderController {
 		User loggedInUser = getLoggedInUser();
 		
 		if (loggedInUser.getRole().getName().equals("ROLE_ADMIN")) {
-			model.addAttribute("pizzaOrders", orderRepository.findAll());
+			model.addAttribute("pizzaOrders", orderRepository.findAllByOrderByOrderDateDesc());
 		} else {
-			model.addAttribute("pizzaOrders", orderRepository.findAllByUser(loggedInUser));
+			model.addAttribute("pizzaOrders", orderRepository.findAllByUserOrderByOrderDateDesc(loggedInUser));
 		}
 		
 		return "orders/list-pizza-orders";
