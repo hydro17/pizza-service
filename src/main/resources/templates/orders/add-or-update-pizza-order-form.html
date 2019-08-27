@@ -33,7 +33,7 @@
         <p>Wybierz wielkość pizzy:</p>
         <div th:each="size : ${allSizes}">
           <input type="radio" th:field="*{pizzaSize}" th:value="${size}">
-          <label class="text-lowercase" th:for="${#ids.prev('pizzaSize')}" th:text="${size}"></label>
+          <label th:for="${#ids.prev('pizzaSize')}" th:text="${size.polishName}"></label>
         </div>
 
       </div>

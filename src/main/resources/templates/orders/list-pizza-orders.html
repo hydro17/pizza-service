@@ -27,8 +27,8 @@
           <th>Data zamówienia</th>
           <th>Status</th>
           <th>Nazwa pizzy</th>
-          <th>Rozmiar</th>
-          <th>Liczba</th>
+          <th>Wielkość</th>
+          <th>Liczba pizz</th>
           <th>Akcje</th>
         </tr>
       </thead>
@@ -36,17 +36,17 @@
         <tr th:each="pizzaOrder, itemStat : ${pizzaOrders}">
           <td th:text="${itemStat.index + 1}"></td>
           <td th:text="${{pizzaOrder.orderDate}}"></td>
-          <td class="text-lowercase" th:text="${pizzaOrder.status}"></td>
+          <td th:text="${pizzaOrder.status.polishName}"></td>
           <td th:text="${pizzaOrder.pizza.pizzaName}"></td>
-          <td class="text-lowercase" th:text="${pizzaOrder.pizzaSize}"></td>
+          <td th:text="${pizzaOrder.pizzaSize.polishName}"></td>
           <td th:text="${pizzaOrder.quantity}"></td>
           <td>
             <span th:if="${pizzaOrder.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
               <a th:href="@{update/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-edit"></i></a>
               <span>&nbsp;</span>
               <a th:href="@{delete/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-trash-alt"></i></a>
+              <span>&nbsp;</span>
             </span>
-            <span>&nbsp;</span>
             <a th:href="@{change-status/{orderId}(orderId=${pizzaOrder.id})}">Zmień&nbsp;status</a>
           </td>
         </tr>
@@ -55,7 +55,7 @@
 
   </div>
 
-  <script th:src="@{/js/current-pizza-orer-status.js}"></script>
+  <script th:src="@{/js/current-pizza-order-status.js}"></script>
 </body>
 
 </html>
