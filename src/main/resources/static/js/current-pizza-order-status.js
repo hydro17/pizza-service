@@ -12,7 +12,7 @@ table.addEventListener("click", (e) => {
     node = node.parentNode;
   }
 
-  if (node.querySelectorAll("td")[2].innerHTML === "ORDERED") return;
+  if (node.querySelectorAll("td")[2].innerHTML === "zamówione") return;
 
   alert("Status is not ORDERED!");
 
