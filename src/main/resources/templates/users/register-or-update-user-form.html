@@ -11,9 +11,9 @@
 </head>
 
 <body>
-  <div sec:authorize="isAuthenticated()" th:replace="home :: menu-container"></div>
+  <div th:replace="home :: menu-container"></div>
 
-  <div class="main-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-4'">
+  <div class="main-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
 
     <h2 class="mb-3" th:text="${user.id} == 0 ? 'Zrejestruj się' : 'Edytuj dane klienta'">Zarejestruj się lub edytuj
       dane klienta</h2>
