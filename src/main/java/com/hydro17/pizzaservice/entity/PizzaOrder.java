@@ -23,7 +23,7 @@ public class PizzaOrder {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="ordering_date")
+	@Column(name="order_date")
 	private LocalDateTime orderDate;
 	
 	@Column(name="order_status")
