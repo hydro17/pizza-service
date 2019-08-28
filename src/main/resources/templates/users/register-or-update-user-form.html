@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title th:text="${user.id} == 0 ? 'Zrejestruj się' : 'Edytuj dane klienta'">Zrejestruj się lub edytuj dane klienta
+  <title th:text="${user.id} == 0 ? 'Zrejestruj się' : 'Edytuj dane użytkownika'">Zrejestruj się lub edytuj dane klienta
   </title>
   <meta th:replace="fragments :: global-styles">
 </head>
@@ -13,8 +13,11 @@
 <body class="center-center">
   <div>
 
-    <h2 class="mb-3" th:text="${user.id} == 0 ? 'Zrejestruj się' : 'Edytuj dane klienta'">Zarejestruj się lub edytuj
-      dane klienta</h2>
+    <div class="mb-3">
+      <h2 th:if="${user.id == 0}" th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? 'Dodaj nowego użytkownika' : 'Zrejestruj się'">Add new user or register yourself</h2>
+
+      <h2 th:if="${user.id > 0}" th:text="${'Edytuj dane użytkownika'}">Update user data</h2>
+    </div>
 
     <form class="form-add-or-update" action="#"
       th:action="@{/{action}(action=(${user.id} == 0 ? 'register-user' : 'users/update'))}" th:object="${user}"
@@ -28,21 +31,21 @@
       <label for="email">E-mail: </label>
       <input type="text" th:field="*{email}" />
 
-      <!-- START PASSWORD displayed conditionally -->
+      <!-- START: PASSWORD displayed conditionally -->
       <label th:if="*{id == 0}" for="password">Hasło: </label>
       <input th:if="*{id == 0}" type="text" th:field="*{password}" />
 
       <input th:if="*{id > 0}" hidden type="text" th:field="*{password}" />
-      <!-- END PASSWORD -->
+      <!-- END: PASSWORD -->
 
-      <!-- START ROLES displayed conditionally-->
-      <input th:if="${allRoles == null}" hidden type="text" th:field="*{role}" />
+      <!-- START: ROLES displayed conditionally-->
+      <input sec:authorize="!hasRole('ROLE_ADMIN')" hidden type="text" th:field="*{role}" />
 
-      <label th:if="${allRoles != null}" for="role">Rola: </label>
-      <select th:if="${allRoles != null}" th:field=*{role}>
+      <label sec:authorize="hasRole('ROLE_ADMIN')" for="role">Rola: </label>
+      <select sec:authorize="hasRole('ROLE_ADMIN')" th:field=*{role}>
         <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}">rola</option>
       </select>
-      <!-- END ROLES -->
+      <!-- END: ROLES -->
 
       <div style="grid-column: 1/3">
         <a sec:authorize="!hasRole('ROLE_ADMIN')" class="btn btn-secondary mr-2" th:href="@{/login}">Wróć do do
