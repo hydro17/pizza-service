@@ -14,11 +14,15 @@
 
   <div class="main-container">
 
-    <h2 class="mb-3">Ingredients</h2>
+    <div class="above-table">
+      <h2>Składniki</h2>
 
-    <a th:href="@{add}">
-      <h3>Add an ingredient</h3>
-    </a>
+      <h3>
+        <a th:href="@{add}" class="above-table__link">
+          Dodaj nowy składnik
+        </a>
+      </h3>
+    </div>
 
     <table class="table table-striped">
       <thead>

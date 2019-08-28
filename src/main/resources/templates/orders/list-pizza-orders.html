@@ -14,11 +14,15 @@
 
   <div class="main-container">
 
-    <h2 class="mb-3">Zamówienia</h2>
+    <div class="above-table">
+      <h2>Zamówienia</h2>
 
-    <a th:href="@{add}">
-      <h3>Nowe zamówienie</h3>
-    </a>
+      <h3>
+        <a th:href="@{add}" class="above-table__link">
+          Nowe zamówienie
+        </a>
+      </h3>
+    </div>
 
     <table class="table table-striped">
       <thead>

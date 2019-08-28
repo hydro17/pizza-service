@@ -14,11 +14,15 @@
 
   <div class="main-container">
 
-    <h2 class="mb-3">Użytkownicy</h2>
+    <div class="above-table">
+      <h2>Użytkownicy</h2>
 
-    <a th:href="@{/register-user}">
-      <h3>Dodaj użytkownika</h3>
-    </a>
+      <h3>
+        <a th:href="@{/register-user}" class="above-table__link">
+          Dodaj użytkownika
+        </a>
+      </h3>
+    </div>
 
     <table class="table table-striped">
       <thead>

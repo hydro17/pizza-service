@@ -15,21 +15,23 @@
 
   <div class="main-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
 
-    <h2 th:text="${param.select == null} ? 'Menu' : 'Wybierz pizzę'" class="mb-3">Menu / Wybierz pizzę</h2>
-    
-    <h3 sec:authorize="hasRole('ADMIN')" class="mb-3">
-      <a th:href="@{add}" >
-        Dodaj nową pizzę
-      </a>
-    </h3>
+    <div class="above-table">
+      <h2 th:text="${param.select == null} ? 'Menu' : 'Wybierz pizzę'">Menu / Wybierz pizzę</h2>
+        
+      <h3 sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{add}" class="above-table__link">
+          Dodaj nową pizzę
+        </a>
+      </h3>
+    </div>
 
     <h3 sec:authorize="!isAuthenticated()" class="mb-3">
-      <a th:href="@{/login}">
+      <a th:href="@{/login}" class="above-table__link">
         Zaloguj się, aby zamówić pizzę
       </a>
     </h3>
 
-    <table class="table table-striped border-bottom">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>Nr</th>
