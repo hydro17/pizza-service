@@ -1,4 +1,13 @@
 
+:root {
+  --table-line-color: black;
+}
+
+/* body {
+  height: 100vh;
+  background-image: linear-gradient(to bottom right,  rgb(252, 252, 240), #f7ecde)
+} */
+
 .top-bar {
   margin: 1em 0;
   background: rgba(217, 217, 217, 0.8);
@@ -79,7 +88,7 @@ a:not([class*='menu__active-link']).menu__link:focus::after {
   width: 500px;
   border: 1px solid black;
   border-radius: .3em;
-  padding: 1em;
+  padding: 1.5em;
   background: rgb(245, 245, 245);
 }
 
@@ -130,4 +139,43 @@ table a {
   padding: 1.5em;
   border: 2px solid red;
   border-radius: .3em;
+}
+
+.center-center {
+  display: flex;
+  height: 50vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.above-table, .above-form {
+  margin-top: 1.5rem;
+}
+
+.above-table {
+  display:flex; 
+  justify-content: space-between; 
+  align-items: flex-end;
+  margin-bottom: .5rem;
+}
+
+.above-table__link:hover {
+  text-decoration: none;
+}
+
+.above-form {
+  margin-bottom: 1rem;
+}
+
+table.table-striped > thead > tr > th {
+  border-top: 1px solid var(--table-line-color); 
+  border-bottom: 1px solid var(--table-line-color); 
+}
+
+table.table-striped > tbody > tr:not(:first-child) > td {
+  border-top: 1px solid var(--table-line-color); 
+}
+
+table.table-striped > tbody > tr:last-child > td {
+  border-bottom: 1px solid var(--table-line-color); 
 }
