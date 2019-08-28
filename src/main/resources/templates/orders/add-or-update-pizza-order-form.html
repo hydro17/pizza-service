@@ -14,7 +14,8 @@
 
   <div class="main-container">
 
-    <h2 th:text="${pizzaOrder.id} == 0 ? 'New order' : 'Update the order'">Add or update order</h2>
+    <h2 class="above-form" th:text="${pizzaOrder.id} == 0 ? 'Nowe zamówienie' : 'Zmodyfikuj zamówienie'">Add or update
+      order</h2>
 
     <form class="form-add-or-update" action="#" th:object="${pizzaOrder}"
       th:action="@{/orders/{action}(action=(${pizzaOrder.id} == 0 ? 'add' : 'update'))}" method="POST">
