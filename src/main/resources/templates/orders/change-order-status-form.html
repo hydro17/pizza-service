@@ -37,7 +37,7 @@
 
       <div>Status zamównienia:</div>
       <select th:field="*{status}" autofocus style="align-self: center">
-        <option th:each="status : ${allStatuses}" th:value="${status}" th:text="${status}"></option>
+        <option th:each="status : ${allStatuses}" th:value="${status}" th:text="${status.polishName}"></option>
       </select>
 
       <div style="grid-column: 1/3">
