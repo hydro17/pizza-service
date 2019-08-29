@@ -1,5 +1,8 @@
 package com.hydro17.pizzaservice.controller;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,12 +57,26 @@ public class UserController {
 	}
 	
 	@PostMapping("/register-user")
-	public String processRegisterUserForm(@ModelAttribute User user) {
+	public String processRegisterUserForm(@ModelAttribute User user, HttpServletRequest request) {
+		
+		String userEmail = user.getEmail();
+		String userPassword = user.getPassword();
 		
 		user.setId(0);
 		user.setPassword(passwordEncoder.encode(user.getPassword())); 
 		
 		userRepository.save(user);
+		
+		// immediate login after registration if not logged in user with "ROLE_ADMIN"
+		if (!request.isUserInRole("ADMIN")) {
+			try {
+				// we use email as username
+				request.login(userEmail, userPassword);
+				return "redirect:/pizzas/list";
+			} catch (ServletException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		return "redirect:/users/list";
 	}
