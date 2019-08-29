@@ -65,7 +65,10 @@ public class IngredientController {
 	@GetMapping("/add")
 	public String showAddIngredientForm(Model model) {
 		
-		model.addAttribute("ingredient", new Ingredient());
+		Ingredient ingredient = new Ingredient();
+		ingredient.setStock(1);
+		
+		model.addAttribute("ingredient", ingredient);
 		
 		return "ingredients/add-or-update-ingredient-form";
 	}
