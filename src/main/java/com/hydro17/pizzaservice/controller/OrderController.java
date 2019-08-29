@@ -39,9 +39,9 @@ public class OrderController {
 	private UserRepository userRepository;
 	
 	@GetMapping("/list")
-	public String listAll(Model model, HttpServletRequest request, Principal principal) {
+	public String listAll(Model model, HttpServletRequest request) {
 		
-		User loggedInUser = getLoggedInUser(principal);
+		User loggedInUser = getLoggedInUser(request.getUserPrincipal());
 		
 		if (request.isUserInRole("ADMIN")) {
 			model.addAttribute("pizzaOrders", orderRepository.findAllByOrderByOrderDateDesc());
