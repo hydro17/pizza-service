@@ -1,8 +1,7 @@
 package com.hydro17.pizzaservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,19 +74,20 @@ public class UserController {
 	}
 	
 	@PostMapping("/users/update")
-	public String updateUser(@ModelAttribute User user) {
+	public String updateUser(@ModelAttribute User user, Authentication authentication) {
 		
 		userRepository.save(user);
 		
-		//Update name of User instance wrapped by UserPrincipal to be correctly display in the top bar,
-		//without the need to log out and log in after changing user name
-		Object principalOjb = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserPrincipal principal = (UserPrincipal) principalOjb;
+		// Update the name field of the User instance wrapped by the UserPrincipal to be displayed correctly in the top bar
+		// without the need to log out and log in after changing user name
 		
-		// principal.getUsername() means get principal's email
-		// checking, whether data has been changed for loggen in user
-		if (principal.getUsername().equals(user.getEmail())) {
-			((UserPrincipal)principal).getUser().setName(user.getName());;
+		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+		
+		// userPrincipal.getUsername() means get principal's email 
+		// (getUsername() is the name of the UserDetailsService overridden method) 
+		// checking, whether data has been changed for the logged in user
+		if (userPrincipal.getUsername().equals(user.getEmail())) {
+			userPrincipal.getUser().setName(user.getName());;
 		}
 		
 		return "redirect:/users/list";

@@ -1,7 +1,10 @@
 package com.hydro17.pizzaservice.controller;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,11 +39,11 @@ public class OrderController {
 	private UserRepository userRepository;
 	
 	@GetMapping("/list")
-	public String listAll(Model model) {
+	public String listAll(Model model, HttpServletRequest request, Principal principal) {
 		
-		User loggedInUser = getLoggedInUser();
+		User loggedInUser = getLoggedInUser(principal);
 		
-		if (loggedInUser.getRole().getName().equals("ROLE_ADMIN")) {
+		if (request.isUserInRole("ADMIN")) {
 			model.addAttribute("pizzaOrders", orderRepository.findAllByOrderByOrderDateDesc());
 		} else {
 			model.addAttribute("pizzaOrders", orderRepository.findAllByUserOrderByOrderDateDesc(loggedInUser));
@@ -55,7 +58,7 @@ public class OrderController {
 	}
 	
 	@GetMapping("/add/{pizzaId}")
-	public String showAddPizzaOrderForm(@PathVariable int pizzaId, Model model) {
+	public String showAddPizzaOrderForm(@PathVariable int pizzaId, Model model, Principal principal) {
 		
 		PizzaOrder pizzaOrder = new PizzaOrder();
 		pizzaOrder.setPizza(pizzaDAO.findById(pizzaId)); 
@@ -68,7 +71,7 @@ public class OrderController {
 		
 		pizzaOrder.setOrderDate(LocalDateTime.now(ZoneId.of("Europe/Warsaw")));
 		
-		User loggedInUser = getLoggedInUser();  
+		User loggedInUser = getLoggedInUser(principal);  
 		pizzaOrder.setUser(loggedInUser);
 		
 		model.addAttribute("allSizes", PizzaSize.values());
@@ -77,15 +80,11 @@ public class OrderController {
 		return "orders/add-or-update-pizza-order-form";
 	}
 
-	private User getLoggedInUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	private User getLoggedInUser(Principal principal) {
 		
-		String email;
-		if (principal instanceof UserDetails) {
-			email = ((UserDetails)principal).getUsername();
-		} else {
-			email = principal.toString();
-		}
+		// principal.getName() means get email, because we use email as user name
+		// method getName() is imposed by Principal interface
+		String email = principal.getName();
 		
 		return userRepository.findByEmail(email);
 	}
