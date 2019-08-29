@@ -47,7 +47,7 @@
       </select>
       <!-- END: ROLES -->
 
-      <div style="grid-column: 1/3">
+      <div class="form-bottom-btns" style="grid-column: 1/3">
         <a sec:authorize="!hasRole('ROLE_ADMIN')" class="btn btn-secondary mr-2" th:href="@{/login}">Wróć do do
           logowania</a>
         <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-secondary mr-2" th:href="@{/users/list}">Wróć do listy

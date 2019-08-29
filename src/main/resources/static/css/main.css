@@ -96,15 +96,28 @@ a:not([class*='menu__active-link']).menu__link:focus::after {
   width: 100%;
 }
 
-.ingredients-list {
+.form-list {
   list-style-type: none;
   padding-left: 1em;
   margin: 0;
 }
 
-.ingredients-list li label {
+.form-list li label {
   position: relative;
-  top: -0.17em;
+  top: -0.15em;
+  margin-bottom: .25rem;
+}
+
+form input {
+  padding: .1rem .35rem;
+}
+
+.form-pizza-name {
+  width: 250px;
+}
+
+.form-bottom-btns {
+  margin-top: 1rem;
 }
 
 .error {
