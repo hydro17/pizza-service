@@ -21,6 +21,8 @@ import com.hydro17.pizzaservice.dto.PizzaDTO;
 import com.hydro17.pizzaservice.entity.Ingredient;
 import com.hydro17.pizzaservice.entity.Pizza;
 
+import com.hydro17.pizzaservice.globals.PizzaServiceConstants;
+
 @Controller
 @RequestMapping("/pizzas")
 public class PizzaController {
@@ -46,18 +48,30 @@ public class PizzaController {
 			
 			String allIngredientsAsString = String.join(", ", ingredientsAsString);
 			
-			double pizzaPrice = 0;
+			double smallPizzaPrice = 0;
 			
 			for (Ingredient ingr : pizza.getIngredients()) {
-				pizzaPrice += ingr.getPrice();
+				smallPizzaPrice += ingr.getPrice();
 			}
-
-			pizzaDTOs.add(new PizzaDTO(pizza.getId(), pizza.getPizzaName(), allIngredientsAsString, pizzaPrice));
+			
+			double mediumPizzaPrice = smallPizzaPrice * PizzaServiceConstants.mediumPizzaMultiplier;
+			double roundedMediumPizzaPrice = roundDoubleToTwoDecimalPlaces(mediumPizzaPrice);
+			
+			double bigPizzaPrice = smallPizzaPrice * PizzaServiceConstants.bigPizzaMultiplier;
+			double roundedBigPizzaPrice = roundDoubleToTwoDecimalPlaces(bigPizzaPrice);
+			
+			pizzaDTOs.add(new PizzaDTO(pizza.getId(), pizza.getPizzaName(), allIngredientsAsString, 
+				smallPizzaPrice, roundedMediumPizzaPrice, roundedBigPizzaPrice));
 		});
 		
 		model.addAttribute("pizzaDTOs", pizzaDTOs);
 		
 		return "pizzas/list-pizzas";
+	}
+
+	private double roundDoubleToTwoDecimalPlaces(double numberToRound) {
+		double roundedNumber = (double) Math.round(numberToRound * 100d) / 100d;
+		return roundedNumber;
 	}
 	
 	@GetMapping("/add")

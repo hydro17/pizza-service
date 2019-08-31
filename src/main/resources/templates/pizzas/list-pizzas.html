@@ -37,7 +37,9 @@
           <th>Nr</th>
           <th>Pizza</th>
           <th>Składniki</th>
-          <th>Cena</th>
+          <th>Cena<br>mała pizza</th>
+          <th>Cena<br>średnia pizza</th>
+          <th>Cena<br>duża pizza</th>
           <th></th>
         </tr>
       </thead>
@@ -48,7 +50,9 @@
           <!-- <td th:text="${#ids.seq('')}"></td> -->
           <td th:text="${pizzaDTO.name}"></td>
           <td th:text="${pizzaDTO.ingredients}"></td>
-          <td th:text="${pizzaDTO.price}"></td>
+          <td th:text="${pizzaDTO.smallPizzaPrice} + ' zł'"></td>
+          <td th:text="${pizzaDTO.mediumPizzaPrice} + ' zł'"></td>
+          <td th:text="${pizzaDTO.bigPizzaPrice} + ' zł'"></td>
           <td>
             <span sec:authorize="hasRole('ADMIN')">
               <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-edit"></i></a>

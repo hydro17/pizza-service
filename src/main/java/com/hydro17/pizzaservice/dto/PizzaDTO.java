@@ -4,13 +4,18 @@ public class PizzaDTO {
 	private int id;
 	private String name;
 	private String ingredients;
-	private double price;
+	private double smallPizzaPrice;
+	private double mediumPizzaPrice;
+	private double bigPizzaPrice;
 	
-	public PizzaDTO(int id, String name, String ingredients, double price) {
+	public PizzaDTO(int id, String name, String ingredients, double smallPizzaPrice, double mediumPizzaPrice,
+			double bigPizzaPrice) {
 		this.id = id;
 		this.name = name;
 		this.ingredients = ingredients;
-		this.price = price;
+		this.smallPizzaPrice = smallPizzaPrice;
+		this.mediumPizzaPrice = mediumPizzaPrice;
+		this.bigPizzaPrice = bigPizzaPrice;
 	}
 
 	public int getId() {
@@ -25,7 +30,16 @@ public class PizzaDTO {
 		return ingredients;
 	}
 
-	public double getPrice() {
-		return price;
+	public double getSmallPizzaPrice() {
+		return smallPizzaPrice;
 	}
+
+	public double getMediumPizzaPrice() {
+		return mediumPizzaPrice;
+	}
+
+	public double getBigPizzaPrice() {
+		return bigPizzaPrice;
+	}
+	
 }
