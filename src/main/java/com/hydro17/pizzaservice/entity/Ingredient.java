@@ -25,11 +25,11 @@ public class Ingredient {
 	@Column(name="id")
 	private int id;
 	
-	@Size(min=2, max=20, message="Name must be between 2 and 20 characters")
+	@Size(min=2, max=20, message="Nazwa powinna składać się z od 2 do 20 znaków")
 	@Column(name="ingredient_name")
 	private String ingredientName;
 	
-	@Min(0)
+	@Min(value=0, message="Cena nie może być niższa niż 0 zł")
 	@Column(name="price")
 	private double price;
 

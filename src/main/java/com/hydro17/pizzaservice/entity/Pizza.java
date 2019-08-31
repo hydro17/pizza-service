@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="pizza")
@@ -22,9 +24,11 @@ public class Pizza {
 	@Column(name="id")
 	private int id;
 	
+	@Size(min=2, max=20, message="Nazwa powinna składać się z od 2 do 20 znaków")
 	@Column(name="pizza_name")
 	private String pizzaName;
 	
+	@Size(min=1, message="Pizza musi zawierać z co najmniej 1 składnik")
 	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(name="pizza_ingredient",
 			joinColumns=@JoinColumn(name="pizza_id"),

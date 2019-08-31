@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,14 +61,13 @@ public class OrderController {
 	public String showAddPizzaOrderForm(@PathVariable int pizzaId, Model model, Principal principal) {
 		
 		PizzaOrder pizzaOrder = new PizzaOrder();
+		
 		pizzaOrder.setPizza(pizzaDAO.findById(pizzaId)); 
 		
-		//Set the initial order status
+		//Set initial values for: status, size, quantity
 		pizzaOrder.setStatus(PizzaOrderStatus.ORDERED);
-		
-		//Set the suggested pizza size
 		pizzaOrder.setPizzaSize(PizzaSize.LARGE);
-		
+		pizzaOrder.setQuantity(1);
 		pizzaOrder.setOrderDate(LocalDateTime.now(ZoneId.of("Europe/Warsaw")));
 		
 		User loggedInUser = getLoggedInUser(principal);  
@@ -90,7 +89,14 @@ public class OrderController {
 	}
 
 	@PostMapping("/add")
-	public String savePizzaOrder(@ModelAttribute PizzaOrder pizzaOrder) {
+	public String savePizzaOrder(@Valid @ModelAttribute PizzaOrder pizzaOrder, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			
+			model.addAttribute("allSizes", PizzaSize.values());
+			
+			return "orders/add-or-update-pizza-order-form";
+		}
 		
 		pizzaOrder.setId(0);
 		
@@ -114,7 +120,14 @@ public class OrderController {
 	}
 	
 	@PostMapping("/update")
-	public String updatePizzaOrder(@ModelAttribute PizzaOrder order) {
+	public String updatePizzaOrder(@Valid @ModelAttribute PizzaOrder order, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			
+			model.addAttribute("allSizes", PizzaSize.values());
+			
+			return "orders/add-or-update-pizza-order-form";
+		}
 		
 		orderRepository.save(order);
 		

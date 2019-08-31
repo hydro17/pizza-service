@@ -23,12 +23,14 @@
 
       <div class="mb-2" style="grid-column: 1/3">
         <label class="mb-0 mr-2" style="align-self: center" for="name">Nazwa: </label>
-        <input type="text" class="form-pizza-name" th:field="*{pizzaName}" />
+        <input type="text" required minlength="2" class="form-pizza-name" th:field="*{pizzaName}" />
+        <div th:if="${#fields.hasErrors('pizzaName')}" th:errors="*{pizzaName}" class="error">Za krótka lub za długa nazwa pizzy</div>
       </div>
 
       <div style="grid-column: 1/3">
-        <div class="mb-1">Wybierz składniki:</div>
-        <ul class="form-list">
+        <div>Wybierz składniki:</div>
+        <div th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}" class="error mb-1">Za mało wybranych składników</div>
+        <ul class="form-list mt-1">
           <li th:each="ingredient, itemStat : ${allIngredients}">
             <input type="checkbox" th:field="*{ingredients}" th:value="${ingredient.id}" />
             <label th:for="${#ids.prev('ingredients')}" th:text="${ingredient.ingredientName}"></label>

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="app_user")
@@ -17,12 +19,15 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	@Size(min=1, max=10, message="Nazwa powinna składać się z od 1 do 10 znaków")
 	@Column(name="name")
 	private String name;
 	
+	@Email(message="Podany adres e-mail jest niepoprawny")
 	@Column(name="email", unique=true, nullable=false)
 	private String email;
 	
+	@Size(min=7, message="Hasło powinno składać sie z co najmniej 7 znaków")
 	@Column(name="password", nullable=false)
 	private String password;
 	

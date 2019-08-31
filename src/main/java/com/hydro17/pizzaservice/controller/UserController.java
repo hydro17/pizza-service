@@ -2,12 +2,14 @@ package com.hydro17.pizzaservice.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,9 +59,15 @@ public class UserController {
 	}
 	
 	@PostMapping("/register-user")
-	public String processRegisterUserForm(@ModelAttribute User user, HttpServletRequest request) {
+	public String registerUser(@Valid @ModelAttribute User user, BindingResult bindingResult, HttpServletRequest request, Model model) {
 		
-		String userEmail = user.getEmail();
+		if (bindingResult.hasErrors()) {
+			
+			model.addAttribute("allRoles", roleRepository.findAll());
+			
+			return "users/register-or-update-user-form";
+		}
+		
 		String userPassword = user.getPassword();
 		
 		user.setId(0);
@@ -71,7 +79,7 @@ public class UserController {
 		if (!request.isUserInRole("ADMIN")) {
 			try {
 				// we use email as username
-				request.login(userEmail, userPassword);
+				request.login(user.getEmail(), userPassword);
 				return "redirect:/pizzas/list";
 			} catch (ServletException e) {
 				e.printStackTrace();
@@ -91,7 +99,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/users/update")
-	public String updateUser(@ModelAttribute User user, Authentication authentication) {
+	public String updateUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Authentication authentication, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			
+			model.addAttribute("allRoles", roleRepository.findAll());
+			
+			return "users/register-or-update-user-form";
+		}
 		
 		userRepository.save(user);
 		

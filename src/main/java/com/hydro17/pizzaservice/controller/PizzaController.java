@@ -3,9 +3,12 @@ package com.hydro17.pizzaservice.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +20,6 @@ import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.dto.PizzaDTO;
 import com.hydro17.pizzaservice.entity.Ingredient;
 import com.hydro17.pizzaservice.entity.Pizza;
-import com.hydro17.pizzaservice.repository.UserRepository;
 
 @Controller
 @RequestMapping("/pizzas")
@@ -68,9 +70,14 @@ public class PizzaController {
 	}
 	
 	@PostMapping("/add")
-	public String savePizza(@ModelAttribute Pizza pizza) {
+	public String savePizza(@Valid @ModelAttribute Pizza pizza, BindingResult bindingResult, Model model) {
 
-		System.out.println(">>> INGREDIENTS: " + pizza.getIngredients());
+		if (bindingResult.hasErrors()) {
+			
+			model.addAttribute("allIngredients", ingredientDAO.findAll());
+			
+			return "pizzas/add-or-update-pizza-form";
+		}
 		
 		pizza.setId(0);
 		pizzaDAO.save(pizza);
@@ -88,7 +95,14 @@ public class PizzaController {
 	}
 
 	@PostMapping("/update")
-	public String updatePizza(@ModelAttribute Pizza pizza) {
+	public String updatePizza(@Valid @ModelAttribute Pizza pizza, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			
+			model.addAttribute("allIngredients", ingredientDAO.findAll());
+			
+			return "pizzas/add-or-update-pizza-form";
+		}
 		
 		pizzaDAO.save(pizza);
 		
@@ -98,7 +112,9 @@ public class PizzaController {
 	@GetMapping("/delete/{pizzaId}")
 	public String deleteById(@PathVariable int pizzaId) {
 		
-		pizzaDAO.deleteById(pizzaId);
+		if (pizzaDAO.findById(pizzaId) != null) {
+			pizzaDAO.deleteById(pizzaId);
+		}
 		
 		return "redirect:/pizzas/list";
 	}

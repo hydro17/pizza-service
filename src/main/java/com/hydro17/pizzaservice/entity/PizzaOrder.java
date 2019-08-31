@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 import com.hydro17.pizzaservice.enums.PizzaOrderStatus;
 import com.hydro17.pizzaservice.enums.PizzaSize;
@@ -29,6 +30,7 @@ public class PizzaOrder {
 	@Column(name="order_status")
 	private PizzaOrderStatus status;
 	
+	@Min(value=1, message="Liczba zamówionych pizz musi być większa niż 0")
 	@Column(name="quantity")
 	private int quantity;
 	
