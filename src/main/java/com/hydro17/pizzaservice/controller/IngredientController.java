@@ -90,9 +90,7 @@ public class IngredientController {
 	}
 	
 	@GetMapping("/update/{ingredientId}")
-//	@GetMapping("/update")
 	public String showUpdateIngredientForm(@PathVariable int ingredientId, Model model) {
-//	public String showUpdateForm(@RequestParam("id") int ingredientId, Model model) {
 		
 		Ingredient ingredient = ingredientDAO.findById(ingredientId); 
 		model.addAttribute("ingredient", ingredient);
