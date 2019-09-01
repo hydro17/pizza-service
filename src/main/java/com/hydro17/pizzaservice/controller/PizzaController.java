@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hydro17.pizzaservice.dao.IngredientDAO;
 import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.dto.PizzaDTO;
-import com.hydro17.pizzaservice.entity.Ingredient;
 import com.hydro17.pizzaservice.entity.Pizza;
-
 import com.hydro17.pizzaservice.globals.PizzaServiceConstants;
+import com.hydro17.pizzaservice.util.PizzaUtils;
 
 @Controller
 @RequestMapping("/pizzas")
@@ -32,11 +31,15 @@ public class PizzaController {
 	
 	@Autowired
 	private IngredientDAO ingredientDAO;
+	
+	@Autowired
+	PizzaUtils pizzaUtils; 
 
 	@GetMapping("/list")
 	public String showPizzas(Model model) {
 		
 		List<Pizza> pizzas = pizzaDAO.findAll();
+		
 		List<PizzaDTO> pizzaDTOs = new ArrayList<>();
 		
 		pizzas.forEach(pizza -> {
@@ -48,11 +51,7 @@ public class PizzaController {
 			
 			String allIngredientsAsString = String.join(", ", ingredientsAsString);
 			
-			double smallPizzaPrice = 0;
-			
-			for (Ingredient ingr : pizza.getIngredients()) {
-				smallPizzaPrice += ingr.getPrice();
-			}
+			double smallPizzaPrice = pizzaUtils.calculateSmallPizzaPrice(pizza);
 			
 			double mediumPizzaPrice = smallPizzaPrice * PizzaServiceConstants.mediumPizzaMultiplier;
 			double roundedMediumPizzaPrice = roundDoubleToTwoDecimalPlaces(mediumPizzaPrice);
