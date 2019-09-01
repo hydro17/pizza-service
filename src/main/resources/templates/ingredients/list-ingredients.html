@@ -29,7 +29,7 @@
         <tr>
           <th>Nr</th>
           <th>Nazwa</th>
-          <th>Cena</th>
+          <th>Cena składnika dla małej pizzy</th>
           <th>Akcja</th>
           <th>Uwagi</th>
         </tr>
@@ -38,7 +38,7 @@
         <tr th:each="ingredient, itemStat : ${ingredients}">
           <td th:text="${itemStat.index + 1}"></td>
           <td th:text="${ingredient.ingredientName}"></td>
-          <td th:text="${ingredient.price}"></td>
+          <td th:text="${ingredient.price} + ' zł'"></td>
 
           <td>
             <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-edit"></i></a>
