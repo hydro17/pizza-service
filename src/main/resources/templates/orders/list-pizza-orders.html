@@ -38,23 +38,24 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="pizzaOrder, itemStat : ${pizzaOrders}">
+        <tr th:each="orderDTO, itemStat : ${orderDTOs}">
           <td th:text="${itemStat.index + 1}"></td>
-          <td th:text="${{pizzaOrder.orderDate}}"></td>
-          <td th:text="${pizzaOrder.status.polishName}"></td>
-          <td th:text="${pizzaOrder.pizza.pizzaName}"></td>
-          <td th:text="${pizzaOrder.pizzaSize.polishName}"></td>
-          <td th:text="${pizzaOrder.quantity}"></td>
+          <td th:text="${{orderDTO.orderDate}}"></td>
+          <td th:text="${orderDTO.status.polishName}"></td>
+          <td th:text="${orderDTO.pizza.pizzaName}"></td>
+          <td th:text="${orderDTO.pizzaSize.polishName}"></td>
+          <td th:text="${orderDTO.quantity}"></td>
           <td>
-            <span th:if="${pizzaOrder.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
-              <a th:href="@{update/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-edit"></i></a>
+            <span th:if="${orderDTO.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
+              <a th:href="@{update/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-edit"></i></a>
               <span>&nbsp;</span>
-              <a th:href="@{delete/{orderId}(orderId=${pizzaOrder.id})}"><i class="far fa-trash-alt"></i></a>
+              <a th:href="@{delete/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-trash-alt"></i></a>
               <span>&nbsp;</span>
             </span>
             <a sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')"
-              th:href="@{change-status/{orderId}(orderId=${pizzaOrder.id})}"
-              class="btn btn-sm btn-success">Zmień&nbsp;status</a>
+              th:href="@{change-status/{orderId}(orderId=${orderDTO.id})}" class="btn btn-sm btn-success">
+              Zmień&nbsp;status
+            </a>
           </td>
         </tr>
       </tbody>

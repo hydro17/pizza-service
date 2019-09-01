@@ -3,6 +3,8 @@ package com.hydro17.pizzaservice.controller;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -18,12 +20,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hydro17.pizzaservice.dao.PizzaDAO;
+import com.hydro17.pizzaservice.dto.OrderDTO;
 import com.hydro17.pizzaservice.entity.PizzaOrder;
 import com.hydro17.pizzaservice.entity.User;
 import com.hydro17.pizzaservice.enums.PizzaOrderStatus;
 import com.hydro17.pizzaservice.enums.PizzaSize;
 import com.hydro17.pizzaservice.repository.OrderRepository;
 import com.hydro17.pizzaservice.repository.UserRepository;
+import com.hydro17.pizzaservice.util.PizzaUtils;
 
 @Controller
 @RequestMapping("/orders")
@@ -38,16 +42,36 @@ public class OrderController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	PizzaUtils pizzaUtils; 
+	
+	// Initial sort settings
+	private String SortSettings = "sort-by=order-date&order=desc";
+	
 	@GetMapping("/list")
 	public String listAll(Model model, HttpServletRequest request) {
 		
 		User loggedInUser = getLoggedInUser(request.getUserPrincipal());
 		
+		List<PizzaOrder> orders = new ArrayList<>();
+		
 		if (request.isUserInRole("ADMIN")) {
-			model.addAttribute("pizzaOrders", orderRepository.findAllByOrderByOrderDateDesc());
+			orders = orderRepository.findAllByOrderByOrderDateDesc();
 		} else {
-			model.addAttribute("pizzaOrders", orderRepository.findAllByUserOrderByOrderDateDesc(loggedInUser));
+			orders = orderRepository.findAllByUserOrderByOrderDateDesc(loggedInUser);
 		}
+		
+		List<OrderDTO> orderDTOs = new ArrayList<>();
+		
+		orders.forEach(order -> {
+			double smallPizzaPrice = pizzaUtils.calculateSmallPizzaPrice(order.getPizza());
+			double pizzaPrice = smallPizzaPrice * order.getPizzaSize().getPriceMultiplier();
+			
+			orderDTOs.add(new OrderDTO(order.getId(), order.getOrderDate(), order.getStatus(), order.getPizza(), 
+					order.getPizzaSize(), order.getQuantity(), pizzaPrice));
+		});
+		
+		model.addAttribute("orderDTOs", orderDTOs); 
 		
 		return "orders/list-pizza-orders";
 	}
