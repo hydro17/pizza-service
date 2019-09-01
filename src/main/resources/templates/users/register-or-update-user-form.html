@@ -27,20 +27,20 @@
 
       <label for="firstName">Nazwa: </label>
       <div class="form-element">
-        <input type="text" th:field="*{name}" />
+        <input type="text" required minlength="1" th:field="*{name}" placeholder="Nazwa użytkownika (1-20 znaków)" />
         <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">nazwa powinna składać się z co najmniej 1 znaku</div>
       </div>
 
       <label for="email">E-mail: </label>
       <div class="form-element">
-        <input type="text" th:field="*{email}" />
+        <input type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" th:field="*{email}" placeholder="Poprawny adres e-mail"/>
         <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error">podany adres e-mail jest niepoprawny</div>
       </div>
 
       <!-- START: PASSWORD displayed conditionally -->
       <label th:if="*{id == 0}" for="password">Hasło: </label>
       <div th:if="*{id == 0}" class="form-element">
-        <input type="password" showPassword="true" th:field="*{password}" />
+        <input type="password" required minlength="7" th:field="*{password}" placeholder="Co najmniej 7 znaków"/>
         <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error">hasło powinno składać się z co najmniej 7 znaków</div>
       </div>
 

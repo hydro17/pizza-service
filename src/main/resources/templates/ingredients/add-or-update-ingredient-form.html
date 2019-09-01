@@ -27,14 +27,14 @@
 
       <label for="name">Nazwa: </label>
       <div class="form-element">
-        <input type="text" th:field="*{ingredientName}" />
-        <div th:if="${#fields.hasErrors('ingredientName')}" class="error" th:errors="*{ingredientName}">Incorrect ingredient name</div>
+        <input type="text" required minlength="1" maxlength="20" th:field="*{ingredientName}" placeholder="Nazwa składnika (od 1 do 20 znaków)" />
+        <div th:if="${#fields.hasErrors('ingredientName')}" class="error" th:errors="*{ingredientName}">nazwa składnika powinna zawierać od 1 do 20 znaków</div>
       </div>
       
-      <label for="price">Cena: </label>
+      <label for="price">Cena [zł]: </label>
       <div class="form-element">
-        <input type="text" th:field="*{price}" />
-        <div th:if="${#fields.hasErrors('price')}" class="error" th:errors="*{price}">Incorrect ingredient price</div>
+        <input type="number" step="0.01" required min="0" th:field="*{price}" />
+        <div th:if="${#fields.hasErrors('price')}" class="error" th:errors="*{price}">niewłaściwa cena składnika</div>
       </div>
       
       <!-- <label for="stock">Ilość w magazynie: </label>
