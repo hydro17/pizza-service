@@ -16,8 +16,6 @@
     <div class="menu-container">
 
       <nav class="menu">
-        <span class="menu__separator">|&emsp;</span>
-
         <span sec:authorize="hasAnyRole('ROLE_CUSTOMER', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')">
           <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/pizzas/list' ? 'menu__active-link' : ''}" th:href="@{/pizzas/list}">Oferta</a>
           <span class="menu__separator">&emsp;|&emsp;</span>
@@ -35,7 +33,6 @@
         
         <span sec:authorize="hasRole('ROLE_ADMIN')">
           <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/users/list' ? 'menu__active-link' : ''}" th:href="@{/users/list}">Użytkownicy</a>
-          <span class="menu__separator">&emsp;|</span>
         </span>
       </nav>
 
