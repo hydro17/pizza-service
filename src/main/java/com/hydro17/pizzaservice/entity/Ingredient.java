@@ -25,7 +25,7 @@ public class Ingredient {
 	@Column(name="id")
 	private int id;
 	
-	@Size(min=2, max=20, message="Nazwa powinna składać się z od 2 do 20 znaków")
+	@Size(min=1, max=20, message="Nazwa powinna składać się z od 1 do 20 znaków")
 	@Column(name="ingredient_name")
 	private String ingredientName;
 	

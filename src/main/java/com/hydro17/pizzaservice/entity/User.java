@@ -19,7 +19,7 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Size(min=1, max=10, message="Nazwa powinna składać się z od 1 do 10 znaków")
+	@Size(min=1, max=20, message="Nazwa powinna składać się z od 1 do 20 znaków")
 	@Column(name="name")
 	private String name;
 	
