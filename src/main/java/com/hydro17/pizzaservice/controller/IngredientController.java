@@ -66,6 +66,7 @@ public class IngredientController {
 	public String showAddIngredientForm(Model model) {
 		
 		Ingredient ingredient = new Ingredient();
+		ingredient.setPrice(2.0);
 		ingredient.setStock(1);
 		
 		model.addAttribute("ingredient", ingredient);
