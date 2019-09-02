@@ -27,23 +27,27 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Nr</th>
-          <th>Nazwa</th>
-          <th>E-mail</th>
-          <th>Rola</th>
-          <th>Akcja</th>
+          <th class="tbl-header-nr">Nr</th>
+          <th class="tbl-header-user-name">Nazwa</th>
+          <th class="tbl-header-email">E-mail</th>
+          <th class="tbl-header-role">Rola</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="user, itemStat : ${users}">
-          <td th:text="${itemStat.index + 1}">nr</td>
+          <td th:text="${itemStat.index + 1}" class="tbl-body-nr">nr</td>
           <td th:text="${user.name}">nazwa</td>
           <td th:text="${user.email}">e-mail</td>
           <td th:text="${user.role.name}">rola</td>
-          <td>
+          <td class="tbl-body-action-medium">
             <a th:href="@{update/{userId}(userId=${user.id})}"><i class="far fa-edit"></i></a>
             <span>&nbsp;</span>
             <a th:href="@{delete/{userId}(userId=${user.id})}"><i class="far fa-trash-alt"></i></a>
+
+            <div th:if="${userConstraintViolation != null && (userConstraintViolation.id == user.id)}"
+              th:text="${userConstraintViolation.comment}" class="alert alert-danger constraint-violation">
+            </div>
           </td>
         </tr>
       </tbody>
