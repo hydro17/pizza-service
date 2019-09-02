@@ -1,4 +1,4 @@
-package com.hydro17.pizzaservice.dto;
+package com.hydro17.pizzaservice.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.hydro17.pizzaservice.dto.UserPrincipal;
 import com.hydro17.pizzaservice.entity.User;
+import com.hydro17.pizzaservice.model.UserPrincipal;
 import com.hydro17.pizzaservice.repository.UserRepository;
 
 @Service
