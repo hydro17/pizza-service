@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hydro17.pizzaservice.converter.StringIdToIngredientConverter;
 import com.hydro17.pizzaservice.dao.IngredientDAO;
 import com.hydro17.pizzaservice.entity.Ingredient;
+import com.hydro17.pizzaservice.model.ConstraintViolation;
 
 @Controller
 @RequestMapping("/ingredients")
@@ -29,25 +30,7 @@ public class IngredientController {
 	@Autowired
 	private StringIdToIngredientConverter stringIdToIngredientConverter;
 	
-	private class IngredientComment {
-		private int id;
-		private String comment;
-		
-		public IngredientComment(int ingredientId, String comment) {
-			this.id = ingredientId;
-			this.comment = comment;
-		}
-
-		public int getId() {
-			return id;
-		}
-
-		public String getComment() {
-			return comment;
-		}
-	}
-	
-	private IngredientComment ingredientComment;
+	private ConstraintViolation ingredientConstraintViolation;
 	
 	@GetMapping("/list")
 	public String listAll(Model model) {
@@ -55,9 +38,9 @@ public class IngredientController {
 		List<Ingredient> ingredients = ingredientDAO.findAll();
 		
 		model.addAttribute("ingredients", ingredients);
-		model.addAttribute("ingredientComment", this.ingredientComment);
+		model.addAttribute("ingredientConstraintViolation", this.ingredientConstraintViolation);
 		
-		this.ingredientComment = null;
+		this.ingredientConstraintViolation = null;
 		
 		return "ingredients/list-ingredients";
 	}
@@ -115,7 +98,10 @@ public class IngredientController {
 	public String deleteById(@PathVariable int ingredientId) {
 		
 		try {
-			ingredientDAO.deleteById(ingredientId);
+			// Ingredient with given ingredientId could have been removed in the meantime
+			if (ingredientDAO.findById(ingredientId) != null) { 
+				ingredientDAO.deleteById(ingredientId);
+			}
 			
 			//Update list of ingredients in StringIdToIngredientConverter
 			stringIdToIngredientConverter.setIngredients(ingredientDAO.findAll());
@@ -124,7 +110,7 @@ public class IngredientController {
 			
 			System.out.println(">>> [source: CONTROLLER] Cannot delete the ingredient: " + ingredientId);
 			
-			this.ingredientComment = new IngredientComment(ingredientId, "Cannot be removed because is used");
+			this.ingredientConstraintViolation = new ConstraintViolation(ingredientId, "Nie może być usunięty, jest używany jako składnik pizzy.");
 		
 		} catch (Exception e) {
 			
