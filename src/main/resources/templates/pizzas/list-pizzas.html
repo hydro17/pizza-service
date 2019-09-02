@@ -58,9 +58,9 @@
             || #authorization.expression('hasRole(''ROLE_CUSTOMER'')')} 
             ? 'tbl-body-action-narrow' : 'tbl-body-action-wide'">
             <span sec:authorize="hasRole('ADMIN')">
-              <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-edit"></i></a>
+              <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-edit" title="Zmodyfikuj skład pizzy"></i></a>
               <span>&nbsp;</span>
-              <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-trash-alt"></i></a>
+              <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-trash-alt" title="Usuń pizzę"></i></a>
               <span>&nbsp;</span>
             </span>
 

@@ -49,9 +49,9 @@
           <td th:text="${#numbers.formatDecimal(orderDTO.price, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
           <td class="tbl-body-action-narrow">
             <span th:if="${orderDTO.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
-              <a th:href="@{update/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-edit"></i></a>
+              <a th:href="@{update/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-edit" title="Edytuj zamówienie"></i></a>
               <span>&nbsp;</span>
-              <a th:href="@{delete/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-trash-alt"></i></a>
+              <a th:href="@{delete/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-trash-alt" title="Usuń zamówienie"></i></a>
               <span>&nbsp;</span>
             </span>
             <a sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')"
