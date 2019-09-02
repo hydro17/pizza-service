@@ -65,7 +65,7 @@ public class OrderController {
 		
 		orders.forEach(order -> {
 			double smallPizzaPrice = pizzaUtils.calculateSmallPizzaPrice(order.getPizza());
-			double pizzaPrice = smallPizzaPrice * order.getPizzaSize().getPriceMultiplier();
+			double pizzaPrice = smallPizzaPrice * order.getPizzaSize().getPriceMultiplier() * order.getQuantity();
 			
 			orderDTOs.add(new OrderDTO(order.getId(), order.getOrderDate(), order.getStatus(), order.getPizza(), 
 					order.getPizzaSize(), order.getQuantity(), pizzaPrice));
