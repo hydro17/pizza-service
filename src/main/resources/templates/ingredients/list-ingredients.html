@@ -27,28 +27,29 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Nr</th>
-          <th>Nazwa</th>
-          <th>Cena składnika dla małej pizzy</th>
-          <th>Akcja</th>
-          <th>Uwagi</th>
+          <th class="tbl-header-nr">Nr</th>
+          <th class="tbl-header-ingredient-name">Nazwa składnika</th>
+          <th class="tbl-header-ingredient-price">Cena składnika<br>dla małej pizzy</th>
+          <th class="tbl-header-action">Akcje</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="ingredient, itemStat : ${ingredients}">
-          <td th:text="${itemStat.index + 1}"></td>
+          <td th:text="${itemStat.index + 1}" class="tbl-body-nr"></td>
           <td th:text="${ingredient.ingredientName}"></td>
-          <td th:text="${ingredient.price} + ' zł'"></td>
+          <td th:text="${ingredient.price} + ' zł'" class="tbl-body-ingredient-price"></td>
 
-          <td>
-            <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-edit"></i></a>
+          <td class="tbl-body-action-wide">
+            <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-edit"
+                title="Edytuj składnik"></i></a>
             <span>&nbsp;</span>
-            <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-trash-alt"></i></a>
-          </td>
+            <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-trash-alt"
+                title="Usuń składnik"></i></a>
 
-          <td th:if="${ingredientComment} == null"></td>
-          <td th:if="${ingredientComment} != null"
-            th:text="${ingredient.id} == ${ingredientComment.id} ? ${ingredientComment.comment} : ''"></td>
+            <div th:if="${ingredientConstraintViolation != null && (ingredientConstraintViolation.id == ingredient.id)}"
+              th:text="${ingredientConstraintViolation.comment}" class="alert alert-danger constraint-violation">
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
