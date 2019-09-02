@@ -28,24 +28,26 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Nr</th>
-          <th>Data zamówienia</th>
-          <th>Status</th>
-          <th>Nazwa pizzy</th>
-          <th>Wielkość</th>
-          <th>Liczba pizz</th>
-          <th>Akcje</th>
+          <th class="tbl-header-nr">Nr</th>
+          <th class="tbl-header-order-date">Data zamówienia</th>
+          <th class="tbl-header-status">Status</th>
+          <th class="tbl-header-pizza-name">Nazwa pizzy</th>
+          <th class="tbl-header-size">Wielkość</th>
+          <th class="tbl-header-quantity">Liczba pizz</th>
+          <th class="tbl-header-order-pizza-price">Cena</th>
+          <th class="tbl-header-action">Akcje</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="orderDTO, itemStat : ${orderDTOs}">
-          <td th:text="${itemStat.index + 1}"></td>
-          <td th:text="${{orderDTO.orderDate}}"></td>
-          <td th:text="${orderDTO.status.polishName}"></td>
+          <td th:text="${itemStat.index + 1}" class="tbl-body-nr"></td>
+          <td th:text="${{orderDTO.orderDate}}" class="tbl-body-order-date"></td>
+          <td th:text="${orderDTO.status.polishName}" class="tbl-body-status"></td>
           <td th:text="${orderDTO.pizza.pizzaName}"></td>
-          <td th:text="${orderDTO.pizzaSize.polishName}"></td>
-          <td th:text="${orderDTO.quantity}"></td>
-          <td>
+          <td th:text="${orderDTO.pizzaSize.polishName}" class="tbl-body-size"></td>
+          <td th:text="${orderDTO.quantity}" class="tbl-body-quantity"></td>
+          <td th:text="${#numbers.formatDecimal(orderDTO.price, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
+          <td class="tbl-body-action-narrow">
             <span th:if="${orderDTO.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
               <a th:href="@{update/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-edit"></i></a>
               <span>&nbsp;</span>

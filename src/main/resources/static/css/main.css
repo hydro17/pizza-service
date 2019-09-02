@@ -215,6 +215,7 @@ table.table-striped > tbody > tr > td {
   /* min-width: 30px;
   width: 50px;
   max-width: 50px; */
+  text-align: center;
   width: 1px;
 }
 
@@ -226,22 +227,16 @@ table.table-striped > tbody > tr > td {
   content: ".";
 }
 
-.tbl-pizza-ingredients {
+.tbl-header-pizza-name, 
+.tbl-header-pizza-ingredients,
+.tbl-header-ingredient-name,
+.tbl-header-user-name,
+.tbl-header-email
+ {
   min-width: 100px;
-  /* width: 400px;
-  max-width: 400px */
-}
-
-.tbl-pizza-name {
-  min-width: 100px;
+  text-align: center;
   /* width: 200px;
   max-width: 200px; */
-}
-
-.tbl-ingredient-name {
-  min-width: 100px;
-  width: 200px;
-  max-width: 200px;
 }
 
 .tbl-header-pizza-price {
@@ -252,8 +247,64 @@ table.table-striped > tbody > tr > td {
   font-size: 0.8em;
 }
 
-.tbl-body-pizza-price {
+.tbl-header-ingredient-price {
+  min-width: 90px;
+  width: 170px;
+  max-width: 170px;
   text-align: center;
+}
+
+.tbl-header-order-pizza-price {
+  width: 100px;
+  max-width: 100px;
+  text-align: center;
+}
+
+.tbl-header-role {
+  width: 170px;
+  max-width: 170px;
+  text-align: center;
+}
+
+.tbl-body-pizza-price, .tbl-body-ingredient-price {
+  text-align: center;
+}
+
+.tbl-header-order-date {
+  width: 170px;
+  max-width: 170px;
+  text-align: center;
+}
+
+.tbl-body-order-date, .tbl-body-status, .tbl-body-size, .tbl-body-quantity {
+  text-align: center;
+}
+
+.tbl-header-status {
+  width: 170px;
+  max-width: 170px;
+  text-align: center;
+}
+
+.tbl-header-size {
+  width: 1px;
+  /* max-width: 110px; */
+  text-align: center;
+}
+
+.tbl-header-quantity {
+  width: 1px;
+  /* max-width: 80px; */
+  text-align: center;
+}
+
+.tbl-header-action {
+  text-align: center;
+}
+
+.tbl-body-action-wide,
+.tbl-body-action-medium {
+  position: relative;
 }
 
 .tbl-body-action-wide {
@@ -262,6 +313,19 @@ table.table-striped > tbody > tr > td {
   text-align: center;
 }
 
+.tbl-body-action-medium {
+  width: 90px;
+  max-width: 90px;
+  text-align: center;
+}
+
 .tbl-body-action-narrow {
   width: 1px;
+  text-align: center;
+}
+
+div.constraint-violation {
+  font-size: .8em;
+  padding: .5em;
+  margin-bottom: 0;
 }
