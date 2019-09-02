@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.hydro17.pizzaservice.dto.UserPrincipal;
 import com.hydro17.pizzaservice.entity.User;
+import com.hydro17.pizzaservice.model.ConstraintViolation;
+import com.hydro17.pizzaservice.model.UserPrincipal;
 import com.hydro17.pizzaservice.repository.RoleRepository;
 import com.hydro17.pizzaservice.repository.UserRepository;
 
@@ -32,10 +34,15 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	private ConstraintViolation userConstraintViolation;
+	
 	@GetMapping("/users/list")
 	public String listUsers(Model model) {
 		
+		model.addAttribute("userConstraintViolation", this.userConstraintViolation);
 		model.addAttribute("users", userRepository.findAll());
+		
+		this.userConstraintViolation = null;
 		
 		return "users/list-users";
 	}
@@ -128,7 +135,20 @@ public class UserController {
 	@GetMapping("/users/delete/{userId}")
 	public String deleteUser(@PathVariable int userId) {
 		
-		userRepository.deleteById(userId);
+		try {
+			// User with the given userId could have been removed in the meantime
+			if (userRepository.findById(userId) != null) {
+				userRepository.deleteById(userId);
+			}
+		} catch (DataIntegrityViolationException e) {
+			
+			this.userConstraintViolation = new ConstraintViolation(userId, "Ten użytkownik nie może być teraz usunięty, jest przypisany do zamówienia.");
+			
+		} catch (Exception e) {
+			
+			System.out.println(">>> [source: CONTROLLER] Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
 		
 		return "redirect:/users/list";
 	}

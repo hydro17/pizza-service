@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.dto.PizzaDTO;
 import com.hydro17.pizzaservice.entity.Pizza;
 import com.hydro17.pizzaservice.globals.PizzaServiceConstants;
+import com.hydro17.pizzaservice.model.ConstraintViolation;
 import com.hydro17.pizzaservice.util.PizzaUtils;
 
 @Controller
@@ -33,7 +35,9 @@ public class PizzaController {
 	private IngredientDAO ingredientDAO;
 	
 	@Autowired
-	PizzaUtils pizzaUtils; 
+	PizzaUtils pizzaUtils;
+	
+	private ConstraintViolation pizzaConstraintViolation;
 
 	@GetMapping("/list")
 	public String showPizzas(Model model) {
@@ -63,7 +67,10 @@ public class PizzaController {
 				smallPizzaPrice, roundedMediumPizzaPrice, roundedBigPizzaPrice));
 		});
 		
+		model.addAttribute("pizzaConstraintViolation", this.pizzaConstraintViolation);
 		model.addAttribute("pizzaDTOs", pizzaDTOs);
+		
+		this.pizzaConstraintViolation = null;
 		
 		return "pizzas/list-pizzas";
 	}
@@ -125,8 +132,19 @@ public class PizzaController {
 	@GetMapping("/delete/{pizzaId}")
 	public String deleteById(@PathVariable int pizzaId) {
 		
-		if (pizzaDAO.findById(pizzaId) != null) {
-			pizzaDAO.deleteById(pizzaId);
+		try {
+			// Pizza with the given pizzaId could have been removed in the meantime
+			if (pizzaDAO.findById(pizzaId) != null) {
+				pizzaDAO.deleteById(pizzaId);
+			}
+		} catch (DataIntegrityViolationException e) {
+			
+			this.pizzaConstraintViolation = new ConstraintViolation(pizzaId, "Ta pizza nie może być teraz usunięta, znajduje się na zamówieniu.");
+			
+		} catch (Exception e) {
+			
+			System.out.println(">>> [source: CONTROLLER] Exception: " + e.getMessage());
+			e.printStackTrace();
 		}
 		
 		return "redirect:/pizzas/list";
