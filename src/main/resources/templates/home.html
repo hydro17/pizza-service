@@ -15,7 +15,7 @@
   <header sec:authorize="isAuthenticated()" th:fragment="menu-container">
     <div class="menu-container">
       <input type="checkbox" id="menu-trigger" style="position: absolute; visibility: hidden; z-index: -999;">
-      <label for="menu-trigger" class="trigger-menu-btn">MENU</label>
+      <label for="menu-trigger" class="trigger-menu-btn"><i class="fas fa-bars"></i></label>
 
       <nav class="menu">
         <div sec:authorize="hasAnyRole('ROLE_CUSTOMER', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')">
