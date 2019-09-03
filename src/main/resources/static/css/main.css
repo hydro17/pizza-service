@@ -2,6 +2,7 @@
 :root {
   --table-line-color: black;
   --table-vertical-line-color: rgb(196, 196, 196);
+  --bg-menu: rgb(235, 235, 235);
 }
 
 /* body {
@@ -9,9 +10,9 @@
   background-image: linear-gradient(to bottom right,  rgb(252, 252, 240), #f7ecde)
 } */
 
-.top-bar {
+header {
   margin: 1em 0;
-  background: rgba(217, 217, 217, 0.8);
+  background: var(--bg-menu);
 }
 
 .menu-container {
@@ -25,7 +26,7 @@
 
 .menu {
   display: flex;
-  padding: .5em 0;
+  padding: .5rem 0;
 }
 
 .menu__link, .menu__separator {
@@ -255,6 +256,7 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-header-order-pizza-price {
+  /* min-width: 90px; */
   width: 100px;
   max-width: 100px;
   text-align: center;
@@ -271,6 +273,7 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-header-order-date {
+  /* min-width: 120px; */
   width: 170px;
   max-width: 170px;
   text-align: center;
@@ -281,18 +284,21 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-header-status {
+  /* min-width: 135px; */
   width: 170px;
   max-width: 170px;
   text-align: center;
 }
 
 .tbl-header-size {
+  /* min-width: 95px;; */
   width: 1px;
   /* max-width: 110px; */
   text-align: center;
 }
 
 .tbl-header-quantity {
+  /* min-width: 75px; */
   width: 1px;
   /* max-width: 80px; */
   text-align: center;
@@ -303,23 +309,27 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-body-action-wide,
-.tbl-body-action-medium {
+.tbl-body-action-medium,
+.tbl-body-action-narrow {
   position: relative;
 }
 
 .tbl-body-action-wide {
+  /* min-width: 125px; */
   width: 160px;
   max-width: 160px;
   text-align: center;
 }
 
 .tbl-body-action-medium {
+  /* min-width: 125px; */
   width: 90px;
   max-width: 90px;
   text-align: center;
 }
 
 .tbl-body-action-narrow {
+  /* min-width: 125px; */
   width: 1px;
   text-align: center;
 }
@@ -328,4 +338,51 @@ div.constraint-violation {
   font-size: .8em;
   padding: .5em;
   margin-bottom: 0;
+}
+
+.tbl-container-for-responsiveness {
+  overflow-x: auto;
+}
+
+.trigger-menu-btn {
+  display: none;
+}
+
+nav.menu > div {
+  display: inline;
+}
+
+@media screen and (max-width: 1100px) {
+  .trigger-menu-btn {
+    display: block;
+    cursor: pointer;
+    padding: .5rem 0;
+    font-size: 1.3em;
+    margin-bottom: 0;
+  }
+  
+  .menu {
+    display: none;
+  }
+  
+  nav.menu > div {
+    display: block;
+  }
+
+  nav.menu > div:not(:last-child) {
+    margin-bottom: 0.5em;
+  }
+
+  .menu__separator {
+    display: none;
+  }
+
+  #menu-trigger:checked ~ .menu {
+    display: block;
+    position: fixed;
+    top: 60px;
+    left: 50px;
+    padding: 1.5em;
+    background-color: var(--bg-menu);
+  }
 }
