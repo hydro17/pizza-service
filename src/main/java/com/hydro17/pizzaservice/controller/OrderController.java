@@ -55,10 +55,10 @@ public class OrderController {
 		
 		List<PizzaOrder> orders = new ArrayList<>();
 		
-		if (request.isUserInRole("ADMIN")) {
-			orders = orderRepository.findAllByOrderByOrderDateDesc();
-		} else {
+		if (request.isUserInRole("CUSTOMER")) {
 			orders = orderRepository.findAllByUserOrderByOrderDateDesc(loggedInUser);
+		} else {
+			orders = orderRepository.findAllByOrderByOrderDateDesc();
 		}
 		
 		List<OrderDTO> orderDTOs = new ArrayList<>();
