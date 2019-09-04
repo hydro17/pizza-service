@@ -19,7 +19,7 @@ header {
   display: flex;
 }
 
-.main-container, .menu-container {
+.main-container, .menu-container, .tbl-main-container {
   width: 80%;
   margin: 0 auto;
 }
@@ -335,6 +335,7 @@ table.table-striped > tbody > tr > td {
 }
 
 div.constraint-violation {
+  min-width: 100px;
   font-size: .8em;
   padding: .5em;
   margin-bottom: 0;
@@ -342,12 +343,31 @@ div.constraint-violation {
 
 .tbl-container-for-responsiveness {
   overflow-x: auto;
+  min-width: 800px;
 }
 
 .trigger-menu-btn {
   display: none;
 }
 
-nav.menu > div {
-  display: inline;
+@media screen and (max-width: 1000px) {
+  .tbl-main-container {
+    width: 95%;
+  }
+
+  .above-table {
+    width: 85%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .tbl-main-container {
+    width: 100%;
+  }
+
+  .above-table {
+    width: 80%;
+    margin: 0 auto;
+  }
 }

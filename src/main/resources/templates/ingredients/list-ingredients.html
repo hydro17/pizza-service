@@ -12,7 +12,7 @@
 <body>
   <div th:replace="home :: menu-container"></div>
 
-  <div class="main-container">
+  <div class="tbl-main-container">
 
     <div class="above-table">
       <h2>Składniki</h2>
@@ -24,35 +24,39 @@
       </h3>
     </div>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="tbl-header-nr">Nr</th>
-          <th class="tbl-header-ingredient-name">Nazwa składnika</th>
-          <th class="tbl-header-ingredient-price">Cena składnika<br>dla małej pizzy</th>
-          <th class="tbl-header-action">Akcje</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="ingredient, itemStat : ${ingredients}">
-          <td th:text="${itemStat.index + 1}" class="tbl-body-nr"></td>
-          <td th:text="${ingredient.ingredientName}"></td>
-          <td th:text="${ingredient.price} + ' zł'" class="tbl-body-ingredient-price"></td>
+    <div class="tbl-container-for-responsiveness">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="tbl-header-nr">Nr</th>
+            <th class="tbl-header-ingredient-name">Nazwa składnika</th>
+            <th class="tbl-header-ingredient-price">Cena składnika<br>dla małej pizzy</th>
+            <th class="tbl-header-action">Akcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="ingredient, itemStat : ${ingredients}">
+            <td th:text="${itemStat.index + 1}" class="tbl-body-nr"></td>
+            <td th:text="${ingredient.ingredientName}"></td>
 
-          <td class="tbl-body-action-wide">
-            <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-edit"
-                title="Edytuj składnik"></i></a>
-            <span>&nbsp;</span>
-            <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-trash-alt"
-                title="Usuń składnik"></i></a>
+            <td th:text="${#numbers.formatDecimal(ingredient.price, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-ingredient-price"></td>
 
-            <div th:if="${ingredientConstraintViolation != null && (ingredientConstraintViolation.id == ingredient.id)}"
-              th:text="${ingredientConstraintViolation.comment}" class="alert alert-danger constraint-violation">
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td class="tbl-body-action-wide">
+              <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-edit"
+                  title="Edytuj składnik"></i></a>
+              <span>&nbsp;</span>
+              <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-trash-alt"
+                  title="Usuń składnik"></i></a>
+
+              <div
+                th:if="${ingredientConstraintViolation != null && (ingredientConstraintViolation.id == ingredient.id)}"
+                th:text="${ingredientConstraintViolation.comment}" class="alert alert-danger constraint-violation">
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
   </div>
 </body>
