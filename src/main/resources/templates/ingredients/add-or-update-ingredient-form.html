@@ -27,9 +27,9 @@
 
       <label for="name">Nazwa: </label>
       <div class="form-element">
-        <input type="text" required minlength="1" maxlength="20" th:field="*{ingredientName}"
-          placeholder="Nazwa składnika (od 1 do 20 znaków)" />
-        <div th:if="${#fields.hasErrors('ingredientName')}" class="error" th:errors="*{ingredientName}">nazwa składnika powinna zawierać od 1 do 20 znaków</div>
+        <input type="text" required minlength="1" maxlength="50" th:field="*{ingredientName}"
+          placeholder="Nazwa składnika (od 1 do 50 znaków)" autofocus />
+        <div th:if="${#fields.hasErrors('ingredientName')}" class="error" th:errors="*{ingredientName}">nazwa składnika powinna zawierać od 1 do 50 znaków</div>
       </div>
       
       <label for="price">Cena (dla małej pizzy) [zł]: </label>
