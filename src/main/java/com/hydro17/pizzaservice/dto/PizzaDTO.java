@@ -1,6 +1,7 @@
 package com.hydro17.pizzaservice.dto;
 
 public class PizzaDTO {
+	
 	private int id;
 	private String name;
 	private String ingredients;

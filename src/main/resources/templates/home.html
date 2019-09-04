@@ -30,7 +30,7 @@
 
         <div sec:authorize="hasAnyRole('ROLE_CUSTOMER', 'ROLE_COOK', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')">
           <a class="menu__link" th:classappend="${#httpServletRequest.requestURI == '/orders/list' ? 'menu__active-link' : ''}"  th:href="@{/orders/list}">Zamówienia</a>
-          <span class="menu__separator">&emsp;|&emsp;</span>
+          <span sec:authorize="hasRole('ADMIN')" class="menu__separator">&emsp;|&emsp;</span>
         </div>
         
         <div sec:authorize="hasRole('ROLE_ADMIN')">
