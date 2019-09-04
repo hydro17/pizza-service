@@ -56,6 +56,7 @@ public class PizzaController {
 			String allIngredientsAsString = String.join(", ", ingredientsAsString);
 			
 			double smallPizzaPrice = pizzaUtils.calculateSmallPizzaPrice(pizza);
+			double roundedSmallPizzaPrice = roundDoubleToTwoDecimalPlaces(smallPizzaPrice);
 			
 			double mediumPizzaPrice = smallPizzaPrice * PizzaServiceConstants.mediumPizzaMultiplier;
 			double roundedMediumPizzaPrice = roundDoubleToTwoDecimalPlaces(mediumPizzaPrice);
@@ -64,7 +65,7 @@ public class PizzaController {
 			double roundedBigPizzaPrice = roundDoubleToTwoDecimalPlaces(bigPizzaPrice);
 			
 			pizzaDTOs.add(new PizzaDTO(pizza.getId(), pizza.getPizzaName(), allIngredientsAsString, 
-				smallPizzaPrice, roundedMediumPizzaPrice, roundedBigPizzaPrice));
+				roundedSmallPizzaPrice, roundedMediumPizzaPrice, roundedBigPizzaPrice));
 		});
 		
 		model.addAttribute("pizzaConstraintViolation", this.pizzaConstraintViolation);
