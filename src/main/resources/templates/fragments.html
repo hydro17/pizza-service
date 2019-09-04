@@ -11,8 +11,13 @@
   <!-- ============== START - Fragments ============== -->
 
   <link th:fragment="global-styles" rel="stylesheet" th:href="@{/css/main.css}">
-  <link sec:authorize="!hasRole('ROLE_CUSTOMER')" th:fragment="global-styles" rel="stylesheet"
-    th:href="@{/css/not-customer.css}">
+
+  <link sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_COOK')" th:fragment="global-styles" rel="stylesheet"
+    th:href="@{/css/employees-role-based-group-1.css}">
+
+  <link sec:authorize="hasAnyRole('ROLE_ADMIN')" th:fragment="global-styles" rel="stylesheet"
+    th:href="@{/css/employees-role-based-group-2.css}">
+
   <link sec:authorize="hasRole('ROLE_CUSTOMER')" th:fragment="global-styles" rel="stylesheet"
     th:href="@{/css/customer.css}">
 
