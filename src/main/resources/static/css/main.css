@@ -229,7 +229,6 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-header-pizza-name, 
-.tbl-header-pizza-ingredients,
 .tbl-header-ingredient-name,
 .tbl-header-user-name,
 .tbl-header-email
@@ -238,6 +237,11 @@ table.table-striped > tbody > tr > td {
   text-align: center;
   /* width: 200px;
   max-width: 200px; */
+}
+
+.tbl-header-pizza-ingredients {
+  min-width:220px;
+  text-align: center;
 }
 
 .tbl-header-pizza-price {
@@ -304,10 +308,6 @@ table.table-striped > tbody > tr > td {
   text-align: center;
 }
 
-.tbl-header-action {
-  text-align: center;
-}
-
 .tbl-body-action-wide,
 .tbl-body-action-medium,
 .tbl-body-action-narrow {
@@ -339,6 +339,11 @@ div.constraint-violation {
   font-size: .8em;
   padding: .5em;
   margin-bottom: 0;
+}
+
+.tbl-body-action-medium div.constraint-violation {
+  position: relative;
+  left: -30px;
 }
 
 .tbl-container-for-responsiveness {
