@@ -1,6 +1,7 @@
 package com.hydro17.pizzaservice.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hydro17.pizzaservice.dao.IngredientDAO;
 import com.hydro17.pizzaservice.dao.PizzaDAO;
 import com.hydro17.pizzaservice.dto.PizzaDTO;
+import com.hydro17.pizzaservice.entity.Ingredient;
 import com.hydro17.pizzaservice.entity.Pizza;
 import com.hydro17.pizzaservice.globals.PizzaServiceConstants;
 import com.hydro17.pizzaservice.model.ConstraintViolation;
@@ -42,7 +44,7 @@ public class PizzaController {
 	@GetMapping("/list")
 	public String showPizzas(Model model) {
 		
-		List<Pizza> pizzas = pizzaDAO.findAll();
+		List<Pizza> pizzas = pizzaDAO.findAllOrderByIdAsc();
 		
 		List<PizzaDTO> pizzaDTOs = new ArrayList<>();
 		
@@ -69,9 +71,9 @@ public class PizzaController {
 		});
 		
 		model.addAttribute("pizzaConstraintViolation", this.pizzaConstraintViolation);
-		model.addAttribute("pizzaDTOs", pizzaDTOs);
-		
 		this.pizzaConstraintViolation = null;
+		
+		model.addAttribute("pizzaDTOs", pizzaDTOs);
 		
 		return "pizzas/list-pizzas";
 	}
@@ -84,7 +86,10 @@ public class PizzaController {
 	@GetMapping("/add")
 	public String showAddPizzaForm(Model model) {
 		
-		model.addAttribute("allIngredients", ingredientDAO.findAll());
+		List<Ingredient> ingredients = ingredientDAO.findAll();
+		Collections.sort(ingredients);
+		
+		model.addAttribute("allIngredients", ingredients);
 		model.addAttribute("pizza", new Pizza());
 		
 		return "pizzas/add-or-update-pizza-form";
@@ -109,7 +114,11 @@ public class PizzaController {
 	@GetMapping("/update/{pizzaId}")
 	public String showUpdatePizzaForm(@PathVariable int pizzaId, Model model) {
 		
-		model.addAttribute("allIngredients", ingredientDAO.findAll());
+		List<Ingredient> ingredients = ingredientDAO.findAll();
+		Collections.sort(ingredients);
+		
+		model.addAttribute("allIngredients", ingredients);
+		
 		model.addAttribute("pizza", pizzaDAO.findById(pizzaId));
 		
 		return "pizzas/add-or-update-pizza-form";

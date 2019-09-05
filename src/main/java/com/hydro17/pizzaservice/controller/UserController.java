@@ -40,7 +40,7 @@ public class UserController {
 	public String listUsers(Model model) {
 		
 		model.addAttribute("userConstraintViolation", this.userConstraintViolation);
-		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("users", userRepository.findAllByOrderByIdAsc());
 		
 		this.userConstraintViolation = null;
 		

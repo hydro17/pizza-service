@@ -1,5 +1,6 @@
 package com.hydro17.pizzaservice.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -36,11 +37,12 @@ public class IngredientController {
 	public String listAll(Model model) {
 		
 		List<Ingredient> ingredients = ingredientDAO.findAll();
+		Collections.sort(ingredients);
+		
+		model.addAttribute("ingredientConstraintViolation", this.ingredientConstraintViolation);
+		this.ingredientConstraintViolation = null;
 		
 		model.addAttribute("ingredients", ingredients);
-		model.addAttribute("ingredientConstraintViolation", this.ingredientConstraintViolation);
-		
-		this.ingredientConstraintViolation = null;
 		
 		return "ingredients/list-ingredients";
 	}
@@ -90,6 +92,9 @@ public class IngredientController {
 		}
 		
 		ingredientDAO.save(ingredient);
+		
+		//Update list of ingredients in StringIdToIngredientConverter
+		stringIdToIngredientConverter.setIngredients(ingredientDAO.findAll());
 		
 		return "redirect:/ingredients/list";
 	}

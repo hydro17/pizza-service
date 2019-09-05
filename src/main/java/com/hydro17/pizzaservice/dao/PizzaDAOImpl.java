@@ -13,6 +13,7 @@ import com.hydro17.pizzaservice.entity.Pizza;
 @Repository
 public class PizzaDAOImpl implements PizzaDAO {
 
+
 	@Autowired
 	EntityManager em;
 	
@@ -20,6 +21,12 @@ public class PizzaDAOImpl implements PizzaDAO {
 	@Transactional
 	public List<Pizza> findAll() {
 		List<Pizza> pizzas = em.createQuery("from Pizza", Pizza.class).getResultList();
+		return pizzas;
+	}
+	
+	@Override
+	public List<Pizza> findAllOrderByIdAsc() {
+		List<Pizza> pizzas = em.createQuery("from Pizza p Order By p.id ASC", Pizza.class).getResultList();
 		return pizzas;
 	}
 	
