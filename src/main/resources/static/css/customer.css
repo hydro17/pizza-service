@@ -1,3 +1,7 @@
+.tbl-body-action-narrow {
+  white-space: nowrap;
+}
+
 @media screen and (max-width: 700px) {
   .trigger-menu-btn {
     display: block;
