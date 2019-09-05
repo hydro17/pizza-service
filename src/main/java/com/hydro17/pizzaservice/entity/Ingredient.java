@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="ingredient")
-public class Ingredient {
+public class Ingredient implements Comparable<Ingredient> {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -44,6 +44,11 @@ public class Ingredient {
 		this.ingredientName = name;
 		this.price = price;
 		this.stock = stock;
+	}
+	
+	@Override
+	public int compareTo(Ingredient other) {
+		return this.id - other.getId();
 	}
 
 	public int getId() {

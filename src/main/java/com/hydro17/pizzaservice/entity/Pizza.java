@@ -12,12 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="pizza")
-public class Pizza {
+public class Pizza implements Comparable<Pizza> {
 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
@@ -40,6 +39,11 @@ public class Pizza {
 	public Pizza(String pizzaName, List<Ingredient> ingredients) {
 		this.pizzaName = pizzaName;
 		this.ingredients = ingredients;
+	}
+
+	@Override
+	public int compareTo(Pizza other) {
+		return this.id - other.getId();
 	}
 
 	public int getId() {
