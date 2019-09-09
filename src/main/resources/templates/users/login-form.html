@@ -11,22 +11,26 @@
 </head>
 
 <body class="center-center">
-  <div>
+  <div class="container-form-login-register">
 
-    <h2 class="mb-3">Zaloguj się</h2>
+    <h3 class="mb-3">Zaloguj się</h3>
 
     <p th:if="${param.error != null}" class="text-danger">Nazwa użytkownika lub hasło są błędne.</p>
     <p th:if="${param.logout != null}" class="text-success">Użytkownik wylogowany pomyśnie.</p>
 
-    <form class="form-add-or-update" action="#" th:action="@{/login-process}" method="POST">
+    <form class="form-login-register" action="#" th:action="@{/login-process}" method="POST">
 
-      <label for="username">E-mail: </label>
-      <input type="text" id="username" name="username" autofocus />
+      <div class="form-row">
+        <label class="form-row__label" for="username">E-mail: </label>
+        <input class="form-row__input" type="text" id="username" name="username" autofocus />
+      </div>
 
-      <label for="password">Hasło: </label>
-      <input type="password" required minlength="7" id="password" name="password" />
+      <div class="form-row">
+        <label class="form-row__label" for="password">Hasło: </label>
+        <input class="form-row__input" type="password" required minlength="7" id="password" name="password" />
+      </div>
 
-      <div class="form-bottom-btns" style="grid-column: 1/3">
+      <div class="form-bottom-btns">
         <a class="btn btn-primary" th:href="@{/register-user}">Zarejestruj się</a>
         <input class="btn btn-success" type="submit" value="Zaloguj się" />
       </div>
