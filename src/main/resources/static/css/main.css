@@ -384,7 +384,8 @@ div.constraint-violation {
 
   .above-table {
     width: 85%;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -392,10 +393,11 @@ div.constraint-violation {
   .tbl-main-container {
     width: 100%;
   }
-
+  
   .above-table {
     width: 80%;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
