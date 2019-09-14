@@ -19,7 +19,7 @@ header {
   display: flex;
 }
 
-.main-container, .menu-container, .tbl-main-container {
+.main-container, .menu-container, .tbl-main-container, .above-table-container {
   width: 80%;
   margin: 0 auto;
 }
@@ -198,6 +198,7 @@ table a {
 
 .above-table {
   display:flex; 
+  flex-wrap: wrap;
   justify-content: space-between; 
   align-items: flex-end;
   margin-bottom: .5rem;
@@ -381,23 +382,11 @@ div.constraint-violation {
   .tbl-main-container {
     width: 95%;
   }
-
-  .above-table {
-    width: 85%;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 @media screen and (max-width: 850px) {
   .tbl-main-container {
     width: 100%;
-  }
-  
-  .above-table {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
   }
 }
 
@@ -405,7 +394,6 @@ div.constraint-violation {
   .container-form-login-register {
     width: 90%;
   }
-
 }
 
 @media screen and (max-height: 500px) {

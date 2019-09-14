@@ -13,11 +13,11 @@
 <body th:with="weAreSelectingPizza=${param.select != null}">
   <div th:replace="home :: menu-container"></div>
 
-  <div class="tbl-main-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
-
+  <div class="above-table-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
+    
     <div class="above-table">
       <h2 th:text="${weAreSelectingPizza} ? 'Wybierz pizzę' : 'Menu'">Wybierz pizzę / Menu</h2>
-      
+
       <h3 th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
         <a th:href="@{add}" class="above-table__link">
           Dodaj nową pizzę
@@ -30,6 +30,10 @@
         Zaloguj się, aby zamówić pizzę
       </a>
     </h3>
+
+  </div>
+
+  <div class="tbl-main-container">
 
     <div class="tbl-container-for-responsiveness">
       <table class="table table-striped">
