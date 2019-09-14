@@ -10,15 +10,15 @@
   <meta th:replace="fragments :: global-styles">
 </head>
 
-<body>
+<body th:with="weAreSelectingPizza=${param.select != null}">
   <div th:replace="home :: menu-container"></div>
 
   <div class="tbl-main-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
 
     <div class="above-table">
-      <h2 th:text="${param.select == null} ? 'Menu' : 'Wybierz pizzę'">Menu / Wybierz pizzę</h2>
-        
-      <h3 sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE')">
+      <h2 th:text="${weAreSelectingPizza} ? 'Wybierz pizzę' : 'Menu'">Wybierz pizzę / Menu</h2>
+      
+      <h3 th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
         <a th:href="@{add}" class="above-table__link">
           Dodaj nową pizzę
         </a>
@@ -54,19 +54,31 @@
             <td th:text="${#numbers.formatDecimal(pizzaDTO.smallPizzaPrice, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
             <td th:text="${#numbers.formatDecimal(pizzaDTO.mediumPizzaPrice, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
             <td th:text="${#numbers.formatDecimal(pizzaDTO.bigPizzaPrice, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
-            <!-- <td th:text="${pizzaDTO.bigPizzaPrice} + ' zł'"></td> -->
-            <td th:classappend="${!#authorization.expression('isAuthenticated()') 
-              || #authorization.expression('hasRole(''ROLE_CUSTOMER'')')} 
+            <td th:classappend="${
+                !#authorization.expression('isAuthenticated()') 
+                || #authorization.expression('hasRole(''ROLE_CUSTOMER'')')
+                || weAreSelectingPizza
+              } 
               ? 'tbl-body-action-narrow' : 'tbl-body-action-wide'">
-              <span sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE')">
-                <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-edit" title="Zmodyfikuj skład pizzy"></i></a>
+
+              <span th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
+                <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}">
+                  <i class="far fa-edit" title="Zmodyfikuj skład pizzy"></i>
+                </a>
+
                 <span>&nbsp;</span>
-                <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}"><i class="far fa-trash-alt" title="Usuń pizzę"></i></a>
+
+                <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}">
+                  <i class="far fa-trash-alt" title="Usuń pizzę"></i>
+                </a>
+
                 <span>&nbsp;</span>
               </span>
   
               <a th:href="@{/orders/add/{pizzaId}(pizzaId=${pizzaDTO.id})}" class="btn btn-success btn-sm" 
-                th:text="${param.select == null} ? 'Zamów' : 'Wybierz'">Zamów / Wybierz</a>
+                th:text="${weAreSelectingPizza} ? 'Wybierz' : 'Zamów'">
+                Zamów / Wybierz
+              </a>
   
               <div th:if="${pizzaConstraintViolation != null && (pizzaConstraintViolation.id == pizzaDTO.id)}"
                 th:text="${pizzaConstraintViolation.comment}" class="alert alert-danger constraint-violation">
