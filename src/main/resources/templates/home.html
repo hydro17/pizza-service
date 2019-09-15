@@ -13,6 +13,7 @@
 <body>
 
   <header sec:authorize="isAuthenticated()" th:fragment="menu-container">
+
     <div class="menu-container">
       <input type="checkbox" id="menu-trigger" style="position: absolute; visibility: hidden; z-index: -999;">
       <label for="menu-trigger" class="trigger-menu-btn"><i class="fas fa-bars"></i></label>
@@ -55,7 +56,8 @@
 
       </div>
 
-    </span>
+    </div>
+    
   </header>
 
 </body>
