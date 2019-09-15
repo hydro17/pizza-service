@@ -25,17 +25,21 @@
       <input th:if="${ingredient.id} > 0" type="text" th:field="*{id}" hidden />
       <input type="text" th:field="*{stock}" hidden />
 
-      <label for="name">Nazwa: </label>
-      <div class="form-element">
-        <input type="text" required minlength="1" maxlength="50" th:field="*{ingredientName}"
-          placeholder="Nazwa składnika (od 1 do 50 znaków)" autofocus />
-        <div th:if="${#fields.hasErrors('ingredientName')}" class="error" th:errors="*{ingredientName}">nazwa składnika powinna zawierać od 1 do 50 znaków</div>
+      <div class="app-form-row">
+        <label class="app-form-row__label--ingredient" for="name">Nazwa: </label>
+        <div class="app-form-row__input">
+          <input type="text" required minlength="1" maxlength="50" th:field="*{ingredientName}"
+            placeholder="Nazwa składnika (od 1 do 50 znaków)" autofocus />
+          <div th:if="${#fields.hasErrors('ingredientName')}" class="error" th:errors="*{ingredientName}">nazwa składnika powinna zawierać od 1 do 50 znaków</div>
+        </div>
       </div>
       
-      <label for="price">Cena (dla małej pizzy) [zł]: </label>
-      <div class="form-element">
-        <input type="number" step="0.01" required min="0" th:field="*{price}" />
-        <div th:if="${#fields.hasErrors('price')}" class="error" th:errors="*{price}">niewłaściwa cena składnika</div>
+      <div class="app-form-row">
+        <label class="app-form-row__label--ingredient" for="price">Cena (dla małej pizzy) [zł]: </label>
+        <div class="app-form-row__input">
+          <input type="number" step="0. 01" required min="0" th:field="*{price}" />
+          <div th:if="${#fields.hasErrors('price')}" class="error" th:errors="*{price}">niewłaściwa cena składnika</div>
+        </div>
       </div>
       
       <!-- <label for="stock">Ilość w magazynie: </label>
@@ -44,7 +48,7 @@
         <div th:if="${#fields.hasErrors('stock')}" class="error" th:errors="*{stock}">Incorrect ingredient stock</div>
       </div> -->
 
-      <div class="form-bottom-btns" style="grid-column: 1/3">
+      <div class="form-bottom-btns">
         <a class="btn btn-secondary" th:href="@{/ingredients/list}">Wróć do listy składników</a>
         <input class="btn btn-success" type="submit" value="Zapisz" />
       </div>

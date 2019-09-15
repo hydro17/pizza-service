@@ -93,52 +93,65 @@ a:not([class*='menu__active-link']).menu__link:focus::after {
   width: 500px;
 }
 
+/* === app-form-row === START ======================================= */
 .app-form-row {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: .75rem;
 }
 
-/* defalut label width before moving to next line  */
-.app-form-row__label {
-  flex: 0 100px;
+.app-form-row__label--login-register,
+.app-form-row__label--ingredient, 
+.app-form-row__label--pizza,
+.app-form-row__label--order,
+.app-form-row__label--order-status {
   margin-bottom: .25rem;
 }
 
-.app-form-row__label--70 {
-  flex: 0 70px;
-  margin-bottom: .25rem;
+.app-form-row__label--login-register,
+.app-form-row__label--pizza {
+  flex: 1 70px;
 }
 
-.app-form-row__label--130 {
-  flex: 0 130px;
-  margin-bottom: .25rem;
+.app-form-row__label--order {
+  flex: 0 90px;
+  align-self: center;
 }
 
-/* defalut input width before moving to next line  */
+.app-form-row__label--order-status {
+  flex: 0 160px;
+  align-self: center;
+}
+
+.app-form-row__label--ingredient {
+  flex: 1 130px;
+}
+
+/* default input width before moving to next line  */
 .app-form-row__input {
-  flex: 350px;
+  flex: 100 350px;
+}
+
+.app-form-row__input--order-quantity {
+  width: 70px;
 }
 
 .app-form-row__input > input {
   width: 100%;
 }
 
-/* defalut input width before moving to next line  */
+/* default input width before moving to next line  */
 .app-form-row__select {
   flex: 0 100px;
 }
+/* === app-form-row === END ======================================= */
 
 .form-add-or-update {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr 3fr;
   grid-column-gap: .5em;
-  grid-row-gap: .5em;
+  grid-row-gap: .5em; */
   max-width: 500px;
-}
-
-.form-element input, .form-row__input input {
-  width: 100%;
 }
 
 .form-list {
@@ -159,10 +172,6 @@ form input {
 
 form select {
   padding: calc(.1rem + 1.4px) .35rem;
-}
-
-.form-pizza-name {
-  width: 250px;
 }
 
 .form-bottom-btns {
@@ -402,6 +411,16 @@ div.constraint-violation {
 .trigger-menu-btn {
   display: none;
 }
+
+/* === Utility classes === START ========================== */
+.mb-2a {
+  margin-bottom: .75rem;
+}
+
+.mt-2a {
+  margin-top: .75rem;
+}
+/* === Utility classes === END ============================ */
 
 @media screen and (max-width: 1000px) {
   .tbl-main-container {

@@ -21,13 +21,13 @@
 
       <input th:if="${pizza.id > 0}" type="text" th:field="*{id}" hidden>
 
-      <div class="mb-2" style="grid-column: 1/3">
-        <label class="mb-0 mr-2" style="align-self: center" for="name">Nazwa: </label>
-        <input type="text" required minlength="2" class="form-pizza-name" th:field="*{pizzaName}" />
+      <div class="app-form-row">
+        <label class="app-form-row__label--pizza" for="name">Nazwa: </label>
+        <input type="text" class="app-form-row__input" required minlength="2" th:field="*{pizzaName}" />
         <div th:if="${#fields.hasErrors('pizzaName')}" th:errors="*{pizzaName}" class="error">Za krótka lub za długa nazwa pizzy</div>
       </div>
 
-      <div style="grid-column: 1/3">
+      <div>
         <div>Wybierz składniki:</div>
         <div th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}" class="error mb-1">Za mało wybranych składników</div>
         <ul class="form-list mt-1">
@@ -39,7 +39,7 @@
         </ul>
       </div>
 
-      <div class="form-bottom-btns" style="grid-column: 1/3">
+      <div class="form-bottom-btns">
         <a class="btn btn-secondary" th:href="@{/pizzas/list}">Wróć do oferty</a>
         <input class="btn btn-success" type="submit" value="Zapisz" />
       </div>

@@ -26,21 +26,26 @@
       <input hidden type="text" th:field="*{pizzaSize}" />
       <input hidden type="text" th:field="*{user}" />
 
-      <div>Pizza: </div>
-      <div th:text="*{pizza.pizzaName}">Pizza name</div>
+      <div class="app-form-row">
+        Pizza:&ensp;<span th:text="*{pizza.pizzaName}" style="font-weight: 600">Nazwa pizzy</span>
+      </div>
 
-      <div>Rozmiar: </div>
-      <div th:text="*{pizzaSize.polishName}">Wielkość pizzy</div>
+      <div class="app-form-row">
+        Rozmiar:&ensp;<span th:text="*{pizzaSize.polishName}" style="font-weight: 600">Wielkość pizzy</span>
+      </div>
 
-      <div>Liczba pizz: </div>
-      <div th:text="*{quantity}">Liczba pizz</div>
+      <div class="app-form-row">
+        Liczba pizz:&ensp;<span th:text="*{quantity}" style="font-weight: 600">Liczba pizz</span>
+      </div>
 
-      <div>Status zamównienia:</div>
-      <select th:field="*{status}" autofocus style="align-self: center">
-        <option th:each="status : ${allStatuses}" th:value="${status}" th:text="${status.polishName}"></option>
-      </select>
+      <div class="app-form-row">
+        <label class="app-form-row__label--order-status">Status zamównienia:</label>
+        <select class="app-form-row__select" th:field="*{status}" autofocus style="align-self: center">
+          <option th:each="status : ${allStatuses}" th:value="${status}" th:text="${status.polishName}"></option>
+        </select>
+      </div>
 
-      <div class="form-bottom-btns" style="grid-column: 1/3">
+      <div class="form-bottom-btns">
         <a class="btn btn-secondary" th:href="@{/orders/list}">Wróć do listy zamówień</a>
         <input class="btn btn-success" type="submit" value="Zapisz">
       </div>
