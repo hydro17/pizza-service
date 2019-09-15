@@ -89,7 +89,7 @@ a:not([class*='menu__active-link']).menu__link:focus::after {
   background: rgb(245, 245, 245);
 }
 
-.container-form-login-register {
+.container-form--login-register {
   width: 500px;
 }
 
@@ -417,7 +417,7 @@ div.constraint-violation {
 }
 
 @media screen and (max-width: 576px) {
-  .container-form-login-register {
+  .container-form--login-register {
     width: 90%;
   }
 }

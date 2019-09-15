@@ -11,7 +11,7 @@
 </head>
 
 <body class="center-center">
-  <div class="container-form-login-register">
+  <div class="container-form--login-register">
 
     <div class="mb-3">
       <h3 th:if="${user.id == 0}" th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? 'Dodaj nowego użytkownika' : 'Zrejestruj się'">Add new user or register yourself</h3>
