@@ -15,8 +15,8 @@
 
   <div class="container-form">
 
-    <h2 class="above-form" th:text="${ingredient.id} == 0 ? 'Dodaj nowy składnik' : 'Zmodyfikuj składnik'">Add or update
-      ingredient</h2>
+    <h3 class="above-form" th:text="${ingredient.id} == 0 ? 'Dodaj nowy składnik' : 'Zmodyfikuj składnik'">Add or update
+      ingredient</h3>
 
     <form class="form-add-or-update" action="#"
       th:action="@{/ingredients/{action}(action=(${ingredient.id} == 0 ? 'add' : 'update'))}" th:object="${ingredient}"

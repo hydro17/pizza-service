@@ -16,7 +16,7 @@
   <div class="above-table-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
     
     <div class="above-table">
-      <h2 th:text="${weAreSelectingPizza} ? 'Wybierz pizzę' : 'Menu'">Wybierz pizzę / Menu</h2>
+      <h3 th:text="${weAreSelectingPizza} ? 'Wybierz pizzę' : 'Menu'">Wybierz pizzę / Menu</h3>
 
       <h3 th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
         <a th:href="@{add}" class="above-table__link">
