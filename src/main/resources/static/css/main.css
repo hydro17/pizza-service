@@ -185,7 +185,11 @@ form select {
 }
 
 .form-bottom-btns {
-  margin-top: 1rem;
+  margin-top: .75rem;
+}
+
+.form-bottom-btns .btn {
+  margin-top: .25rem;
 }
 
 .form-field-info, .error {
