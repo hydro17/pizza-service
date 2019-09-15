@@ -93,18 +93,40 @@ a:not([class*='menu__active-link']).menu__link:focus::after {
   width: 500px;
 }
 
-.form-row {
+.app-form-row {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  margin-bottom: .75rem;
 }
 
-.form-row__label {
+/* defalut label width before moving to next line  */
+.app-form-row__label {
+  flex: 0 100px;
+  margin-bottom: .25rem;
+}
+
+.app-form-row__label--70 {
   flex: 0 70px;
+  margin-bottom: .25rem;
 }
 
-.form-row__input {
-  flex: 300px;
+.app-form-row__label--130 {
+  flex: 0 130px;
+  margin-bottom: .25rem;
+}
+
+/* defalut input width before moving to next line  */
+.app-form-row__input {
+  flex: 350px;
+}
+
+.app-form-row__input > input {
+  width: 100%;
+}
+
+/* defalut input width before moving to next line  */
+.app-form-row__select {
+  flex: 0 100px;
 }
 
 .form-add-or-update {
@@ -134,6 +156,10 @@ a:not([class*='menu__active-link']).menu__link:focus::after {
 
 form input {
   padding: .1rem .35rem;
+}
+
+form select {
+  padding: calc(.1rem + 1.4px) .35rem;
 }
 
 .form-pizza-name {
