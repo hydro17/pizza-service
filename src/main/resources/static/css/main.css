@@ -101,42 +101,56 @@ a:not([class*='menu__active-link']).menu__link:focus::after {
 }
 
 .app-form-row__label--login-register,
-.app-form-row__label--ingredient, 
+.app-form-row__label--ingredient-name, 
+.app-form-row__label--ingredient-price, 
 .app-form-row__label--pizza,
 .app-form-row__label--order,
 .app-form-row__label--order-status {
   margin-bottom: .25rem;
+  align-self: center;
 }
 
-.app-form-row__label--login-register,
 .app-form-row__label--pizza {
   flex: 1 70px;
 }
 
+.app-form-row__label--login-register {
+  flex: 0 70px;
+}
+
 .app-form-row__label--order {
   flex: 0 90px;
-  align-self: center;
+  /* align-self: center; */
 }
 
 .app-form-row__label--order-status {
   flex: 0 160px;
-  align-self: center;
+  /* align-self: center; */
 }
 
-.app-form-row__label--ingredient {
-  flex: 1 130px;
+.app-form-row__label--ingredient-name {
+  flex: 1 70px;
+}
+
+.app-form-row__label--ingredient-price {
+  flex: 1 200px;
 }
 
 /* default input width before moving to next line  */
 .app-form-row__input {
-  flex: 100 350px;
+  flex: 100 300px;
+}
+
+.app-form-row__input--ingredient {
+  flex: 100 80px;
 }
 
 .app-form-row__input--order-quantity {
   width: 70px;
 }
 
-.app-form-row__input > input {
+.app-form-row__input > input,
+.app-form-row__input--ingredient > input {
   width: 100%;
 }
 
@@ -147,10 +161,6 @@ a:not([class*='menu__active-link']).menu__link:focus::after {
 /* === app-form-row === END ======================================= */
 
 .form-add-or-update {
-  /* display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-column-gap: .5em;
-  grid-row-gap: .5em; */
   max-width: 500px;
 }
 
@@ -189,19 +199,6 @@ form select {
 .form-field-info {
   color: #aaa;
 }
-
-/* td {
-  padding: .2em 0.4em;
-}
-
-.table-column-title {
-  text-align: center;
-  padding: .2em .4em;
-}
-
-tr:nth-child(2n) {
-  background: #eee;
-} */
 
 .logged-customer {
   display: flex;
@@ -270,9 +267,6 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-header-nr {
-  /* min-width: 30px;
-  width: 50px;
-  max-width: 50px; */
   text-align: center;
   width: 1px;
 }
@@ -292,8 +286,6 @@ table.table-striped > tbody > tr > td {
  {
   min-width: 100px;
   text-align: center;
-  /* width: 200px;
-  max-width: 200px; */
 }
 
 .tbl-header-pizza-ingredients {
@@ -317,7 +309,6 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-header-order-pizza-price {
-  /* min-width: 90px; */
   width: 100px;
   max-width: 100px;
   text-align: center;
@@ -334,7 +325,6 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-header-order-date {
-  /* min-width: 120px; */
   width: 170px;
   max-width: 170px;
   text-align: center;
@@ -345,23 +335,18 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-header-status {
-  /* min-width: 135px; */
   width: 170px;
   max-width: 170px;
   text-align: center;
 }
 
 .tbl-header-size {
-  /* min-width: 95px;; */
   width: 1px;
-  /* max-width: 110px; */
   text-align: center;
 }
 
 .tbl-header-quantity {
-  /* min-width: 75px; */
   width: 1px;
-  /* max-width: 80px; */
   text-align: center;
 }
 
@@ -372,21 +357,18 @@ table.table-striped > tbody > tr > td {
 }
 
 .tbl-body-action-wide {
-  /* min-width: 125px; */
   width: 160px;
   max-width: 160px;
   text-align: center;
 }
 
 .tbl-body-action-medium {
-  /* min-width: 125px; */
   width: 90px;
   max-width: 90px;
   text-align: center;
 }
 
 .tbl-body-action-narrow {
-  /* min-width: 125px; */
   width: 1px;
   text-align: center;
 }
