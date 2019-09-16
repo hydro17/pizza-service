@@ -15,6 +15,7 @@
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+  <!-- Custom stylesheets -->
   <link th:fragment="global-styles" rel="stylesheet" th:href="@{/css/main.css}">
 
   <link sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_COOK')" th:fragment="global-styles" rel="stylesheet"
@@ -28,6 +29,8 @@
 
   <!-- Font awesome -->
   <script defer th:fragment="global-styles" src="https://kit.fontawesome.com/a9d9bb211d.js"></script>
+
+  <!-- Custom scripts -->
 
   <!-- ============== END - Fragments ============== -->
 
