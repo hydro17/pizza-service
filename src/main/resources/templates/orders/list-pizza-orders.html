@@ -51,7 +51,7 @@
             <td th:text="${orderDTO.pizza.pizzaName}"></td>
             <td th:text="${orderDTO.pizzaSize.polishName}" class="tbl-body-size"></td>
             <td th:text="${orderDTO.quantity}" class="tbl-body-quantity"></td>
-            <td th:text="${#numbers.formatDecimal(orderDTO.price, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
+            <td th:text="${#numbers.formatDecimal(orderDTO.price, 1, 'DEFAULT', 2, 'DEFAULT')} + '&nbsp;zł'" class="tbl-body-pizza-price"></td>
             <td class="tbl-body-action-narrow">
               <span th:if="${orderDTO.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
                 <a th:href="@{update/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-edit" title="Edytuj zamówienie"></i></a>
