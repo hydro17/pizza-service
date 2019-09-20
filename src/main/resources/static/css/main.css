@@ -14,6 +14,7 @@ header {
   margin: 1em 0;
   background: var(--bg-menu);
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  width: 100%;
 }
 
 .menu-container {
