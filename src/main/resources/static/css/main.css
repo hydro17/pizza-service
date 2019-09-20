@@ -399,7 +399,21 @@ div.constraint-violation {
   display: none;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-top: 0;
+  z-index: 20;
+}
+
+.due-to-sticky-navbar {
+  padding-top: calc(1em + 47px);
+}
+
 /* === Utility classes === START ========================== */
+
+/* suffix 'a' because of bootstrap. mb-2a  is supposed to be greater than mb-2 but less than mb-3 */
 .mb-2a {
   margin-bottom: .75rem;
 }
