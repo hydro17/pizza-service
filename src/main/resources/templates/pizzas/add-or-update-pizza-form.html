@@ -23,7 +23,7 @@
 
       <div class="app-form-row">
         <label class="app-form-row__label--pizza" for="name">Nazwa: </label>
-        <input type="text" class="app-form-row__input" required minlength="2" th:field="*{pizzaName}" />
+        <input type="text" class="app-form-row__input" th:field="*{pizzaName}" />
         <div th:if="${#fields.hasErrors('pizzaName')}" th:errors="*{pizzaName}" class="error">Za krótka lub za długa nazwa pizzy</div>
       </div>
 

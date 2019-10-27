@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -23,6 +24,7 @@ public class User {
 	@Column(name="name")
 	private String name;
 	
+	@NotBlank(message="Email jest wymagany")
 	@Email(message="Podany adres e-mail jest niepoprawny")
 	@Column(name="email", unique=true, nullable=false)
 	private String email;

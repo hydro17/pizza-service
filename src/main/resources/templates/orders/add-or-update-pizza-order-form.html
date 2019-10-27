@@ -46,7 +46,7 @@
 
       <div class="app-form-row mt-2a">
         <label class="app-form-row__label--order" for="quantity">Ile sztuk?</label>
-        <input type="number" class="app-form-row__input--order-quantity" min="1" th:field="*{quantity}" title="Ile pizz zamawiasz?" autofocus/>
+        <input type="number" class="app-form-row__input--order-quantity" th:field="*{quantity}" title="Ile pizz zamawiasz?" autofocus/>
         <div th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="error"></div>
       </div>
 
