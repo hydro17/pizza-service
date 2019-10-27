@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{home.html}">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title th:text="${pizzaOrder.id} == 0 ? 'New order' : 'Update the order'">Add or update order</title>
-  <meta th:replace="fragments :: global-styles">
 </head>
 
 <body>
-  <div th:replace="home :: menu-container"></div>
-
-  <div class="container-form">
+  <div layout:fragment="content" class="container-form">
 
     <h3 class="above-form" th:text="${pizzaOrder.id} == 0 ? 'Nowe zamówienie' : 'Zmodyfikuj zamówienie'">Add or update
       order</h3>

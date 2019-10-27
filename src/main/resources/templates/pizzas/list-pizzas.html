@@ -1,96 +1,95 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home.html}">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Pizzas</title>
-  <meta th:replace="fragments :: global-styles">
 </head>
 
-<body th:with="weAreSelectingPizza=${param.select != null}">
-  <div th:replace="home :: menu-container"></div>
+<body>
+  <div layout:fragment="content" th:with="weAreSelectingPizza=${param.select != null}">
 
-  <div class="above-table-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
+    <div class="above-table-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
     
-    <div class="above-table">
-      <h3 th:text="${weAreSelectingPizza} ? 'Wybierz pizzę' : 'Menu'">Wybierz pizzę / Menu</h3>
-
-      <h3 th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
-        <a th:href="@{add}" class="above-table__link">
-          Dodaj nową pizzę
+      <div class="above-table">
+        <h3 th:text="${weAreSelectingPizza} ? 'Wybierz pizzę' : 'Menu'">Wybierz pizzę / Menu</h3>
+  
+        <h3 th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
+          <a th:href="@{add}" class="above-table__link">
+            Dodaj nową pizzę
+          </a>
+        </h3>
+      </div>
+  
+      <h3 sec:authorize="!isAuthenticated()" class="mb-3">
+        <a th:href="@{/login}" class="above-table__link">
+          Zaloguj się, aby zamówić pizzę
         </a>
       </h3>
+  
     </div>
-
-    <h3 sec:authorize="!isAuthenticated()" class="mb-3">
-      <a th:href="@{/login}" class="above-table__link">
-        Zaloguj się, aby zamówić pizzę
-      </a>
-    </h3>
-
-  </div>
-
-  <div class="tbl-main-container">
-
-    <div class="tbl-container-for-responsiveness">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th class="tbl-header-nr">Nr</th>
-            <th class="tbl-header-pizza-name">Pizza</th>
-            <th class="tbl-header-pizza-ingredients">Składniki</th>
-            <th class="tbl-header-pizza-price">Cena<br>małej pizzy</th>
-            <th class="tbl-header-pizza-price">Cena<br>średniej pizzy</th>
-            <th class="tbl-header-pizza-price">Cena<br>dużej pizzy</th>
-            <th></th>
-          </tr>
-        </thead>
   
-        <tbody>
-          <tr th:each="pizzaDTO, itemStats : ${pizzaDTOs}">
-            <td th:text="${itemStats.index + 1}" class="tbl-body-nr"></td>
-            <!-- <td th:text="${#ids.seq('')}"></td> -->
-            <td th:text="${pizzaDTO.name}"></td>
-            <td th:text="${pizzaDTO.ingredients}"></td>
-            <td th:text="${#numbers.formatDecimal(pizzaDTO.smallPizzaPrice, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
-            <td th:text="${#numbers.formatDecimal(pizzaDTO.mediumPizzaPrice, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
-            <td th:text="${#numbers.formatDecimal(pizzaDTO.bigPizzaPrice, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
-            <td th:classappend="${
-                !#authorization.expression('isAuthenticated()') 
-                || #authorization.expression('hasRole(''ROLE_CUSTOMER'')')
-                || weAreSelectingPizza
-              } 
-              ? 'tbl-body-action-narrow' : 'tbl-body-action-wide'">
-
-              <span th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
-                <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}">
-                  <i class="far fa-edit" title="Zmodyfikuj skład pizzy"></i>
+    <div class="tbl-main-container">
+  
+      <div class="tbl-container-for-responsiveness">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="tbl-header-nr">Nr</th>
+              <th class="tbl-header-pizza-name">Pizza</th>
+              <th class="tbl-header-pizza-ingredients">Składniki</th>
+              <th class="tbl-header-pizza-price">Cena<br>małej pizzy</th>
+              <th class="tbl-header-pizza-price">Cena<br>średniej pizzy</th>
+              <th class="tbl-header-pizza-price">Cena<br>dużej pizzy</th>
+              <th></th>
+            </tr>
+          </thead>
+    
+          <tbody>
+            <tr th:each="pizzaDTO, itemStats : ${pizzaDTOs}">
+              <td th:text="${itemStats.index + 1}" class="tbl-body-nr"></td>
+              <!-- <td th:text="${#ids.seq('')}"></td> -->
+              <td th:text="${pizzaDTO.name}"></td>
+              <td th:text="${pizzaDTO.ingredients}"></td>
+              <td th:text="${#numbers.formatDecimal(pizzaDTO.smallPizzaPrice, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
+              <td th:text="${#numbers.formatDecimal(pizzaDTO.mediumPizzaPrice, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
+              <td th:text="${#numbers.formatDecimal(pizzaDTO.bigPizzaPrice, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-pizza-price"></td>
+              <td th:classappend="${
+                  !#authorization.expression('isAuthenticated()') 
+                  || #authorization.expression('hasRole(''ROLE_CUSTOMER'')')
+                  || weAreSelectingPizza
+                } 
+                ? 'tbl-body-action-narrow' : 'tbl-body-action-wide'">
+  
+                <span th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
+                  <a th:href="@{update/{pizzaId}(pizzaId=${pizzaDTO.id})}">
+                    <i class="far fa-edit" title="Zmodyfikuj skład pizzy"></i>
+                  </a>
+  
+                  <span>&nbsp;</span>
+  
+                  <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}">
+                    <i class="far fa-trash-alt" title="Usuń pizzę"></i>
+                  </a>
+  
+                  <span>&nbsp;</span>
+                </span>
+    
+                <a th:href="@{/orders/add/{pizzaId}(pizzaId=${pizzaDTO.id})}" class="btn btn-success btn-sm" 
+                  th:text="${weAreSelectingPizza} ? 'Wybierz' : 'Zamów'">
+                  Zamów / Wybierz
                 </a>
-
-                <span>&nbsp;</span>
-
-                <a th:href="@{delete/{pizzaId}(pizzaId=${pizzaDTO.id})}">
-                  <i class="far fa-trash-alt" title="Usuń pizzę"></i>
-                </a>
-
-                <span>&nbsp;</span>
-              </span>
+    
+                <div th:if="${pizzaConstraintViolation != null && (pizzaConstraintViolation.id == pizzaDTO.id)}"
+                  th:text="${pizzaConstraintViolation.comment}" class="alert alert-danger constraint-violation">
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
   
-              <a th:href="@{/orders/add/{pizzaId}(pizzaId=${pizzaDTO.id})}" class="btn btn-success btn-sm" 
-                th:text="${weAreSelectingPizza} ? 'Wybierz' : 'Zamów'">
-                Zamów / Wybierz
-              </a>
-  
-              <div th:if="${pizzaConstraintViolation != null && (pizzaConstraintViolation.id == pizzaDTO.id)}"
-                th:text="${pizzaConstraintViolation.comment}" class="alert alert-danger constraint-violation">
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
   </div>

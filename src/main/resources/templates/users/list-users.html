@@ -1,64 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{home.html}">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Users</title>
-  <meta th:replace="fragments :: global-styles">
 </head>
 
 <body>
-  <div th:replace="home :: menu-container"></div>
+  <div layout:fragment="content">
 
-  <div class="above-table-container">
+    <div class="above-table-container">
 
-    <div class="above-table">
-      <h3>Użytkownicy</h3>
+      <div class="above-table">
+        <h3>Użytkownicy</h3>
 
-      <h3>
-        <a th:href="@{/register-user}" class="above-table__link">
-          Dodaj użytkownika
-        </a>
-      </h3>
+        <h3>
+          <a th:href="@{/register-user}" class="above-table__link">
+            Dodaj użytkownika
+          </a>
+        </h3>
+      </div>
+
     </div>
 
-  </div>
+    <div class="tbl-main-container">
 
-  <div class="tbl-main-container">
+      <div class="tbl-container-for-responsiveness">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="tbl-header-nr">Nr</th>
+              <th class="tbl-header-user-name">Nazwa</th>
+              <th class="tbl-header-email">E-mail</th>
+              <th class="tbl-header-role">Rola</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="user, itemStat : ${users}">
+              <td th:text="${itemStat.index + 1}" class="tbl-body-nr">nr</td>
+              <td th:text="${user.name}">nazwa</td>
+              <td th:text="${user.email}">e-mail</td>
+              <td th:text="${user.role.name}">rola</td>
+              <td class="tbl-body-action-medium">
+                <a th:href="@{update/{userId}(userId=${user.id})}"><i class="far fa-edit"
+                    title="Zmień dane użytkownika"></i></a>
+                <span>&nbsp;</span>
+                <a th:href="@{delete/{userId}(userId=${user.id})}"><i class="far fa-trash-alt"
+                    title="Usuń użytkownika"></i></a>
 
-    <div class="tbl-container-for-responsiveness">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th class="tbl-header-nr">Nr</th>
-            <th class="tbl-header-user-name">Nazwa</th>
-            <th class="tbl-header-email">E-mail</th>
-            <th class="tbl-header-role">Rola</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="user, itemStat : ${users}">
-            <td th:text="${itemStat.index + 1}" class="tbl-body-nr">nr</td>
-            <td th:text="${user.name}">nazwa</td>
-            <td th:text="${user.email}">e-mail</td>
-            <td th:text="${user.role.name}">rola</td>
-            <td class="tbl-body-action-medium">
-              <a th:href="@{update/{userId}(userId=${user.id})}"><i class="far fa-edit"
-                  title="Zmień dane użytkownika"></i></a>
-              <span>&nbsp;</span>
-              <a th:href="@{delete/{userId}(userId=${user.id})}"><i class="far fa-trash-alt"
-                  title="Usuń użytkownika"></i></a>
+                <div th:if="${userConstraintViolation != null && (userConstraintViolation.id == user.id)}"
+                  th:text="${userConstraintViolation.comment}" class="alert alert-danger constraint-violation">
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-              <div th:if="${userConstraintViolation != null && (userConstraintViolation.id == user.id)}"
-                th:text="${userConstraintViolation.comment}" class="alert alert-danger constraint-violation">
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
   </div>

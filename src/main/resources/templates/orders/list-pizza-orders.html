@@ -1,77 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home.html}">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Orders</title>
-  <meta th:replace="fragments :: global-styles">
 </head>
 
 <body>
-  <div th:replace="home :: menu-container"></div>
+  <div layout:fragment="content">
 
-  <div class="above-table-container">
+    <div class="above-table-container">
 
-    <div class="above-table">
-      <h3>Zamówienia</h3>
+      <div class="above-table">
+        <h3>Zamówienia</h3>
 
-      <h3>
-        <a th:href="@{add}" class="above-table__link">
-          Nowe zamówienie
-        </a>
-      </h3>
+        <h3>
+          <a th:href="@{add}" class="above-table__link">
+            Nowe zamówienie
+          </a>
+        </h3>
+      </div>
+
     </div>
 
-  </div>
+    <div class="tbl-main-container">
 
-  <div class="tbl-main-container">
-
-    <div class="tbl-container-for-responsiveness">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th class="tbl-header-nr">Nr</th>
-            <th class="tbl-header-order-date">Data zamówienia</th>
-            <th class="tbl-header-status">Status</th>
-            <th class="tbl-header-pizza-name">Nazwa pizzy</th>
-            <th class="tbl-header-size">Wielkość</th>
-            <th class="tbl-header-quantity">Liczba pizz</th>
-            <th class="tbl-header-order-pizza-price">Cena</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="orderDTO, itemStat : ${orderDTOs}">
-            <td th:text="${itemStat.index + 1}" class="tbl-body-nr"></td>
-            <td th:text="${{orderDTO.orderDate}}" class="tbl-body-order-date"></td>
-            <td th:text="${orderDTO.status.polishName}" class="tbl-body-status"></td>
-            <td th:text="${orderDTO.pizza.pizzaName}"></td>
-            <td th:text="${orderDTO.pizzaSize.polishName}" class="tbl-body-size"></td>
-            <td th:text="${orderDTO.quantity}" class="tbl-body-quantity"></td>
-            <td th:text="${#numbers.formatDecimal(orderDTO.price, 1, 'DEFAULT', 2, 'DEFAULT')} + '&nbsp;zł'" class="tbl-body-pizza-price"></td>
-            <td class="tbl-body-action-narrow">
-              <span th:if="${orderDTO.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
-                <a th:href="@{update/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-edit" title="Edytuj zamówienie"></i></a>
-                <span>&nbsp;</span>
-                <a th:href="@{delete/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-trash-alt" title="Usuń zamówienie"></i></a>
-                <span>&nbsp;</span>
-              </span>
-              <a sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')"
-                th:href="@{change-status/{orderId}(orderId=${orderDTO.id})}" class="btn btn-sm btn-success">
-                Zmień&nbsp;status
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="tbl-container-for-responsiveness">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="tbl-header-nr">Nr</th>
+              <th class="tbl-header-order-date">Data zamówienia</th>
+              <th class="tbl-header-status">Status</th>
+              <th class="tbl-header-pizza-name">Nazwa pizzy</th>
+              <th class="tbl-header-size">Wielkość</th>
+              <th class="tbl-header-quantity">Liczba pizz</th>
+              <th class="tbl-header-order-pizza-price">Cena</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="orderDTO, itemStat : ${orderDTOs}">
+              <td th:text="${itemStat.index + 1}" class="tbl-body-nr"></td>
+              <td th:text="${{orderDTO.orderDate}}" class="tbl-body-order-date"></td>
+              <td th:text="${orderDTO.status.polishName}" class="tbl-body-status"></td>
+              <td th:text="${orderDTO.pizza.pizzaName}"></td>
+              <td th:text="${orderDTO.pizzaSize.polishName}" class="tbl-body-size"></td>
+              <td th:text="${orderDTO.quantity}" class="tbl-body-quantity"></td>
+              <td th:text="${#numbers.formatDecimal(orderDTO.price, 1, 'DEFAULT', 2, 'DEFAULT')} + '&nbsp;zł'" class="tbl-body-pizza-price"></td>
+              <td class="tbl-body-action-narrow">
+                <span th:if="${orderDTO.status == T(com.hydro17.pizzaservice.enums.PizzaOrderStatus).ORDERED}">
+                  <a th:href="@{update/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-edit" title="Edytuj zamówienie"></i></a>
+                  <span>&nbsp;</span>
+                  <a th:href="@{delete/{orderId}(orderId=${orderDTO.id})}"><i class="far fa-trash-alt" title="Usuń zamówienie"></i></a>
+                  <span>&nbsp;</span>
+                </span>
+                <a sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')"
+                  th:href="@{change-status/{orderId}(orderId=${orderDTO.id})}" class="btn btn-sm btn-success">
+                  Zmień&nbsp;status
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
     </div>
+  
+    <script th:src="@{/js/current-pizza-order-status.js}"></script>
     
   </div>
-
-  <script th:src="@{/js/current-pizza-order-status.js}"></script>
 </body>
 
 </html>

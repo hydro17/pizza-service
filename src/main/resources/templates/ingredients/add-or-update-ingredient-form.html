@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{home.html}">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title th:text="${ingredient.id} == 0 ? 'Add new ingredient' : 'Update the ingredient'">Add or update new ingredient
   </title>
-  <meta th:replace="fragments :: global-styles">
 </head>
 
 <body>
-  <div th:replace="home :: menu-container"></div>
-
-  <div class="container-form">
+  <div layout:fragment="content" class="container-form">
 
     <h3 class="above-form" th:text="${ingredient.id} == 0 ? 'Dodaj nowy składnik' : 'Zmodyfikuj składnik'">Add or update
       ingredient</h3>

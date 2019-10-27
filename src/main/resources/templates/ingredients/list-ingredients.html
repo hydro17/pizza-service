@@ -1,65 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{home.html}">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Ingredients</title>
-  <meta th:replace="fragments :: global-styles">
 </head>
 
 <body>
-  <div th:replace="home :: menu-container"></div>
+  <div layout:fragment="content">
 
-  <div class="above-table-container">
+    <div class="above-table-container">
 
-    <div class="above-table">
-      <h3>Składniki</h3>
+      <div class="above-table">
+        <h3>Składniki</h3>
 
-      <h3>
-        <a th:href="@{add}" class="above-table__link">
-          Dodaj nowy składnik
-        </a>
-      </h3>
+        <h3>
+          <a th:href="@{add}" class="above-table__link">
+            Dodaj nowy składnik
+          </a>
+        </h3>
+      </div>
+
     </div>
 
-  </div>
+    <div class="tbl-main-container">
 
-  <div class="tbl-main-container">
+      <div class="tbl-container-for-responsiveness">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="tbl-header-nr">Nr</th>
+              <th class="tbl-header-ingredient-name">Nazwa składnika</th>
+              <th class="tbl-header-ingredient-price">Cena składnika<br>dla małej pizzy</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="ingredient, itemStat : ${ingredients}">
+              <td th:text="${itemStat.index + 1}" class="tbl-body-nr"></td>
+              <td th:text="${ingredient.ingredientName}"></td>
 
-    <div class="tbl-container-for-responsiveness">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th class="tbl-header-nr">Nr</th>
-            <th class="tbl-header-ingredient-name">Nazwa składnika</th>
-            <th class="tbl-header-ingredient-price">Cena składnika<br>dla małej pizzy</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="ingredient, itemStat : ${ingredients}">
-            <td th:text="${itemStat.index + 1}" class="tbl-body-nr"></td>
-            <td th:text="${ingredient.ingredientName}"></td>
-
-            <td th:text="${#numbers.formatDecimal(ingredient.price, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-ingredient-price"></td>
-
-            <td class="tbl-body-action-wide">
-              <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-edit"
-                  title="Edytuj składnik"></i></a>
-              <span>&nbsp;</span>
-              <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-trash-alt"
-                  title="Usuń składnik"></i></a>
-
-              <div
-                th:if="${ingredientConstraintViolation != null && (ingredientConstraintViolation.id == ingredient.id)}"
-                th:text="${ingredientConstraintViolation.comment}" class="alert alert-danger constraint-violation">
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <td th:text="${#numbers.formatDecimal(ingredient.price, 1, 'DEFAULT', 2, 'DEFAULT')} + ' zł'" class="tbl-body-ingredient-price"></td>
+  
+              <td class="tbl-body-action-wide">
+                <a th:href="@{update/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-edit"
+                    title="Edytuj składnik"></i></a>
+                <span>&nbsp;</span>
+                <a th:href="@{delete/{ingredientId}(ingredientId=${ingredient.id})}"><i class="far fa-trash-alt"
+                    title="Usuń składnik"></i></a>
+  
+                <div
+                  th:if="${ingredientConstraintViolation != null && (ingredientConstraintViolation.id == ingredient.id)}"
+                  th:text="${ingredientConstraintViolation.comment}" class="alert alert-danger constraint-violation">
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
     </div>
 
   </div>
