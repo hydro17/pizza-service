@@ -9,7 +9,8 @@
 <body>
   <div layout:fragment="content" class="container-form">
 
-    <h3 class="above-form" th:text="${pizzaOrder.id} == 0 ? 'Nowe zamówienie' : 'Zmodyfikuj zamówienie'">Add or update
+    <h3 class="above-form light-transparent-area"
+      th:text="${pizzaOrder.id} == 0 ? 'Nowe zamówienie' : 'Zmodyfikuj zamówienie'">Add or update
       order</h3>
 
     <form class="form-add-or-update" action="#" th:object="${pizzaOrder}"

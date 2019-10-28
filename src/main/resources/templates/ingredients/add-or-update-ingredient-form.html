@@ -10,7 +10,8 @@
 <body>
   <div layout:fragment="content" class="container-form">
 
-    <h3 class="above-form" th:text="${ingredient.id} == 0 ? 'Dodaj nowy składnik' : 'Zmodyfikuj składnik'">Add or update
+    <h3 class="above-form light-transparent-area"
+      th:text="${ingredient.id} == 0 ? 'Dodaj nowy składnik' : 'Zmodyfikuj składnik'">Add or update
       ingredient</h3>
 
     <form class="form-add-or-update" action="#"

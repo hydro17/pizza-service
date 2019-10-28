@@ -412,6 +412,21 @@ div.constraint-violation {
   padding-top: calc(1em + 47px);
 }
 
+.app-bg-image {
+  background-image: url(../images/pizza-25.jpg);
+  background-size: contain;
+}
+
+.light-transparent-bg, .light-transparent-area {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.light-transparent-area {
+  padding: 0.1em 0.3em 0.2em 0.3em;
+  border-radius: 0.15em;
+  display: inline-block;
+}
+
 /* === Utility classes === START ========================== */
 
 /* suffix 'a' because of bootstrap. mb-2a  is supposed to be greater than mb-2 but less than mb-3 */

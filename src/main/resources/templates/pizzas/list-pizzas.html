@@ -13,9 +13,9 @@
     <div class="above-table-container" th:classappend="${#authorization.expression('isAuthenticated()')} ? '' : 'mt-5'">
     
       <div class="above-table">
-        <h3 th:text="${weAreSelectingPizza} ? 'Wybierz pizzę' : 'Menu'">Wybierz pizzę / Menu</h3>
+        <h3 class="light-transparent-area" th:text="${weAreSelectingPizza} ? 'Wybierz pizzę' : 'Menu'">Wybierz pizzę / Menu</h3>
   
-        <h3 th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
+        <h3 class="light-transparent-area" th:unless="${weAreSelectingPizza}" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE', 'COOK')">
           <a th:href="@{add}" class="above-table__link">
             Dodaj nową pizzę
           </a>
@@ -23,7 +23,7 @@
       </div>
   
       <h3 sec:authorize="!isAuthenticated()" class="mb-3">
-        <a th:href="@{/login}" class="above-table__link">
+        <a th:href="@{/login}" class="above-table__link light-transparent-area">
           Zaloguj się, aby zamówić pizzę
         </a>
       </h3>
@@ -33,7 +33,7 @@
     <div class="tbl-main-container">
   
       <div class="tbl-container-for-responsiveness">
-        <table class="table table-striped">
+        <table class="table table-striped light-transparent-bg">
           <thead>
             <tr>
               <th class="tbl-header-nr">Nr</th>
