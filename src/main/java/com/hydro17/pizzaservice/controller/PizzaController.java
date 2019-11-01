@@ -49,13 +49,7 @@ public class PizzaController {
 		List<PizzaDTO> pizzaDTOs = new ArrayList<>();
 		
 		pizzas.forEach(pizza -> {
-			List<String> ingredientsAsString = new ArrayList<>();
-			
-			pizza.getIngredients().forEach(ingr -> {
-				ingredientsAsString.add(ingr.getIngredientName()); 
-			});
-			
-			String allIngredientsAsString = String.join(", ", ingredientsAsString);
+			String allIngredientNamesAsOneString = getAllIngredientNamesAsOneString(pizza);
 			
 			double smallPizzaPrice = pizzaUtils.calculateSmallPizzaPrice(pizza);
 			double roundedSmallPizzaPrice = roundDoubleToTwoDecimalPlaces(smallPizzaPrice);
@@ -66,8 +60,16 @@ public class PizzaController {
 			double bigPizzaPrice = smallPizzaPrice * PizzaServiceConstants.bigPizzaMultiplier;
 			double roundedBigPizzaPrice = roundDoubleToTwoDecimalPlaces(bigPizzaPrice);
 			
-			pizzaDTOs.add(new PizzaDTO(pizza.getId(), pizza.getPizzaName(), allIngredientsAsString, 
-				roundedSmallPizzaPrice, roundedMediumPizzaPrice, roundedBigPizzaPrice));
+			pizzaDTOs.add(
+					new PizzaDTO(
+							pizza.getId(), 
+							pizza.getPizzaName(), 
+							allIngredientNamesAsOneString,
+							roundedSmallPizzaPrice, 
+							roundedMediumPizzaPrice, 
+							roundedBigPizzaPrice
+							)
+					);
 		});
 		
 		model.addAttribute("pizzaConstraintViolation", this.pizzaConstraintViolation);
@@ -78,6 +80,18 @@ public class PizzaController {
 		return "pizzas/list-pizzas";
 	}
 
+	private String getAllIngredientNamesAsOneString(Pizza pizza) {
+		List<String> ingredientsNames = new ArrayList<>();
+		
+		pizza.getIngredients().forEach(ingr -> {
+			ingredientsNames.add(ingr.getIngredientName()); 
+		});
+		
+		String allIngredientsAsString = String.join(", ", ingredientsNames);
+		
+		return allIngredientsAsString;
+	}
+
 	private double roundDoubleToTwoDecimalPlaces(double numberToRound) {
 		double roundedNumber = (double) Math.round(numberToRound * 100d) / 100d;
 		return roundedNumber;
@@ -86,8 +100,7 @@ public class PizzaController {
 	@GetMapping("/add")
 	public String showAddPizzaForm(Model model) {
 		
-		List<Ingredient> ingredients = ingredientDAO.findAll();
-		Collections.sort(ingredients);
+		List<Ingredient> ingredients = getAllIngredientsSorted();
 		
 		model.addAttribute("allIngredients", ingredients);
 		model.addAttribute("pizza", new Pizza());
@@ -99,9 +112,7 @@ public class PizzaController {
 	public String savePizza(@Valid @ModelAttribute Pizza pizza, BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
-			
-			model.addAttribute("allIngredients", ingredientDAO.findAll());
-			
+			model.addAttribute("allIngredients", getAllIngredientsSorted());
 			return "pizzas/add-or-update-pizza-form";
 		}
 		
@@ -114,11 +125,9 @@ public class PizzaController {
 	@GetMapping("/update/{pizzaId}")
 	public String showUpdatePizzaForm(@PathVariable int pizzaId, Model model) {
 		
-		List<Ingredient> ingredients = ingredientDAO.findAll();
-		Collections.sort(ingredients);
+		List<Ingredient> ingredients = getAllIngredientsSorted();
 		
 		model.addAttribute("allIngredients", ingredients);
-		
 		model.addAttribute("pizza", pizzaDAO.findById(pizzaId));
 		
 		return "pizzas/add-or-update-pizza-form";
@@ -127,16 +136,20 @@ public class PizzaController {
 	@PostMapping("/update")
 	public String updatePizza(@Valid @ModelAttribute Pizza pizza, BindingResult bindingResult, Model model) {
 		
-		if (bindingResult.hasErrors()) {
-			
-			model.addAttribute("allIngredients", ingredientDAO.findAll());
-			
+		if (bindingResult.hasErrors()) {		
+			model.addAttribute("allIngredients", getAllIngredientsSorted());
 			return "pizzas/add-or-update-pizza-form";
 		}
 		
 		pizzaDAO.save(pizza);
 		
 		return "redirect:/pizzas/list";
+	}
+	
+	private List<Ingredient> getAllIngredientsSorted() {
+		List<Ingredient> ingredients = ingredientDAO.findAll();
+		Collections.sort(ingredients);
+		return ingredients;
 	}
 	
 	@GetMapping("/delete/{pizzaId}")
