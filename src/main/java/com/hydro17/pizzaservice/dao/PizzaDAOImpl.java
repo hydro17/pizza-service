@@ -20,13 +20,15 @@ public class PizzaDAOImpl implements PizzaDAO {
 	@Override
 	@Transactional
 	public List<Pizza> findAll() {
-		List<Pizza> pizzas = em.createQuery("from Pizza", Pizza.class).getResultList();
+		List<Pizza> pizzas = em.createQuery("SELECT DISTINCT p FROM Pizza p JOIN FETCH p.ingredients", Pizza.class)
+				.getResultList();
 		return pizzas;
 	}
 	
 	@Override
 	public List<Pizza> findAllOrderByIdAsc() {
-		List<Pizza> pizzas = em.createQuery("from Pizza p Order By p.id ASC", Pizza.class).getResultList();
+		List<Pizza> pizzas = em.createQuery("SELECT DISTINCT p FROM Pizza p JOIN FETCH p.ingredients ORDER BY p.id ASC", Pizza.class)
+				.getResultList();
 		return pizzas;
 	}
 	

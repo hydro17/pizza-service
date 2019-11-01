@@ -1,5 +1,6 @@
 package com.hydro17.pizzaservice.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,7 +33,7 @@ public class Pizza implements Comparable<Pizza> {
 	@JoinTable(name="pizza_ingredient",
 			joinColumns=@JoinColumn(name="pizza_id"),
 			inverseJoinColumns=@JoinColumn(name="ingredient_id"))
-	private List<Ingredient> ingredients;
+	private List<Ingredient> ingredients = new ArrayList<>();
 	
 	public Pizza() {}
 	
